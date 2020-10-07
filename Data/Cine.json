@@ -1,0 +1,30 @@
+[
+    {
+        "id": null,
+        "name": null,
+        "adress": null,
+        "capacity": null,
+        "ticketValue": null
+    },
+    {
+        "id": null,
+        "name": null,
+        "adress": null,
+        "capacity": null,
+        "ticketValue": null
+    },
+    {
+        "id": null,
+        "name": null,
+        "adress": null,
+        "capacity": null,
+        "ticketValue": null
+    },
+    {
+        "id": null,
+        "name": "Agustin Escoriza",
+        "adress": "23232",
+        "capacity": "312323",
+        "ticketValue": "232"
+    }
+]
