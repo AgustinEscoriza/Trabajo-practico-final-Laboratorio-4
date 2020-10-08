@@ -19,11 +19,11 @@
 		return $this->cineList;
        }
        
-       public function delete($name){
+       public function delete($id){
 		$this->retrieveData();
 		$newList = array();
 		foreach ($this->cineList as $cine) {
-			if($cine->getName() != $name){
+			if($cine->getId() != $id){
 				array_push($newList, $cine);
 			}
 		}
@@ -60,7 +60,12 @@
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
     
             foreach ($arrayToDecode as $valueArray) {
-                $cine = new Cine($valueArray['id'],$valueArray['name'],$valueArray['adress'],$valueArray['capacity'],$valueArray['ticketValue']);
+                $cine = new Cine();
+                $cine->setId($valueArray['id']);
+			    $cine->setName($valueArray['name']);
+			    $cine->setAdress($valueArray['adress']);
+			    $cine->setCapacity($valueArray['capacity']);
+			    $cine->setTicketValue($valueArray['ticketValue']);
                 
                 array_push($this->cineList, $cine);
             }

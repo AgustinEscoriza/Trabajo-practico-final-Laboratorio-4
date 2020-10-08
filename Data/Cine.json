@@ -1,30 +1,16 @@
 [
     {
-        "id": null,
-        "name": null,
-        "adress": null,
-        "capacity": null,
-        "ticketValue": null
+        "id": "12",
+        "name": "Ambassador",
+        "adress": "calle de cine 123",
+        "capacity": "2500",
+        "ticketValue": "300"
     },
     {
-        "id": null,
-        "name": null,
-        "adress": null,
-        "capacity": null,
-        "ticketValue": null
-    },
-    {
-        "id": null,
-        "name": null,
-        "adress": null,
-        "capacity": null,
-        "ticketValue": null
-    },
-    {
-        "id": null,
-        "name": "Agustin Escoriza",
-        "adress": "23232",
-        "capacity": "312323",
-        "ticketValue": "232"
+        "id": "13",
+        "name": "Cines del paseo",
+        "adress": "calle de cine 3121",
+        "capacity": "2500",
+        "ticketValue": "300"
     }
 ]

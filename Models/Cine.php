@@ -9,6 +9,10 @@
         private $capacity;
         private $ticketValue;
 
+
+        public function __construct(){
+            
+        }
         public function getId (){
             return $this->id;
         }

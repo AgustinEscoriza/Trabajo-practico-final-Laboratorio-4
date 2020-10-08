@@ -7,6 +7,6 @@
     {
         function Add(Cine $cine);
         function getAll();
-        function delete($name);
+        function delete($id);
     }
 ?>

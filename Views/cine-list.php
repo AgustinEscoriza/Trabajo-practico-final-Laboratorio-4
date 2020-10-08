@@ -6,7 +6,6 @@
     
     $cineDAO = new CineDAO();
     $cineList = $cineDAO->getAll();
-     var_dump($cineList);
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
