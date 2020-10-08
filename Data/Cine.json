@@ -1,16 +1,9 @@
 [
     {
-        "id": "12",
-        "name": "Ambassador",
-        "adress": "calle de cine 123",
-        "capacity": "2500",
-        "ticketValue": "300"
-    },
-    {
-        "id": "13",
-        "name": "Cines del paseo",
-        "adress": "calle de cine 3121",
-        "capacity": "2500",
-        "ticketValue": "300"
+        "id": 1,
+        "name": "cines del paseo",
+        "adress": "tucuman 231",
+        "capacity": "400",
+        "ticketValue": "123"
     }
 ]

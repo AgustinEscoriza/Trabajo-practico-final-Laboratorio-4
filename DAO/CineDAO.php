@@ -9,16 +9,27 @@
        private $cineList = array ();
 
        public function Add(Cine $newCine){
-		$this->retrieveData();
+        $this->retrieveData();
+        $newCine->setId($this->nextId());
 		array_push($this->cineList, $newCine);
 		$this->saveData();
        }
        
        public function getAll(){
-		$this->retrieveData();
+        $this->retrieveData();
 		return $this->cineList;
        }
-       
+
+       public function nextId(){
+        $id = 0;
+        $this->retrieveData();
+
+        foreach($this->cineList as $value){
+            $id = $value->getId();
+        }
+
+        return $id + 1;
+        }      
        public function delete($id){
 		$this->retrieveData();
 		$newList = array();

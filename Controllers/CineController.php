@@ -25,10 +25,9 @@
             
         }
 
-        public function Add($id,$name, $adress, $capacity, $ticketValue)
+        public function Add($name, $adress, $capacity, $ticketValue)
         {
             $cine = new Cine();
-            $cine->setId($id);
             $cine->setName($name);
             $cine->setAdress($adress);
             $cine->setCapacity($capacity);
