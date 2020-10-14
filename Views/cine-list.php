@@ -11,7 +11,9 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Listado de cines</h2>
+
                <table class="table bg-light-alpha">
+               <form action="<?php echo FRONT_ROOT ?>Cine/Remove" method="post">
                     <thead>
                          <th>Nombre</th>
                          <th>Direccion</th>
@@ -29,6 +31,8 @@
                                              <td><?php echo $cine->getAdress() ?></td>
                                              <td><?php echo $cine->getCapacity() ?></td>
                                              <td><?php echo $cine->getTicketValue() ?></td>
+                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cine->getId(); ?>"> Remove </button></td> 
+                                             <td><button type="submit" name="modify" class="btn btn-danger" value="<?php echo $cine->getId(); ?>"> Modify </button></td> 
                                         </tr>
                                    <?php
                               }

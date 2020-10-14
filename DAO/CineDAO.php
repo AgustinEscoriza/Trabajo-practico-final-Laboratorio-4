@@ -8,7 +8,7 @@
     { 
        private $cineList = array ();
 
-       public function Add(Cine $newCine){
+       public function Add($newCine){
         $this->retrieveData();
         $newCine->setId($this->nextId());
 		array_push($this->cineList, $newCine);
@@ -31,16 +31,17 @@
         return $id + 1;
         }      
        public function delete($id){
-		$this->retrieveData();
-		$newList = array();
-		foreach ($this->cineList as $cine) {
-			if($cine->getId() != $id){
-				array_push($newList, $cine);
-			}
-		}
+		
+        $this->retrieveData();
 
-		$this->cineList = $newList;
-		$this->saveData();
+        foreach ($this->cineList as $cinemaValue) {
+
+            if ($cinemaValue->getId() == $id) {
+                $key = array_search($cinemaValue, $this->cineList);
+                unset($this->cineList[$key]);
+            }
+        }
+        $this->SaveData();
        }
        
        public function saveData(){

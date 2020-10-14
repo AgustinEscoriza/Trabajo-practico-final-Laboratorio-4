@@ -1,9 +1,16 @@
 [
     {
-        "id": 1,
-        "name": "cines del paseo",
-        "adress": "tucuman 231",
-        "capacity": "400",
-        "ticketValue": "123"
+        "id": 2,
+        "name": "ambassador",
+        "adress": "castelli 213",
+        "capacity": "500",
+        "ticketValue": "234"
+    },
+    {
+        "id": 3,
+        "name": "Cine del paseo",
+        "adress": "tucuman 2131",
+        "capacity": "2141",
+        "ticketValue": "300"
     }
 ]

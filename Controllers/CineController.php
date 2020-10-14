@@ -38,5 +38,12 @@
             $this->showAddView();
         }
 
+        public function Remove($cineId)
+        {
+            $this->cineDAO->delete($cineId);
+
+            $this->showListView();
+        }
+
     }
 ?>

@@ -5,7 +5,7 @@
 
     interface ICineDAO
     {
-        function Add(Cine $cine);
+        function Add($object);
         function getAll();
         function delete($id);
     }
