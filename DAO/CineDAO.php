@@ -1,10 +1,10 @@
 <?php
     namespace DAO;
 
-    use DAO\ICineDAO as ICineDAO;
+    use DAO\IDAO as IDAO;
     use Models\Cine as Cine;    
 
-    class CineDAO implements ICineDAO
+    class CineDAO implements IDAO
     { 
        private $cineList = array ();
 
@@ -20,6 +20,18 @@
 		return $this->cineList;
        }
 
+       public function getCinema($id){
+           $this->retrieveData();
+           $cine = new Cine();
+           foreach($this->cineList as $cinemaValue){
+               if($cinemaValue->getId() == $id){
+                    $cine = $cinemaValue;
+               }
+           }
+
+           return $cine;
+       }
+
        public function nextId(){
         $id = 0;
         $this->retrieveData();
@@ -31,7 +43,7 @@
         return $id + 1;
         }      
        public function delete($id){
-		
+        
         $this->retrieveData();
 
         foreach ($this->cineList as $cinemaValue) {

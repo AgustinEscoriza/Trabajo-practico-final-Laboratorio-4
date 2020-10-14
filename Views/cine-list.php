@@ -10,15 +10,15 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Listado de cines</h2>
-
+               <h2 class="mb-4">Cinema List</h2>
+               <form method="post" id="columnarForm">
                <table class="table bg-light-alpha">
-               <form action="<?php echo FRONT_ROOT ?>Cine/Remove" method="post">
+              
                     <thead>
-                         <th>Nombre</th>
-                         <th>Direccion</th>
-                         <th>Capacidad</th>
-                         <th>Valor de Entrada</th>
+                         <th>Name</th>
+                         <th>Adress</th>
+                         <th>Capacity</th>
+                         <th>Ticket Value</th>
                     </thead>
                     <tbody>
                          <?php
@@ -31,8 +31,8 @@
                                              <td><?php echo $cine->getAdress() ?></td>
                                              <td><?php echo $cine->getCapacity() ?></td>
                                              <td><?php echo $cine->getTicketValue() ?></td>
-                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cine->getId(); ?>"> Remove </button></td> 
-                                             <td><button type="submit" name="modify" class="btn btn-danger" value="<?php echo $cine->getId(); ?>"> Modify </button></td> 
+                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Remove')"> Remove </button></td> 
+                                             <td><button type="submit" name="modify" class="btn btn-dark ml-auto d-block" value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Modify')"> Modify </button></td> 
                                         </tr>
                                    <?php
                               }
@@ -43,3 +43,12 @@
           </div>
      </section>
 </main>
+
+<script>
+function submitForm(action)
+    {
+         var form = document.getElementById('columnarForm');
+        form.action = action;
+        form.submit();
+    }
+</script>

@@ -3,7 +3,7 @@
 
     use Models\Cine as Cine;
 
-    interface ICineDAO
+    interface IDAO
     {
         function Add($object);
         function getAll();

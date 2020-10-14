@@ -24,6 +24,10 @@
             require_once(VIEWS_PATH."cine-list.php");
             
         }
+        public function showModifyView(){
+            
+            require_once(VIEWS_PATH."cine-modify.php");
+        }
 
         public function Add($name, $adress, $capacity, $ticketValue)
         {
@@ -43,6 +47,14 @@
             $this->cineDAO->delete($cineId);
 
             $this->showListView();
+        }
+
+        public function Modify($cineId)
+        {
+            $cine = $this->cineDAO->getCinema($cineId);
+            $this->cineDAO->delete($cineId);
+            require_once(VIEWS_PATH."cine-modify.php");
+
         }
 
     }

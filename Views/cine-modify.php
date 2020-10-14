@@ -1,10 +1,25 @@
-<?php
-    require_once('nav.php');
-?>
+
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Agregar Cine</h2>
+               <h2 class="mb-4">Modify Cinema</h2>
+               <table class="table bg-light-alpha">
+                    <thead>
+                         <th>Name</th>
+                         <th>Adress</th>
+                         <th>Capacity</th>
+                         <th>Ticket Value</th>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td><?php echo $cine->getName() ?></td>
+                                <td><?php echo $cine->getAdress() ?></td>
+                                <td><?php echo $cine->getCapacity() ?></td>
+                                <td><?php echo $cine->getTicketValue() ?></td>
+                            </tr>
+                         </tr>
+                    </tbody>
+               </table>
                <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="post" class="bg-light-alpha p-5">
                     <div class="row">                       
                          <div class="col-lg-4">
@@ -36,7 +51,7 @@
                          </div>
                          
                     </div>
-                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
+                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Modify</button>
                </form>
           </div>
      </section>
