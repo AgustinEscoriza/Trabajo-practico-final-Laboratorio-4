@@ -1,16 +1,23 @@
 [
     {
-        "id": 5,
-        "name": "Cines del paseo",
-        "adress": "martin rodrigues 213123",
-        "capacity": "131",
-        "ticketValue": "12412"
-    },
-    {
         "id": 6,
         "name": "Ambassador",
         "adress": "Las Heras 2314",
         "capacity": "123",
         "ticketValue": "321"
+    },
+    {
+        "id": 7,
+        "name": "Cines Del Paseo",
+        "adress": "Tucuman 2133",
+        "capacity": "200",
+        "ticketValue": "400"
+    },
+    {
+        "id": 8,
+        "name": "Cines Del Paseo",
+        "adress": "Tucuman 2133",
+        "capacity": "200",
+        "ticketValue": "400"
     }
 ]
