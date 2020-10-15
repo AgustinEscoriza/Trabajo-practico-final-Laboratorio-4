@@ -1,12 +1,5 @@
 [
     {
-        "id": 6,
-        "name": "Ambassador",
-        "adress": "Las Heras 2314",
-        "capacity": "123",
-        "ticketValue": "321"
-    },
-    {
         "id": 7,
         "name": "Cines Del Paseo",
         "adress": "Tucuman 2133",
@@ -14,10 +7,17 @@
         "ticketValue": "400"
     },
     {
-        "id": 8,
-        "name": "Cines Del Paseo",
-        "adress": "Tucuman 2133",
-        "capacity": "200",
-        "ticketValue": "400"
+        "id": 9,
+        "name": "Ambassador",
+        "adress": "Cordoba 253",
+        "capacity": "1000",
+        "ticketValue": "350"
+    },
+    {
+        "id": 10,
+        "name": "Super Cine",
+        "adress": "Guemes2358",
+        "capacity": "1500",
+        "ticketValue": "550"
     }
 ]

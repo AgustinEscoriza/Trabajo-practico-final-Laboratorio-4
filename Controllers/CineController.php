@@ -29,6 +29,12 @@
             require_once(VIEWS_PATH."cine-modify.php");
         }
 
+        public function showLoginView(){
+
+            session_destroy();
+            require_once(VIEWS_PATH."user-login.php");
+        }
+
         public function Add($name, $adress, $capacity, $ticketValue)
         {
             $cine = new Cine();

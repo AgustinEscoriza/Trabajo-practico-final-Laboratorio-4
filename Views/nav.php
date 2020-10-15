@@ -6,6 +6,9 @@
           </li>      
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/showAddView">Add Cinema</a>
-          </li>          
+          </li>  
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/showLoginView">Log Out</a>
+          </li>        
      </ul>
 </nav>

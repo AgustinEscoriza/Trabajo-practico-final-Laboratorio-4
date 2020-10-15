@@ -8,12 +8,42 @@
     { 
        private $cineList = array ();
 
-       public function Add($newCine){
+       /*public function Add($newCine){
         $this->retrieveData();
         $newCine->setId($this->nextId());
 		array_push($this->cineList, $newCine);
 		$this->saveData();
+       }*/
+
+       public function Add($newCine){
+        $this->retrieveData();
+        if ($this->chekExistence($newCine->getName())==0){
+
+            $newCine->setId($this->nextId());
+		    array_push($this->cineList, $newCine);
+            $this->saveData();
+        }else{
+            echo  "<script> alert ('El cine que intenta agregar ya fue ingresado.'); </script>)";
+            require_once(VIEWS_PATH."cine-add.php");
+        }
        }
+
+       public function chekExistence ($name)
+       {
+        $flag = 0;
+        $this->retrieveData();
+        $newList = array();
+        foreach ($this->cineList as $cine) {
+			if($cine->getName() != $name){
+				array_push($newList, $cine);
+			}else{
+                $flag = 1;
+            }
+        }
+        $this->cineList = $newList;
+        return $flag;   
+          
+        }
        
        public function getAll(){
         $this->retrieveData();
