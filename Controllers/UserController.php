@@ -1,18 +1,40 @@
 <?php
     namespace Controllers;
 
+    use DAO\userDAO as UserDAO;
     use Models\User as User;
 
     class UserController{
 
+        private $userDAO;
+
+        public function __construct(){
+
+            $this->userDAO = new userDAO();
+        }
+
+        public function Add($userName, $userEmail, $password)
+        {
+            $user = new User();
+            $user->setUserName($userName);
+            $user->setUserEmail($userEmail);
+            $user->setPassword($password);
+
+            $this->showRegisterView($this->userDAO->Add($user));
+
+        }
 
         public function login ($userName, $password){
+
+        $loggedUser=NULL;
         
         $userLoginName=$userName;
         $userLoginPass=$password;
 
-		     if($userLoginName == "admin"){
-			     if( $userLoginPass == "123456"){
+        foreach($this->userDAO->getAll() as $user)
+
+		     if($userLoginName == ($user->getUserName())){
+			     if( $userLoginPass == ($user->getPassword())){
                   $loggedUser = new User();
                   $loggedUser->setUserName($userLoginName);
                   $loggedUser->setPassword($userLoginPass);
@@ -27,23 +49,21 @@
          require_once(VIEWS_PATH."cine-add.php");
 	
         }else{
-	      echo "<script> if(confirm('Verifique que los datos ingresados sean correctos'));";
-	      echo "window.location = '../index.php';
-		  </script>";
+            $message='Verifique que los datos ingresados sean correctos';
+            //header("location:../cine-add.php?error=true");
+          return $this->showLoginView($message);
         }
         }  
 
-        /*private function login (){
-            if($_POST){
-                if($_POST['do'] == 'continuar'){
-                    header("location:../cine-add.php");
-                }else{
-                    session_start();
-                    session_destroy();
-                    header("location:../index.php");
-                }
-            }
-    
-        }*/
+        public function showLoginView($message=""){
+            session_destroy();
+            require_once(VIEWS_PATH."user-login.php");
+        }
+
+        public function showRegisterView($message=""){
+            session_destroy();
+            require_once(VIEWS_PATH."user-register.php");
+        }
     }
+    
 ?>

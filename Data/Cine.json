@@ -19,5 +19,12 @@
         "adress": "Guemes2358",
         "capacity": "1500",
         "ticketValue": "550"
+    },
+    {
+        "id": 11,
+        "name": "Cinesito",
+        "adress": "Larrea 2364",
+        "capacity": "800",
+        "ticketValue": "450"
     }
 ]

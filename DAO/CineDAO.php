@@ -22,10 +22,13 @@
             $newCine->setId($this->nextId());
 		    array_push($this->cineList, $newCine);
             $this->saveData();
+            $addMessage = "El cine ha sido ingresado exitosamente";
         }else{
-            echo  "<script> alert ('El cine que intenta agregar ya fue ingresado.'); </script>)";
-            require_once(VIEWS_PATH."cine-add.php");
+           // echo  "<script> alert ('El cine que intenta agregar ya fue ingresado.'); </script>)";
+            $addMessage = "El cine que intenta agregar ya fue ingresado";
+            //require_once(VIEWS_PATH."cine-add.php");  
         }
+        return $addMessage;
        }
 
        public function chekExistence ($name)

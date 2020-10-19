@@ -17,13 +17,25 @@ body {
 }
 
 .bg-dark-alpha {
-     background-color: rgba(0,0,0,0.2);
+     background-color: rgb(103, 57, 121);
 }
 .bg-light-alpha {
-     background-color: rgba(255,255,255,0.2);
+     background-color: rgb(103, 57, 121);
+}
+
+.movie-pass {
+     width: 700px;
+     border: 2px solid rgba(0, 0, 0, 0.2);
+     background-color: rgb(32, 31, 31);
 }
 
 .login-form {
      width: 500px;
      border: 2px solid rgba(0, 0, 0, 0.2);
+     background-color: rgb(79, 10, 85);
+}
+
+.add-form {
+     border: 2px solid rgba(0, 0, 0, 0.2);
+     background-color: rgb(103, 57, 121);
 }

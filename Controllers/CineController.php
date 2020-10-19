@@ -13,7 +13,7 @@
             $this->cineDAO = new CineDAO();
         }
 
-        public function showAddView (){
+        public function showAddView ($addMessage=""){
             require_once(VIEWS_PATH."cine-add.php");
         }
 
@@ -43,9 +43,7 @@
             $cine->setCapacity($capacity);
             $cine->setTicketValue($ticketValue);
 
-            $this->cineDAO->Add($cine);
-
-            $this->showAddView();
+            $this->showAddView($this->cineDAO->Add($cine));;
         }
 
         public function Remove($cineId)
