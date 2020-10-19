@@ -2,8 +2,29 @@
     {
         "id": 1,
         "cinemaId": "1",
+        "name": "Sala 1",
+        "capacity": "322",
+        "ticketValue": "230"
+    },
+    {
+        "id": 2,
+        "cinemaId": "4",
+        "name": "Sala 3",
+        "capacity": "231",
+        "ticketValue": "123"
+    },
+    {
+        "id": 4,
+        "cinemaId": "1",
         "name": "Sala 2",
-        "capacity": "300",
-        "ticketValue": "325"
+        "capacity": "322",
+        "ticketValue": "322"
+    },
+    {
+        "id": 5,
+        "cinemaId": "4",
+        "name": "Sala 2",
+        "capacity": "321",
+        "ticketValue": "123"
     }
 ]

@@ -58,7 +58,7 @@
             $auditorium= $this->auditoriumDAO->getAuditorium($auditoriumId);
             $this->auditoriumDAO->delete($auditoriumId);
             require_once(VIEWS_PATH."auditorium-modify.php");
-
+            
         }
 
     }

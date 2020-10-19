@@ -11,7 +11,7 @@
 
         public function Add($newAuditorium){
             $this->retrieveData();
-            if ($this->chekExistence($newAuditorium->getName())==0){
+            if ($this->chekExistence($newAuditorium->getName(),$newAuditorium->getCinemaId())==0){
     
                 $newAuditorium->setId($this->nextId());
                 array_push($this->auditoriumList, $newAuditorium);
@@ -22,27 +22,30 @@
             }
            }
     
-           public function chekExistence ($name)
-           {
-            $flag = 0;
-            $this->retrieveData();
-            $newList = array();
-            foreach ($this->auditoriumList as $auditorium) {
+        public function chekExistence ($name,$cinemaId)
+        {
+        $flag = 0;
+        $this->retrieveData();
+        $newList = array();
+        foreach ($this->auditoriumList as $auditorium) {
+
+            if($auditorium->getCinemaId() == $cinemaId){
+
                 if($auditorium->getName() != $name){
-                    array_push($newList, $auditorium);
+                    
                 }else{
                     $flag = 1;
                 }
             }
-            $this->auditoriumList = $newList;
-            return $flag;   
-              
-            }
+        }
+        return $flag;   
+            
+        }
 
         public function getAll(){
             $this->retrieveData();
             return $this->auditoriumList;
-           }
+        }
 
         public function getAuditoriumbyCinemaId($cinemaId)
         {
