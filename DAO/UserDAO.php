@@ -101,7 +101,7 @@
         }
         
         public function retrieveData(){
-            $this->cineList = array();
+            $this->usersList = array();
     
             $jsonPath = $this->GetJsonFilePath();
     
