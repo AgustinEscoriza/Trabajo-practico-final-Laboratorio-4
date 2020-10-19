@@ -1,3 +1,6 @@
+<?php
+    require_once('nav.php');
+?>
 <main class="d-flex align-items-center justify-content-center height-100">
           <div class="content">
                <form action="<?php echo FRONT_ROOT ?>User/login" method="post" class="login-form bg-dark-alpha p-5 text-white">
