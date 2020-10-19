@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "cinemaId": "1",
+        "name": "Sala 2",
+        "capacity": "300",
+        "ticketValue": "325"
+    }
+]

@@ -35,13 +35,11 @@
             require_once(VIEWS_PATH."user-login.php");
         }
 
-        public function Add($name, $adress, $capacity, $ticketValue)
+        public function Add($name, $adress)
         {
             $cine = new Cine();
             $cine->setName($name);
             $cine->setAdress($adress);
-            $cine->setCapacity($capacity);
-            $cine->setTicketValue($ticketValue);
 
             $this->showAddView($this->cineDAO->Add($cine));;
         }

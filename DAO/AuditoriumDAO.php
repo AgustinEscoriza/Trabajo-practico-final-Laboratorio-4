@@ -11,10 +11,10 @@
 
         public function Add($newAuditorium){
             $this->retrieveData();
-            if ($this->chekExistence($newauditorium->getName())==0){
+            if ($this->chekExistence($newAuditorium->getName())==0){
     
-                $newauditorium->setId($this->nextId());
-                array_push($this->auditoriumList, $newauditorium);
+                $newAuditorium->setId($this->nextId());
+                array_push($this->auditoriumList, $newAuditorium);
                 $this->saveData();
             }else{
                 echo  "<script> alert ('El auditorium que intenta agregar ya fue ingresado.'); </script>)";
@@ -22,13 +22,13 @@
             }
            }
     
-           public function chekExistence ($id)
+           public function chekExistence ($name)
            {
             $flag = 0;
             $this->retrieveData();
             $newList = array();
             foreach ($this->auditoriumList as $auditorium) {
-                if($auditorium->getID() != $id){
+                if($auditorium->getName() != $name){
                     array_push($newList, $auditorium);
                 }else{
                     $flag = 1;
@@ -44,12 +44,29 @@
             return $this->auditoriumList;
            }
 
+        public function getAuditoriumbyCinemaId($cinemaId)
+        {
+        $this->retrieveData();
+
+        $auditoriumById = array ();
+        
+        if($this->auditoriumList != NULL){
+            
+            foreach($this->auditoriumList as $auditoriumValue){
+                if($auditoriumValue->getCinemaId() == $cinemaId){
+                     array_push($auditoriumById,$auditoriumValue);
+                }
+            }
+        }
+            return $auditoriumById;
+        }
+
         public function getAuditorium($id){
             $this->retrieveData();
             $auditorium = new Auditorium();
-            foreach($this->auditorium$auditoriumList as $auditoriummaValue){
-                if($auditoriummaValue->getId() == $id){
-                     $auditorium = $auditoriummaValue;
+            foreach($this->auditoriumList as $auditoriumValue){
+                if($auditoriumValue->getId() == $id){
+                     $auditorium = $auditoriumValue;
                 }
             }
  
@@ -86,6 +103,7 @@
     
             foreach ($this->auditoriumList as $auditorium) {
                 $valueArray['id'] = $auditorium->getId();
+                $valueArray['cinemaId'] = $auditorium->getCinemaId();
                 $valueArray['name'] = $auditorium->getName();
                 $valueArray['capacity'] = $auditorium->getCapacity();
                 $valueArray['ticketValue'] = $auditorium->getTicketValue();
@@ -102,7 +120,6 @@
     
             $jsonPath = $this->GetJsonFilePath();
     
-            // $jsonContent = file_get_contents('../Data/beer.json');
             $jsonContent = file_get_contents($jsonPath);
             
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
@@ -110,6 +127,7 @@
             foreach ($arrayToDecode as $valueArray) {
                 $auditorium = new Auditorium();
                 $auditorium->setId($valueArray['id']);
+                $auditorium->setCinemaId($valueArray['cinemaId']);
 			    $auditorium->setName($valueArray['name']);
 			    $auditorium->setCapacity($valueArray['capacity']);
 			    $auditorium->setTicketValue($valueArray['ticketValue']);

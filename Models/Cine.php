@@ -6,8 +6,6 @@
         private $id;
         private $name;
         private $adress;
-        private $capacity;
-        private $ticketValue;
 
 
         public function __construct(){
@@ -35,23 +33,6 @@
         public function setAdress ($adress){
             $this->adress = $adress;
         }
-
-        public function getCapacity (){
-            return $this->capacity;
-        }
-
-        public function setCapacity ($capacity){
-            $this->capacity = $capacity;
-        }
-
-        public function getTicketValue (){
-            return $this->ticketValue;
-        }
-
-        public function setTicketValue ($ticketValue){
-            $this->ticketValue = $ticketValue;
-        }
-
         
     }
 ?>

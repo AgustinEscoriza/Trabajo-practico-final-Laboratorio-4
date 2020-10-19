@@ -7,21 +7,23 @@
 
     class AuditoriumController{
 
-        private $auditoriumDao;
+        private $auditoriumDAO;
 
         public function __construct(){
 
-            $this->auditoriumDao = new AuditoriumDAO();
+            $this->auditoriumDAO = new AuditoriumDAO();
 
         }
-        public function showAddView (){
+        public function showAddView ($cinemaId){
             require_once(VIEWS_PATH."auditorium-add.php");
         }
 
-        public function showListView (){
-            
-            $cineList = $this->cineDAO->getAll();
-    
+        public function showListView ($cinemaId){
+
+
+            $auditoriumList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
+
+
             require_once(VIEWS_PATH."auditorium-list.php");
             
         }
@@ -31,23 +33,24 @@
         }
 
 
-        public function Add($name, $adress, $capacity, $ticketValue)
+        public function Add($name,$cinemaId, $capacity, $ticketValue)
         {
             $auditorium = new Auditorium();
             $auditorium->setName($name);
+            $auditorium->setCinemaId($cinemaId);
             $auditorium->setCapacity($capacity);
             $auditorium->setTicketValue($ticketValue);
 
             $this->auditoriumDAO->Add($auditorium);
 
-            $this->showAddView();
+            require_once(VIEWS_PATH."cine-list.php");
         }
 
         public function Remove($auditoriumId)
         {
             $this->auditoriumDAO->delete($auditoriumId);
 
-            $this->showListView();
+            require_once(VIEWS_PATH."cine-list.php");
         }
 
         public function Modify($auditoriumId)
@@ -58,6 +61,5 @@
 
         }
 
-    }
     }
 ?>

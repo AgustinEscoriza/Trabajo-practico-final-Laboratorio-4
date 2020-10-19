@@ -96,8 +96,6 @@
             $valueArray['id'] = $cine->getId();
 			$valueArray['name'] = $cine->getName();
 			$valueArray['adress'] = $cine->getAdress();
-			$valueArray['capacity'] = $cine->getCapacity();
-			$valueArray['ticketValue'] = $cine->getTicketValue();
 
 			array_push($arrayToEncode, $valueArray);
 
@@ -121,8 +119,6 @@
                 $cine->setId($valueArray['id']);
 			    $cine->setName($valueArray['name']);
 			    $cine->setAdress($valueArray['adress']);
-			    $cine->setCapacity($valueArray['capacity']);
-			    $cine->setTicketValue($valueArray['ticketValue']);
                 
                 array_push($this->cineList, $cine);
             }

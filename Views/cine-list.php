@@ -17,8 +17,9 @@
                     <thead>
                          <th>Name</th>
                          <th>Adress</th>
-                         <th>Capacity</th>
-                         <th>Ticket Value</th>
+                         <th>Show Auditoriums</th>
+                         <th>Remove </th>
+                         <th>Modify  </th>
                     </thead>
                     <tbody>
                          <?php
@@ -29,10 +30,9 @@
                                         <tr>
                                              <td><?php echo $cine->getName() ?></td>
                                              <td><?php echo $cine->getAdress() ?></td>
-                                             <td><?php echo $cine->getCapacity() ?></td>
-                                             <td><?php echo $cine->getTicketValue() ?></td>
+                                             <td><button type="submit" name="cinemaId" class="btn btn-dark ml-auto " value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/ShowListView')"> Show Auditoriums </button></td>
                                              <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Remove')"> Remove </button></td> 
-                                             <td><button type="submit" name="modify" class="btn btn-dark ml-auto d-block" value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Modify')"> Modify </button></td> 
+                                             <td><button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Modify')"> Modify </button></td> 
                                         </tr>
                                    <?php
                               }

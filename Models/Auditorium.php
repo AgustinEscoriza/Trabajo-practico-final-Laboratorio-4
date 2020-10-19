@@ -1,17 +1,21 @@
 <?php
     namespace Models;
 
+    use Models\Cine as Cine;
+
     class Auditorium{
 
         private $id;
+        private $cinemaId;
         private $name;
         private $capacity;
         private $ticketValue;
 
 
         public function __construct(){
-            
+      
         }
+
         public function getId (){
             return $this->id;
         }
@@ -21,6 +25,13 @@
 
         public function getName (){
             return $this->name;
+        }
+
+        public function getCinemaId(){
+            return $this->cinemaId;
+        }
+        public function setCinemaId($cinemaId){
+            $this->cinemaId = $cinemaId;
         }
 
         public function setName ($name){
