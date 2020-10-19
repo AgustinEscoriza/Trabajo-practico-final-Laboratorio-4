@@ -1,0 +1,18 @@
+.movieDiv{
+    display:flex; 
+    max-width: 80%; 
+    align-items: center; 
+    margin-left: 10%; 
+    margin-top: 30px;
+    border: 2px solid;
+    color:white; 
+    background:rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.movieSelect{
+    display:block; 
+    align-items: center; 
+    text-align: center; 
+    max-width:500;
+}
