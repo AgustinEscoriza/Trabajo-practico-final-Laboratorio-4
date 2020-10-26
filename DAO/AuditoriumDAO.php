@@ -1,10 +1,10 @@
 <?php 
     namespace DAO;
 
-    use DAO\IDAO as IDAO;
+    use DAO\IAuditoriumDAO as IAuditoriumDAO;
     use Models\Auditorium as Auditorium;
     
-    class AuditoriumDAO implements IDAO{
+    class AuditoriumDAO implements IAuditoriumDAO{
         
         private $auditoriumList = array ();
 

@@ -1,7 +1,7 @@
 <?php
     namespace Models;
 
-    class Cine{
+    class Cinema{
 
         private $id;
         private $name;
@@ -11,6 +11,7 @@
         public function __construct(){
             
         }
+
         public function getId (){
             return $this->id;
         }

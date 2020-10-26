@@ -45,12 +45,12 @@
         if($loggedUser != NULL){
 	     //session_start();
 	     $_SESSION['loggedUser'] = $loggedUser;
-         //header("location:../cine-add.php");
-         require_once(VIEWS_PATH."cine-add.php");
+         //header("location:../cinema-add.php");
+         require_once(VIEWS_PATH."cinema-add.php");
 	
         }else{
             $message='Verifique que los datos ingresados sean correctos';
-            //header("location:../cine-add.php?error=true");
+            //header("location:../cinema-add.php?error=true");
           return $this->showLoginView($message);
         }
         }  

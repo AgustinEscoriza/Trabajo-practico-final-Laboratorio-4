@@ -1,10 +1,10 @@
 <?php
     namespace DAO;
 
-    use DAO\IDAO as IDAO;
+    use DAO\IUserDAO as IUserDAO;
     use Models\User as User;    
 
-    class UserDAO implements IDAO
+    class UserDAO implements IUserDAO
     { 
        private $usersList = array ();
 

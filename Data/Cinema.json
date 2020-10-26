@@ -6,17 +6,17 @@
     },
     {
         "id": 4,
-        "name": "Super Cine",
+        "name": "Super Cinema",
         "adress": "Callesota 5262"
     },
     {
         "id": 5,
-        "name": "Cines del paseo",
+        "name": "Cinemas del paseo",
         "adress": "123"
     },
     {
         "id": 6,
-        "name": "Cinesote",
+        "name": "Cinemasote",
         "adress": "San Marino 213"
     }
 ]

@@ -5,7 +5,7 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Add Cinema</h2>
-               <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="post" class="add-form bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="add-form bg-light-alpha p-5">
                     <div class="row">                       
                          <div class="col-lg-4">
                               <div class="form-group">

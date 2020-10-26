@@ -43,14 +43,14 @@
 
             $this->auditoriumDAO->Add($auditorium);
 
-            require_once(VIEWS_PATH."cine-list.php");
+            require_once(VIEWS_PATH."cinema-list.php");
         }
 
         public function Remove($auditoriumId)
         {
             $this->auditoriumDAO->delete($auditoriumId);
 
-            require_once(VIEWS_PATH."cine-list.php");
+            require_once(VIEWS_PATH."cinema-list.php");
         }
 
         public function Modify($auditoriumId)

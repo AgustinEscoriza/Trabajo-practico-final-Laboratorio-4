@@ -1,11 +1,11 @@
 <?php
     require_once('nav.php');
     require_once('Config\Autoload.php');
-    use Models\Cine as Cine;
-    use DAO\CineDAO as CineDAO;   
+    use Models\Cinema as Cinema;
+    use DAO\CinemaDAO as CinemaDAO;   
     
-    $cineDAO = new CineDAO();
-    $cineList = $cineDAO->getAll();
+    $cinemaDAO = new CinemaDAO();
+    $cinemaList = $cinemaDAO->getAll();
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -24,15 +24,15 @@
                     <tbody>
                          <?php
                               
-                              foreach($cineList as $cine)
+                              foreach($cinemaList as $cinema)
                               {
                                    ?>
                                         <tr>
-                                             <td><?php echo $cine->getName() ?></td>
-                                             <td><?php echo $cine->getAdress() ?></td>
-                                             <td><button type="submit" name="cinemaId" class="btn btn-dark ml-auto " value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/ShowListView')"> Show Auditoriums </button></td>
-                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Remove')"> Remove </button></td> 
-                                             <td><button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cine->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cine/Modify')"> Modify </button></td> 
+                                             <td><?php echo $cinema->getName() ?></td>
+                                             <td><?php echo $cinema->getAdress() ?></td>
+                                             <td><button type="submit" name="cinemaId" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/ShowListView')"> Show Auditoriums </button></td>
+                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Remove')"> Remove </button></td> 
+                                             <td><button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Modify')"> Modify </button></td> 
                                         </tr>
                                    <?php
                               }

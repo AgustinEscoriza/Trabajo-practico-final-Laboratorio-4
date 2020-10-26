@@ -10,13 +10,13 @@
                     </thead>
                     <tbody>
                             <tr>
-                                <td><?php echo $cine->getName() ?></td>
-                                <td><?php echo $cine->getAdress() ?></td>
+                                <td><?php echo $cinema->getName() ?></td>
+                                <td><?php echo $cinema->getAdress() ?></td>
                             </tr>
                          </tr>
                     </tbody>
                </table>
-               <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="post" class="bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
                     <div class="row">                       
                          <div class="col-lg-4">
                               <div class="form-group">

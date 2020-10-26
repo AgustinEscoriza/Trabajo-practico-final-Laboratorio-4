@@ -2,7 +2,7 @@
     namespace Controllers;
 
     use DAO\MovieDAO as MovieDAO;
-    use Models\Cine as Cine;
+    use Models\Cinema as Cinema;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
     use Models\Lenguage as Lenguage;
