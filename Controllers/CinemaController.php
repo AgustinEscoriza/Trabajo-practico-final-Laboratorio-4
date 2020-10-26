@@ -6,11 +6,11 @@
 
     class CinemaController{
 
-        private $cinemaDAO;
+        private $cinemaDAOmysql;
 
         public function __construct(){
 
-            $this->cinemaDAO = new CinemaDAO();
+            $this->cinemaDAOmysql = new CinemaDAOmysql();
         }
 
         public function showAddView ($addMessage=""){
@@ -19,7 +19,7 @@
 
         public function showListView (){
             
-            $cinemaList = $this->cinemaDAO->getAll();
+            $cinemaList = $this->cinemaDAOmysql->getAll();
     
             require_once(VIEWS_PATH."cinema-list.php");
             
@@ -41,20 +41,20 @@
             $cinema->setName($name);
             $cinema->setAdress($adress);
 
-            $this->showAddView($this->cinemaDAO->Add($cinema));;
+            $this->showAddView($this->cinemaDAOmysql->Add($cinema));;
         }
 
         public function Remove($cinemaId)
         {
-            $this->cinemaDAO->delete($cinemaId);
+            $this->cinemaDAOmysql->delete($cinemaId);
 
             $this->showListView();
         }
 
         public function Modify($cinemaId)
         {
-            $cinema = $this->cinemaDAO->getCinema($cinemaId);
-            $this->cinemaDAO->delete($cinemaId);
+            $cinema = $this->cinemaDAOmysql->getCinema($cinemaId);
+            $this->cinemaDAOmysql->delete($cinemaId);
             require_once(VIEWS_PATH."cinema-modify.php");
 
         }
