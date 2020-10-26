@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-    use DAO\CinemaDAO as CinemaDAO;
+    use DAO\CinemaDAOmysql as CinemaDAOmysql;
     use Models\Cinema as Cinema;
 
     class CinemaController{

@@ -15,7 +15,7 @@ define("IMAGE_ROOT", "https://image.tmdb.org/t/p/w300");
 define("LIST_ROOT", "https://api.themoviedb.org/3/genre/movie/list");
 
 define("DB_HOST", "localhost");
-define("DB_NAME", "University");
+define("DB_NAME", "MoviePass");
 define("DB_USER", "root");
 define("DB_PASS", "");
 ?>

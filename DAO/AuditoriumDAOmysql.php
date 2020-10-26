@@ -1,15 +1,21 @@
 <?php 
     namespace DAO;
 
-    use DAO\IDAO as IDAO;
+    use DAO\IAuditoriumDAO as IAuditoriumDAO;
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Auditorium as Auditorium;
     
-    class AuditoriumDAO implements IDAO{
+    class AuditoriumDAOmysql implements IAuditoriumDAO{
 
         private $connection;
-        private $tableName = "auditorium";
+        private $tableName = "auditoriums";
+
+
+        public function __construct(){
+
+            $this->connection = new Connection();
+        }
 
 
         public function Add(Auditorium $auditorium){
@@ -18,7 +24,7 @@
                 $query = "INSERT INTO ". $this->tableName. "(name,price,capacity) VALUES (:name, :price, :capacity)";
 
                 $parameters["name"] = $auditorium->getName();
-                $parameters["Capacity"] = $auditorium->getCapacity();
+                $parameters["capacity"] = $auditorium->getCapacity();
                 $parameters["ticketValue"] = $auditorium->getTicketValue();
 
                 $this->connection = Connection::GetInstance();
@@ -34,7 +40,7 @@
         public function getAuditoriumByCinemaId($cinemaId){
             $auditoriumList = array();
 
-            $query = "SELECT * FROM".$this->tableName "WHERE ".$this->tableName.".id ='$cinemaId'";
+            $query = "SELECT * FROM".$this->tableName "WHERE ".$this->tableName.".idCinema ='$cinemaId'";
 
             $this->connection = Connection::GetInstance();
 
@@ -43,7 +49,7 @@
             foreach($result as $row){
 
                 $auditorium = new Auditorium();
-                $auditorium->setId($row["id"]);
+                $auditorium->setId($row["idAuditorium"]);
                 $auditorium->setName($row["name"]);
                 $auditorium->setCapacity($row["capacity"]);
                 $auditorium->setTicketValue($row["ticketValue"]);
@@ -64,16 +70,18 @@
             return $result;
         }
 
-        public function delete($id){
-            $query = "CALL Auditorium_Delete(?)";
-
-            $parameters["id"] = $id;
-
-            $this->connection = Connection::GetInstance();
-            
-            $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
+        public function delete($id){ 
+           
+            try{
+                $query = "DELETE FROM". $this->tableName." WHERE ". $this->tableName. ".id ='$id'";
+                $this->connection->ExecuteNonQuery($query,QueryType::StoredProcedure);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
             
         }
 
+        //falta update/modify
     }
 ?>

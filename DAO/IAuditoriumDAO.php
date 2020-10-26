@@ -7,7 +7,7 @@
     {
         function Add(Auditorium $auditorium);
         function getAll();
-        //function update(Auditorium $auditorium);
+        //function modify(Auditorium $auditorium);
         function delete(Auditorium $auditorium);
     }
 ?>
