@@ -5,9 +5,8 @@
 
     interface IAuditoriumDAO
     {
-        function Add(Auditorium $auditorium);
-        function getAll();
-        //function modify(Auditorium $auditorium);
-        function delete(Auditorium $auditorium);
+        function Add(Auditorium $auditorium,$idCinema);
+        function modify($cinemaId,$name,$capacity,$ticketValue);
+        function delete($id);
     }
 ?>

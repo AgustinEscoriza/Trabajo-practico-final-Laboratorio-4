@@ -21,8 +21,9 @@
                     </thead>
                     <tbody>
                          <?php
-                              foreach($auditoriumList as $auditorium)
-                              {
+                              if(!empty($auditoriumList)){
+                                   foreach($auditoriumList as $auditorium)
+                                   {
                                    ?>
                                         <tr>
                                              <td><?php echo $auditorium->getName() ?></td>
@@ -32,6 +33,7 @@
                                              <td><button type="submit" name="modify" class="btn btn-dark ml-auto d-block" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>auditorium/Modify')"> Modify </button></td> 
                                         </tr>
                                    <?php
+                                   }
                               }
                          ?>
                          </tr>

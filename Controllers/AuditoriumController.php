@@ -2,16 +2,16 @@
 //controller de salas
     namespace Controllers;
 
-    use DAO\cinemaDAOmysql as cinemaDAOmysql;
+    use DAO\auditoriumDAOmysql as auditoriumDAOmysql;
     use Models\Auditorium as Auditorium;
 
     class AuditoriumController{
 
-        private $cinemaDAOmysql;
+        private $auditoriumDAOmysql;
 
         public function __construct(){
 
-            $this->cinemaDAOmysql = new cinemaDAOmysql();
+            $this->auditoriumDAOmysql = new auditoriumDAOmysql();
 
         }
         public function showAddView ($cinemaId){
@@ -20,8 +20,8 @@
 
         public function showListView ($cinemaId){
 
-
-            $auditoriumList = $this->cinemaDAOmysql->getAuditoriumbyCinemaId($cinemaId);
+            $auditoriumList = array();
+            $auditoriumList = $this->auditoriumDAOmysql->getAuditoriumByCinemaId($cinemaId);
 
 
             require_once(VIEWS_PATH."auditorium-list.php");
@@ -37,27 +37,26 @@
         {
             $auditorium = new Auditorium();
             $auditorium->setName($name);
-            $auditorium->setCinemaId($cinemaId);
             $auditorium->setCapacity($capacity);
             $auditorium->setTicketValue($ticketValue);
 
-            $this->cinemaDAOmysql->Add($auditorium);
+            $this->auditoriumDAOmysql->Add($auditorium,$cinemaId);
 
-            require_once(VIEWS_PATH."cinema-list.php");
+            $this->showListView($cinemaId);
         }
 
         public function Remove($auditoriumId)
         {
-            $this->cinemaDAOmysql->delete($auditoriumId);
+            $cinemaId = $this->auditoriumDAOmysql->getIdCinema($auditoriumId); 
+            $this->auditoriumDAOmysql->delete($auditoriumId);
 
-            require_once(VIEWS_PATH."cinema-list.php");
+            $this->showListView($cinemaId);
         }
 
         public function Modify($auditoriumId)
         {
-            $auditorium= $this->cinemaDAOmysql->getAuditorium($auditoriumId);
-            $this->cinemaDAOmysql->delete($auditoriumId);
-            require_once(VIEWS_PATH."auditorium-modify.php");
+            $this->auditoriumDAOmysql->modify($auditoriumId,$name,$capacity,$ticketValue);
+            $this->showListView();
             
         }
 

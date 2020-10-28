@@ -21,13 +21,13 @@
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Capacity</label>
-                                   <input type="text" name="capacity" value="" class="form-control" required>
+                                   <input type="number" name="capacity" value="" class="form-control" required>
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Ticket Value</label>
-                                   <input type="text" name="ticketValue" value="" class="form-control" required>
+                                   <input type="number" name="ticketValue" value="" class="form-control" required>
                               </div>
                          </div>
                          

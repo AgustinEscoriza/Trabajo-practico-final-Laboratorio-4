@@ -11,7 +11,7 @@
         private $pdoStatement = null;
         private static $instance = null;
 
-        private function __construct()
+        public function __construct()
         {
             try
             {
@@ -34,12 +34,14 @@
 
         public function Execute($query, $parameters = array(), $queryType = QueryType::Query)
 	    {
-            try
+            try 
             {
                 $this->Prepare($query);
                 
-                $this->BindParameters($parameters, $queryType);
-                
+                foreach($parameters as $parameterName => $value) {
+                    $this->pdoStatement->bindParam(":".$parameterName, $value); 
+                }           
+
                 $this->pdoStatement->execute();
 
                 return $this->pdoStatement->fetchAll();
@@ -56,8 +58,9 @@
             {
                 $this->Prepare($query);
                 
-                $this->BindParameters($parameters, $queryType);
-
+                foreach($parameters as $parameterName => $value) {
+                    $this->pdoStatement->bindParam(":$parameterName", $parameters[$parameterName]);
+                }
                 $this->pdoStatement->execute();
 
                 return $this->pdoStatement->rowCount();
@@ -80,19 +83,5 @@
             }
         }
         
-        private function BindParameters($parameters = array(), $queryType = QueryType::Query)
-        {
-            $i = 0;
-
-            foreach($parameters as $parameterName => $value)
-            {                
-                $i++;
-
-                if($queryType == QueryType::Query)
-                    $this->pdoStatement->bindParam(":".$parameterName, $parameters[$parameterName]);
-                else
-                    $this->pdoStatement->bindParam($i, $parameters[$parameterName]);
-            }
-        }
     }
 ?>

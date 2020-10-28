@@ -7,7 +7,7 @@
     {
         function Add(Cinema $cinema);
         function getAll();
-        //function update(Cinema $cinema);
-        function delete(Cinema $cinema);
+        function modify($cinemaId,$name,$adress);
+        function delete($id);
     }
 ?>

@@ -32,7 +32,7 @@
         private $title;
         private $video;
         private $vote_average;
-        private $vote_count;   
+        private $vote_count;
 
         public function __construct()
         {

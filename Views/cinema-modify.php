@@ -1,4 +1,7 @@
-
+<?php
+     require_once('Config\Autoload.php');
+     use Models\Cinema as Cinema;
+?>
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
@@ -16,9 +19,12 @@
                          </tr>
                     </tbody>
                </table>
-               <form action="<?php echo FRONT_ROOT ?>Cinema/Add" method="post" class="bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Cinema/Modify" method="post" class="bg-light-alpha p-5">
                     <div class="row">                       
                          <div class="col-lg-4">
+
+                              <input type="hidden" name="cinemaId" value="<?php echo $cinemaId?>" class="form-control">
+
                               <div class="form-group">
                                    <label for="">Name</label>
                                    <input type="text" name="name" value="" class="form-control">

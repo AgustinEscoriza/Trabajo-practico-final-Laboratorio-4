@@ -24,8 +24,9 @@
             require_once(VIEWS_PATH."cinema-list.php");
             
         }
-        public function showModifyView(){
-            
+        public function showModifyView($cinemaId){
+
+            $cinema = $this->cinemaDAOmysql->getCinema($cinemaId);
             require_once(VIEWS_PATH."cinema-modify.php");
         }
 
@@ -51,12 +52,11 @@
             $this->showListView();
         }
 
-        public function Modify($cinemaId)
+        public function Modify($cinemaId,$name,$adress)
         {
-            $cinema = $this->cinemaDAOmysql->getCinema($cinemaId);
-            $this->cinemaDAOmysql->delete($cinemaId);
-            require_once(VIEWS_PATH."cinema-modify.php");
 
+            $this->cinemaDAOmysql->modify($cinemaId,$name,$adress);
+            $this->showListView();
         }
 
     }

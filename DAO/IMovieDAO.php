@@ -3,13 +3,11 @@
 
     use Models\Movie as Movie;
 
-    interface IDAO
+    interface IMovieDAO
     {
-        function display_array($array);
-        function getMovie($id);
-        function getNowPlayingMovies();
-        function moviesToObject($moviesInJSON);
-        function getGenres();
-        function genresToObject($genresInJSON);
+        function Add(Movie $movie);
+        function getAll();
+        function modify(Movie $movie);
+        function delete($id);
     }
 ?>
