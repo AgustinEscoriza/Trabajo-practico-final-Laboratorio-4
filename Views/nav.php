@@ -8,7 +8,7 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cinema/showListView">Show Cinemas</a>
           </li>      
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cinema/showLoginView">Log Out</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/logout">Log Out</a>
           </li>        
      </ul>
 </nav>

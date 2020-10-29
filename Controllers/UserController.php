@@ -47,6 +47,17 @@
                }
              }
         }
+
+        public function logout ()
+        {
+            if (session_status( )== PHP_SESSION_NONE){
+                session_start();
+                session_destroy();
+            }else{
+                session_destroy();
+            }
+            $this->showLoginView();
+        }
         
         /*$userLoginName=$userName;
         $userLoginPass=$password;
@@ -76,12 +87,10 @@
         }*/  
 
         public function showLoginView($message=""){
-            session_destroy();
             require_once(VIEWS_PATH."user-login.php");
         }
 
         public function showRegisterView($message=""){
-            session_destroy();
             require_once(VIEWS_PATH."user-register.php");
         }
     }
