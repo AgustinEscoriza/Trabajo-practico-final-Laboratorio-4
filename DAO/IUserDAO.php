@@ -6,8 +6,8 @@
     interface IUserDAO
     {
         function Add(User $user);
-        function getAll();
+        //function getAll();
         //function update(User $user);
-        function delete(User $user);
+        //function delete(User $user);
     }
 ?>

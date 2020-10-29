@@ -1,16 +1,18 @@
 <?php
     namespace Controllers;
 
-    use DAO\userDAO as UserDAO;
+    //use DAO\UserDAO as UserDAO;
+    use DAO\UserDAOmysql as UserDAOmysql;
     use Models\User as User;
 
     class UserController{
 
         private $userDAO;
 
-        public function __construct(){
+        public function __construct()
+        {
 
-            $this->userDAO = new userDAO();
+            $this->userDAO = new userDAOmysql();
         }
 
         public function Add($userName, $userEmail, $password)
@@ -18,17 +20,35 @@
             $user = new User();
             $user->setUserName($userName);
             $user->setUserEmail($userEmail);
-            $user->setPassword($password);
+            $user->setUserPassword($password);
 
             $this->showRegisterView($this->userDAO->Add($user));
 
         }
 
-        public function login ($userName, $password){
+        public function setSession ($user)
+        {
+            $_SESSION['userLogin']=$user;
+        }
 
-        $loggedUser=NULL;
+        public function login ($userName, $userPassword)
+        {
+
+            $loggedUser= $this->userDAO->read($userName);
+
+             if($loggedUser){
+               if($loggedUser->getUserPassword()==$userPassword){
+                   $this->setSession($loggedUser);
+                   //return $loggedUser;
+                   require_once(VIEWS_PATH."cinema-add.php");
+               }else{
+               $message='Verifique que los datos ingresados sean correctos';
+               return $this->showLoginView($message);
+               }
+             }
+        }
         
-        $userLoginName=$userName;
+        /*$userLoginName=$userName;
         $userLoginPass=$password;
 
         foreach($this->userDAO->getAll() as $user)
@@ -53,7 +73,7 @@
             //header("location:../cinema-add.php?error=true");
           return $this->showLoginView($message);
         }
-        }  
+        }*/  
 
         public function showLoginView($message=""){
             session_destroy();

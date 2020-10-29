@@ -3,16 +3,17 @@ namespace Models;
  
 class User{
 	
-	private $userId;
+	private $idUser;
 	private $userName;
 	private $userEmail;
-	private $password;
+	private $userPassword;
+	private $userState;
 
 	public function __construct(){
             
 	}
-	public function getUserId (){
-		return $this->userId;
+	public function getIdUser (){
+		return $this->idUser;
 	}
 	public function getUserName(){
 		return $this->userName;
@@ -20,11 +21,14 @@ class User{
 	public function getUserEmail(){
 		return $this->userEmail;
 	}
-	public function getPassword(){
-		return $this->password;
+	public function getUserPassword(){
+		return $this->userPassword;
 	}
-	public function setUserId ($userId){
-		$this->userId = $userId;
+	public function getUserState(){
+		return $this->userState;
+	}
+	public function setIdUser ($idUser){
+		$this->idUser = $idUser;
 	}
 	public function setUserName($userName){
 		$this->userName = $userName;
@@ -32,8 +36,11 @@ class User{
 	public function setUserEmail($userEmail){
 		$this->userEmail = $userEmail;
 	}
-	public function setPassword($password){
-		$this->password = $password;
+	public function setUserPassword($userPassword){
+		$this->userPassword = $userPassword;
+	}
+	public function setUserState($userState){
+		$this->userState = $userState;
 	}
 	
 }
