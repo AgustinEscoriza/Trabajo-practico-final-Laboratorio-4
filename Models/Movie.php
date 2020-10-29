@@ -14,7 +14,7 @@
         private $backdrop_path;
         private $belongs_to_collection;
         private $budget;
-        private $genreId;
+        private $genre;
         private $homepage;
         private $original_language;
         private $original_title;
@@ -36,7 +36,7 @@
 
         public function __construct()
         {
-            $this->genreId = array();
+            $this->genre = array();
 
         }
     
@@ -54,8 +54,8 @@
         public function setBudget ($budget){$this->budget = $budget;}
         public function getHomePage (){return $this->homepage;}
         public function setHomePage ($homepage){$this->homepage = $homepage;}
-        public function getGenreId (){return $this->genreId;}
-        public function setGenreId ($genreId){array_push($this->genreId, $genreId);}
+        public function getGenre (){return $this->genre;}
+        public function setGenre ($genre){array_push($this->genre, $genre);}
         public function getOriginalLanguage (){return $this->original_language;}
         public function setOriginalLanguage ($original_language){$this->original_language = $original_language;}
         public function getOriginalTitle (){return $this->original_title;}
@@ -84,7 +84,7 @@
         public function setVoteAverage ($vote_average){$this->vote_average = $vote_average;}
         public function getVoteCount (){return $this->vote_count;}
         public function setVoteCount ($vote_count){$this->vote_count = $vote_count;}
-        public function setGenreName($key,$value){ $this->genreId[$key] = $value;}
+        public function setGenreName($key,$value){ $this->genre[$key] = $value;}
         
     }
 ?>

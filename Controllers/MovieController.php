@@ -2,6 +2,9 @@
     namespace Controllers;
 
     use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieDAOmysql as MovieDAOmysql;
+    use DAO\GenreDAOmysql as GenreDAOmysql;
+    use DAO\GenreXMovieDAOmysql as GenreXMovieDAOmysql;
     use Models\Cinema as Cinema;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
@@ -21,7 +24,12 @@
         public function showMoviesListView (){
             $moviesList = $this->movieDAO->getNowPlayingMovies();
             $genresList = $this->movieDAO->getGenres();
-            
+
+            $this->genreDAOmysql->apiToSql($genreList);
+            $this->movieDAOmysql->apiToSql($movieDAO);
+            $this->genreXMovieDAO->matchMoviesWithGenre($genreList,$movieList);
+
+
             $this->setGenres($moviesList,$genresList);
 
             require_once(VIEWS_PATH."movies-list.php");
