@@ -5,7 +5,7 @@ namespace DAO;
     use Models\Cinema as Cinema;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
-    use Models\Lenguage as Lenguage;
+    use Models\Language as Language;
     use Models\ProductionCompany as ProductionCompany;
     use Models\ProductionCountry as ProductionCountry;  
 
@@ -53,11 +53,13 @@ class MovieDAO
             $newMovie->setId($movie["id"]);
             foreach($movie["genre_ids"] as $genre)
             {
-                $newMovie->setGenreId($genre);
+                $newMovie->setGenre($genre);
             }
             $newMovie->setPosterPath($movie["poster_path"]);
             $newMovie->setOverview($movie["overview"]);
-
+            $newMovie->setOriginalTitle($movie["original_title"]);
+            $newMovie->setReleaseDate($movie["release_date"]);
+            $newMovie->setOriginalLanguage($movie["original_language"]);
             array_push($this->moviesList,$newMovie);
         }
     }

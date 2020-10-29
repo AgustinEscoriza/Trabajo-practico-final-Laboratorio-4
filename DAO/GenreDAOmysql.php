@@ -33,7 +33,6 @@
                 throw $ex;
             }
         }
-    }
     protected function mapear($value) {
         $value = is_array($value) ? $value : [];
         $resp = array_map(function($p){
@@ -44,6 +43,6 @@
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
     }
-    
+}
 
 ?>

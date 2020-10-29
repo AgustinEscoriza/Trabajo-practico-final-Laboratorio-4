@@ -20,21 +20,15 @@
             try{
                 foreach($movieList as $movie){
                     
-                    $query = "INSERT INTO movies (idMovie,adult,budget,originalLanguage,originalTitle,overview,popularity,posterPath,releaseDate,runtime,status,title) VALUES ( :idMovie, :adult, :budget, :originalLanguage, :originalTitle, :overview, :popularity, :posterPath, :releaseDate, :runtime, :status, :title)";
+                    $query = "INSERT INTO movies (idMovie,originalTitle,originalLanguage,overview,posterPath,releaseDate,title) VALUES ( :idMovie, :originalTitle, :originalLanguage, :overview, :posterPath, :releaseDate, :title)";
 
                     $parameters["idMovie"] =            $movie->getId();
                     $parameters["title"] =              $movie->getTitle();
-                    $parameters["adult"] =              $movie->getAdult();
-                    $parameters["budget"] =             $movie->getBudget();
-                    $parameters["genre"] =              $movie->getGenre();
-                    $parameters["originalLanguage"] =   $movie->getOriginalLanguage();
                     $parameters["originalTitle"] =      $movie->getOriginalTitle();
+                    $parameters["originalLanguage"] =   $movie->getOriginalLanguage();
                     $parameters["overview"] =           $movie->getOverview();
-                    $parameters["popularity"] =         $movie->getPopularity();
                     $parameters["posterPath"] =         $movie->getPosterPath();
                     $parameters["releaseDate"] =        $movie->getReleaseDate();
-                    $parameters["runtime"] =            $movie->getRuntime();
-                    $parameters["status"] =             $movie->getStatus();
 
                     $this->connection = Connection::GetInstance();
 
@@ -54,7 +48,6 @@
                 
                 $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
     
-                
     
             }
             catch(\PDOException $ex){
@@ -96,18 +89,13 @@
             $resp = array_map(function($p){
                 $a = new Movie();
                 $a->setId($p["idMovie"]);       
-                $a->setTitle($p["title"]);        
-                $a->setAdult($p["adult"]);         
-                $a->setBudget($p["budget"]);        
-                $a->setGenre($p["genre"]);       
+                $a->setTitle($p["title"]);               
                 $a->setOriginalLanguage($p["originalLanguage"]); 
                 $a->setOriginalTitle($p["originalTitle"]);
-                $a->setOverview($p["overview"]);    
-                $a->setPopularity($p["popularity"]);    
+                $a->setOverview($p["overview"]);        
                 $a->setPosterPath($p["posterPath"]);   
                 $a->setReleaseDate($p["releaseDate"]);   
-                $a->setRuntime($p["runtime"]);      
-                $a->setStatus($p["status"]);
+
                 return $a;
             }, $value);   // $value es cada array q quiero convertir a objeto
             return $resp;

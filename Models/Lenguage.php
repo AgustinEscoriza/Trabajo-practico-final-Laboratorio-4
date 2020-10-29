@@ -1,7 +1,7 @@
 <?php
     namespace Models;
 
-    class Lenguage{
+    class Language{
 
         private $iso_639_1;
         private $name;        

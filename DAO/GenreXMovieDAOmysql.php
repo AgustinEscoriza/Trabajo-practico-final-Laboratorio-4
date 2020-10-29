@@ -7,7 +7,7 @@
     use Models\Genre as Genre;
     use Models\Movie as Movie;
 
-    class GenreDAOmysql {
+    class GenreXMovieDAOmysql {
         private $connection;
         private $tableName = "genres";
 
@@ -15,7 +15,7 @@
 
             $this->connection = new Connection();
         }
-        public function apiToSql($movieList){
+        public function matchMoviesWithGenre($movieList){
 
             try{
 

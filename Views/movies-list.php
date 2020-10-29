@@ -38,7 +38,7 @@ require_once('Config\Autoload.php');
                 <h4 ><?php echo $res->getTitle();'<br>' ;?></h4>
                 <p><?php echo $res->getOverview();'<br>' ;?></p>
                 <h5>Genres:</h5>
-                <?php foreach($res->getGenreId() as $genre) { ?>
+                <?php foreach($res->getGenre() as $genre) { ?>
                 <p>  <?php echo $genre;'<br>' ;?> </p>
                 <?php } ?>
               </div>

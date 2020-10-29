@@ -8,37 +8,41 @@
     use Models\Cinema as Cinema;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
-    use Models\Lenguage as Lenguage;
-    use Models\ProductionCompany as ProductionCompany;
-    use Models\ProductionCountry as ProductionCountry;
 
     class MovieController{
 
         private $movieDAO;
-
+        private $movieDAOmysql;
+        private $genreDAOmysql;
+        private $genreXMovieDAOmysql;
         public function __construct(){
 
             $this->movieDAO = new MovieDAO();
+            $this->movieDAOmysql = new MovieDAOmysql();
+            $this->genreDAOmysql = new GenreDAOmysql();
+            $this->genreXMovieDAOmysql = new GenreXMovieDAOmysql();
         }
 
-        public function showMoviesListView (){
+        public function cargarDatabaseMoviesGenre (){
+
             $moviesList = $this->movieDAO->getNowPlayingMovies();
             $genresList = $this->movieDAO->getGenres();
 
-            $this->genreDAOmysql->apiToSql($genreList);
-            $this->movieDAOmysql->apiToSql($movieDAO);
-            $this->genreXMovieDAO->matchMoviesWithGenre($genreList,$movieList);
+            $this->movieDAOmysql->apiToSql($moviesList);
+            $this->genreDAOmysql->apiToSql($genresList);
+            $this->genreXMovieDAOmysql->matchMoviesWithGenre($moviesList);
 
+        }
+        public function showMoviesListView (){
 
-            $this->setGenres($moviesList,$genresList);
+            $moviesList = $this->movieDAOmysql->getAll();
 
             require_once(VIEWS_PATH."movies-list.php");
         }
-
         public function setGenres($movies,$genres){
             foreach($movies as $movie)
             {
-                foreach($movie->getGenreId() as $key => $mov)
+                foreach($movie->getGenre() as $key => $mov)
                 {
                     foreach($genres as $genre)
                     {
