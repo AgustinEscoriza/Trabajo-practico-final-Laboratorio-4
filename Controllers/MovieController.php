@@ -74,7 +74,7 @@
                 $moviesList = array();
                 $moviesList = $movies;
             }        
-            $this->setGenres($moviesList,$genresList);
+            //$this->setGenres($moviesList,$genresList);
             require_once(VIEWS_PATH."movies-list.php");             
         }
     }

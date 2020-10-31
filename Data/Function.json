@@ -1,0 +1,51 @@
+[
+    {
+        "id": 0,
+        "auditoriumId": 0,
+        "date": "2020-10-31",
+        "time": "15:50",
+        "movieId": "425001"
+    },
+    {
+        "id": 1,
+        "auditoriumId": 1,
+        "date": "2020-10-31",
+        "time": "10:50",
+        "movieId": "726739"
+    },
+    {
+        "id": 2,
+        "auditoriumId": 2,
+        "date": "2020-10-31",
+        "time": "23:22",
+        "movieId": "505379"
+    },
+    {
+        "id": 3,
+        "auditoriumId": 3,
+        "date": "2020-10-31",
+        "time": "22:39",
+        "movieId": "581392"
+    },
+    {
+        "id": 4,
+        "auditoriumId": 4,
+        "date": "2020-10-31",
+        "time": "21:43",
+        "movieId": "509635"
+    },
+    {
+        "id": 5,
+        "auditoriumId": 5,
+        "date": "2020-10-31",
+        "time": "21:43",
+        "movieId": "560050"
+    },
+    {
+        "id": 6,
+        "auditoriumId": 6,
+        "date": "20:40",
+        "time": "",
+        "movieId": "2020-10-31"
+    }
+]

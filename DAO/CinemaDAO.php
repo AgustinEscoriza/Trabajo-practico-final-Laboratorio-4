@@ -88,20 +88,32 @@
         }
         $this->SaveData();
        }
+
+       public function AddFunctionToBillboard($cinemaId, $newFunction)
+       {
+            $this->retrieveData();
+            foreach ($this->cineList as $cinema) {
+
+                if ($cinema->getId() == $cinemaId) {
+                    $cinema->addFunctionToList($newFunction);
+                }
+            }
+       }
        
        public function saveData(){
-		$arrayToEncode = array();
+            $arrayToEncode = array();
 
-		foreach ($this->cinemaList as $cinema) {
-            $valueArray['id'] = $cinema->getId();
-			$valueArray['name'] = $cinema->getName();
-			$valueArray['adress'] = $cinema->getAdress();
+            foreach ($this->cinemaList as $cinema) {
+                $valueArray['id'] = $cinema->getId();
+                $valueArray['name'] = $cinema->getName();
+                $valueArray['adress'] = $cinema->getAdress();
+                $valueArray['billboard'] = $cinema->getBillboard();
 
-			array_push($arrayToEncode, $valueArray);
+                array_push($arrayToEncode, $valueArray);
 
-		}
-		$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-		file_put_contents(dirname(__DIR__) .'/Data/cinema.json', $jsonContent);
+            }
+            $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
+            file_put_contents(dirname(__DIR__) .'/Data/cinema.json', $jsonContent);
         }
         
         public function retrieveData(){
@@ -134,6 +146,11 @@
             }
     
             return $jsonFilePath;
+        }
+
+        function modify($cinemaId,$name,$adress)
+        {
+            
         }
     }
 ?>

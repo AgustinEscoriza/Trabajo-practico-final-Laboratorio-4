@@ -6,7 +6,7 @@
     use DAO\QueryType as QueryType;
     use Models\Cinema as Cinema;
 
-    class CinemaDAOmysql implements ICinemaDAO{
+    class BillBoardDAOMySQL implements IBillBoardDAO{
 
         private $connection;
         private $tableName = "cinemas";
@@ -41,7 +41,7 @@
 
             $this->connection = Connection::GetInstance();
             
-            $result = $this->connection->Execute($query,array(),QueryType::Query);
+            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
 
             
 

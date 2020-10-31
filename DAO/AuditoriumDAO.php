@@ -9,7 +9,7 @@
         private $auditoriumList = array ();
 
 
-        public function Add($newAuditorium){
+        public function Add(Auditorium $auditorium,$idCinema){
             $this->retrieveData();
             if ($this->chekExistence($newAuditorium->getName(),$newAuditorium->getCinemaId())==0){
     
@@ -42,7 +42,11 @@
             
         }
 
-        public function getAll(){
+        public function getAll($cinemaId,$name,$capacity,$ticketValue){
+            
+        }
+
+        public function modify($cinemaId,$name,$capacity,$ticketValue){
             $this->retrieveData();
             return $this->auditoriumList;
         }

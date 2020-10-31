@@ -6,6 +6,7 @@
     class Auditorium{
 
         private $id;
+        private $cinemaId;
         private $name;
         private $capacity;
         private $ticketValue;
@@ -21,6 +22,14 @@
         public function setId ($id){
             $this->id = $id;
         }
+
+        public function getCinemaId (){
+            return $this->cinemaId;
+        }
+        public function setCinemaId ($cinemaId){
+            $this->cinemaId = $cinemaId;
+        }
+
 
         public function getName (){
             return $this->name;

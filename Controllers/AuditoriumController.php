@@ -30,13 +30,14 @@
         public function showModifyView(){
             
             require_once(VIEWS_PATH."auditorium-modify.php");
-        }
+        }   
 
 
         public function Add($name,$cinemaId, $capacity, $ticketValue)
         {
             $auditorium = new Auditorium();
             $auditorium->setName($name);
+            $auditorium->setCinemaId($cinemaId);
             $auditorium->setCapacity($capacity);
             $auditorium->setTicketValue($ticketValue);
 

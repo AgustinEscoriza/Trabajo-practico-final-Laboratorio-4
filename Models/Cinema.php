@@ -6,6 +6,7 @@
         private $id;
         private $name;
         private $adress;
+        private $billboard;
 
 
         public function __construct(){
@@ -33,6 +34,14 @@
 
         public function setAdress ($adress){
             $this->adress = $adress;
+        }
+
+        public function getBillboard (){
+            return $this->billboard;
+        }
+
+        public function setBillboard (Billboard $billboard){
+            $this->billboard = $billboard;
         }
         
     }
