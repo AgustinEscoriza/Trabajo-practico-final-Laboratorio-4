@@ -227,7 +227,6 @@
             $functions = new Functions();
             $functions->setDate($p['functionDate']);
             $functions->setTime($p['functionTime']);
-            $functions->setMovieId($p['idMovie']);
             return $functions;
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
