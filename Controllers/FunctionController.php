@@ -2,49 +2,48 @@
     namespace Controllers;
 
     use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieDAOmysql as MovieDAOmysql;
     use \DateTime as NewDT;
-    use DAO\CinemaDAOmysql as CinemaDAO;
-    use DAO\FunctionDAO as FunctionDAO;
-    use DAO\BillboardDAO as BillboardDAO;
-    use DAO\AuditoriumDAO as AuditoriumDAO;
-    use Models\Cine as Cine;
+    use DAO\CinemaDAOmysql as CinemaDAOmysql;
+    use DAO\AuditoriumDAOmysql as AuditoriumDAOmysql;
+    use DAO\FunctionDAOmysql as FunctionDAOmysql;
     use Models\Functions as Functions;
-    use Models\Movie as Movie;
-    use Models\Genre as Genre;
-    use Models\Lenguage as Lenguage;
-    use Models\ProductionCompany as ProductionCompany;
-    use Models\ProductionCountry as ProductionCountry;
 
     class FunctionController{
 
         private $movieDAO;
+        private $cinemaDAO;
+        private $functionDAO;
         private $dateGlobal;
+        
         public function __construct(){
 
-            $this->movieDAO = new MovieDAO();
-            $this->CinemaDAO = new CinemaDAO();
-            $this->auditoriumDAO = new AuditoriumDAO();
-            $this->functionDAO = new FunctionDAO();
-            $this->billboardDAO = new BillboardDAO();
+            $this->movieDAO = new MovieDAOmysql();
+            $this->CinemaDAO = new CinemaDAOmysql();
+            $this->auditoriumDAO = new AuditoriumDAOmysql();
+            $this->functionDAO = new FunctionDAOmysql();
             $this->dateGlobal = new NewDT('today');
         }
 
         public function showAddView ($cinemaId,$auditoriumId,$addMessage="")
         {
             
-            $moviesList = $this->movieDAO->getNowPlayingMovies();
-            $cinemaList = $this->CinemaDAO->getAll();
-            if($auditoriumId == 0)
-            {
-                $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
-            }
-            else
-            {
-                $auditoriumsList = $this->auditoriumDAO->getAuditorium($auditoriumId);
-            }
+    //        $moviesList = $this->movieDAO->getNowPlayingMovies();
+    //        $cinemaList = $this->CinemaDAO->getAll();
+    //        if($auditoriumId == 0)
+    //        {
+    //            $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
+    //        }
+    //        else
+    //        {
+    //            $auditoriumsList = $this->auditoriumDAO->getAuditorium($auditoriumId);
+    //        }
+
+            $moviesList = $this->movieDAO->getAll();
             $date = $this->dateGlobal;
             require_once(VIEWS_PATH."function-add.php");
         }
+        
 
         public function Add($cinemaId, $auditoriumId, $movieId, $date, $time)
         {

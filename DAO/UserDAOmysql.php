@@ -78,7 +78,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
 
             return $result;
         }
@@ -90,7 +90,7 @@
 
             $this->connection = Connection::GetInstance();
             
-            $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
+            $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
             
         }
 */

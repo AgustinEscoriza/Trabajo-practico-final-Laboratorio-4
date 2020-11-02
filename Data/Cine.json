@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Ambassador",
+        "adress": "tucuman 231"
+    },
+    {
+        "id": 2,
+        "name": "Cines del paseo",
+        "adress": "madrid 2131"
+    },
+    {
+        "id": 4,
+        "name": "Super Cine",
+        "adress": "Callesota 5262"
+    },
+    {
+        "id": 5,
+        "name": "Cinecito",
+        "adress": "san marino"
+    }
+]

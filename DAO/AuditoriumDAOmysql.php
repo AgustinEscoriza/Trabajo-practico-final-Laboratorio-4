@@ -30,7 +30,7 @@
 
                 $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
+                $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
             }
             catch(\PDOException $ex){
                 throw $ex;
@@ -44,7 +44,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
 
    //    foreach($result as $row){
 
@@ -71,7 +71,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
 
             if(!empty($result)){
                 return $this->mapear($result);
@@ -85,7 +85,7 @@
            
             try{
                 $query = "DELETE FROM auditoriums WHERE ". $this->tableName. ".idAuditorium ='$id'";
-                $this->connection->ExecuteNonQuery($query,QueryType::StoredProcedure);
+                $this->connection->ExecuteNonQuery($query,QueryType::Query);
             }
             catch(\PDOException $ex){
                 throw $ex;
@@ -104,7 +104,7 @@
             try {
     
             $this->connection = Connection::getInstance();
-            $this->connection->ExecuteNonQuery($query, $parameters,QueryType::StoredProcedure);
+            $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
     
             }catch(\PDOException $ex) {
     
@@ -118,7 +118,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
 
             if(!empty($result)){
                 return $result[0]['idCinema'];

@@ -13,7 +13,6 @@
         private $poster_path;
         private $release_date;
         private $runtime;
-        private $spoken_languages; // Array
         private $status;
         private $title;
         

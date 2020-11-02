@@ -27,7 +27,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
+            $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
         }
         catch(\PDOException $ex){
             throw $ex;
@@ -65,7 +65,7 @@
 
             $this->connection = Connection::GetInstance();
 
-            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
         }
         catch(\PDOException $ex){
             throw $ex;
@@ -84,7 +84,7 @@
        
         try{
             $query = "DELETE FROM ". $this->tableName." WHERE ". $this->tableName. ".idCinema ='$id'";
-            $this->connection->ExecuteNonQuery($query,QueryType::StoredProcedure);
+            $this->connection->ExecuteNonQuery($query,QueryType::Query);
         }
         catch(\PDOException $ex){
             throw $ex;
@@ -102,7 +102,7 @@
         try {
 
         $this->connection = Connection::getInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters,QueryType::StoredProcedure);
+        $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
 
         }catch(\PDOException $ex) {
 

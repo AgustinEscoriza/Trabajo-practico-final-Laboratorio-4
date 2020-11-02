@@ -2,15 +2,17 @@
     namespace Models;
 
     use Models\Movie as Movie;
+    use Models\Auditorium as Auditorium;
     use \DateTime as NewDT;
 
     class Functions{
 
         private $id;
-        private $auditoriumId;
+        private $auditorium;
         private $date;
-        private $time;
-        private $movieId;
+        private $tickets; //contador de tickets vendidos
+        private $runtime;
+        private $movie;
         
         public function __construct(){
             $this->date = new NewDT();
@@ -23,12 +25,18 @@
         public function setId ($id){
             $this->id = $id;
         }
-
-        public function getAuditoriumId(){
-            return $this->id;
+        public function getTickets(){
+            return $this->tickets;
         }
-        public function setAuditoriumId ($id){
-            $this->id = $id;
+        public function setTickets ($tickets){
+            $this->tickets = $tickets;
+        }
+
+        public function getAuditorium(){
+            return $this->auditorium;
+        }
+        public function setAuditorium (Auditorium $auditorium){
+            $this->auditorium = $auditorium;
         }
         
         public function getDate(){
@@ -47,12 +55,12 @@
             $this->time = $time;
         }       
         
-        public function getMovieId(){
-            return $this->movieId;
+        public function getMovie(){
+            return $this->movie;
         }
 
-        public function setMovieId ($movieId){
-            $this->movieId = $movieId;
+        public function setMovie (Movie $movie){
+            $this->movie = $movie;
         }    
     }
 ?>
