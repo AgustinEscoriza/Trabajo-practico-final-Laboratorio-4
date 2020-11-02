@@ -146,6 +146,32 @@
                 }
             }
 
+        public function getGenreList()
+        {
+            try {
+                $genreList = array();
+
+                $query = "SELECT * FROM genres";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
+
+                foreach ($resultSet as $row) {
+                    $genre = new Genre();
+
+                    $genre->setId($row["idGenre"]);
+                    $genre->setName($row["name"]);
+
+                    array_push($genreList, $genre);
+                }
+
+                return $genreList;
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+        }
+
         function getMovie($id){
             $resp = file_get_contents(API_ROOT.MOVIE_PATH.$id.API_KEY);
             
@@ -170,5 +196,6 @@
             return $resp;
         }
     }
+
 
 ?>

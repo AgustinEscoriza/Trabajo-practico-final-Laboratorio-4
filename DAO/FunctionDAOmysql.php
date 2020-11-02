@@ -37,7 +37,7 @@
             }
             else
             {
-                echo  "<script> alert ('La Funcion que intenta agregar LA CONCHA DE TU MADRE ALL BOYS.'); </script>)";
+                echo  "<script> alert ('La Funcion que intenta agregar no ha podido ser ingresada.'); </script>)";
                 require_once(VIEWS_PATH."cinema-list.php");
             }
         }
@@ -111,6 +111,32 @@
             return false;
         }        
                  
+    }
+    public function getMoviesByGenre($genreId)
+    {
+        try {
+            $query = "SELECT movies.idMovie, movies.title,movies.runtime , movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview FROM movies JOIN moviesxgenre ON movies.idMovie = moviesxgenre.idmovie JOIN functions ON functions.idMovie = movies.idMovie WHERE moviesxgenre.idGenre =$genreId";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
+            $moviesList = array();
+            foreach ($resultSet as $p) {
+                $a = new Movie();
+                $a->setId($p["idMovie"]);       
+                $a->setTitle($p["title"]);               
+                $a->setOriginalLanguage($p["originalLanguage"]); 
+                $a->setOverview($p["overview"]);        
+                $a->setPosterPath($p["posterPath"]);   
+                $a->setReleaseDate($p["releaseDate"]);   
+                $a->setRuntime($p["runtime"]);  
+
+
+                array_push($moviesList, $a);
+            }
+
+            return $moviesList;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     public function MoviesInBilboard($functionsList){

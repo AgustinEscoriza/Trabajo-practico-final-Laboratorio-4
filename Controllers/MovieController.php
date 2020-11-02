@@ -59,7 +59,7 @@
         public function filter($genreSelector){
             
             $movies = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->movieDAO->getGenres();
+            $genresList = $this->movieDAO->getGenreList();
             if($genreSelector!=0){                
                 $moviesList = array();
                 foreach($movies as $movie){

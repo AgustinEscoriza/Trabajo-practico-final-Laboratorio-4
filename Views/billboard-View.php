@@ -9,6 +9,22 @@
 <link rel="stylesheet" href="../Views/css/movies-list.css">
 <main class="py-5">
      <section id="listado" class="mb-5">
+     <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+      <h3 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;">Genero:</h3>
+      <form action="<?php echo FRONT_ROOT ?>Billboard/showFilteredListGenre" method="post">
+
+        <select name="genreSelector" id="genreSelector">
+          <option type="submit" name="genreSelector" value="0">Todos</option>
+            <?php foreach($genresList as $genre){   ?>       
+              <option type="submit" name="genreSelector" id="" value=<?php echo $genre->getId(); ?> href="<?php echo FRONT_ROOT ?>Movie/showFilteredListGenre<?php echo $genre->getId(); ?>)">
+                <?php echo $genre->getName(); ?> 
+              </option>
+            <?php } ?>
+        </select>
+          <button type="submit" name="button" class="btn btn-primary">Filter</button>
+      </form>
+    </div>
+
           <div class="container">
           <br>
             <?php foreach ($moviesList as $movie) { ?>

@@ -25,7 +25,7 @@
 
             $functionList = $this->functionDAO->getAll();
             $moviesList = $this->filterMovieList($this->functionDAO->getMovies());
-      
+            $genresList = $this->movieDAO->getGenreList();
             
             require_once(VIEWS_PATH . "billboard-View.php");
     
@@ -49,6 +49,18 @@
             $result= $this->movieDAO->getGenresByMovieId($idMovie); 
 
             return $result;
+        }
+        public function showFilteredListGenre($genreSelector){
+            
+            if ($genreSelector != "") {
+                $moviesList = $this->filterMovieList($this->functionDAO->getMoviesByGenre($genreSelector));
+                $functionList = $this->functionDAO->getAll();
+                require_once(VIEWS_PATH . "Billboard-View.php");
+            } else {
+                $this->showList();
+            }
+            //$this->setGenres($moviesList,$genresList);
+            require_once(VIEWS_PATH."billboard-View.php");             
         }
     }
 ?>
