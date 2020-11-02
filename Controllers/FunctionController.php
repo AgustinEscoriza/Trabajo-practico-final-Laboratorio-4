@@ -25,7 +25,7 @@
             $this->dateGlobal = new NewDT('today');
         }
 
-        public function showAddView ($cinemaId,$auditoriumId,$addMessage="")
+        public function showAddView ()
         {
             
     //        $moviesList = $this->movieDAO->getNowPlayingMovies();
@@ -41,6 +41,7 @@
 
             $moviesList = $this->movieDAO->getAll();
             $date = $this->dateGlobal;
+            $cinemaList= $this->CinemaDAO->getAll();
 
             require_once(VIEWS_PATH."function-add.php");
         }

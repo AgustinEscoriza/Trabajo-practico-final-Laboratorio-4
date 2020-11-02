@@ -1,5 +1,5 @@
 <?php
-    require_once('nav-auditorium.php');
+    require_once('nav.php');
     require_once('Config\Autoload.php');
     
 

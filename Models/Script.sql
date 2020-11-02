@@ -38,6 +38,7 @@ CREATE TABLE movies(
     posterPath varchar(50),
     releaseDate date,
     title varchar(100),
+    runtime int,
     constraint pkIdMovie primary key (idMovie)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 
@@ -47,16 +48,17 @@ CREATE TABLE genres(
     constraint pkIdGenre primary key (idGenre)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE functions(
-	idFunction int not null auto_increment,
+CREATE TABLE Functions(
+	idFunction int auto_increment not null,
+    idCinema int not null,
     idAuditorium int not null,
     idMovie int not null,
-    date date,
-    tickets int,
-    runtime time,
-    constraint pkIdFunction primary key (idFunction),
-    constraint fkFunctionIdAuditorium foreign key (idAuditorium) references auditoriums(idAuditorium),
-    constraint fkFunctionIdMovie foreign key (idMovie) references movies(idMovies)
+    functionDate date not null,
+    functionTime time not null,
+    constraint pkidFunction primary key (idFunction),
+    CONSTRAINT fkFunction_Cinemas foreign key (idCinema) REFERENCES cinemas(idCinema),
+    CONSTRAINT fkFunction_Auditorium foreign key (idAuditorium) REFERENCES auditoriums(idAuditorium),
+    CONSTRAINT fkFunction_Movie foreign key (idMovie) REFERENCES movies(idMovie)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE moviesXGenre(
@@ -66,15 +68,6 @@ CREATE TABLE moviesXGenre(
     constraint pkIdMoviesXGenre primary key (idMoviesXGenre),
     constraint fkIdMovieXGenreMovie foreign key (idMovie) references movies(idMovie),
     constraint fkIdMovieXGenreGenre foreign key (idGenre) references genres(idGenre)
-)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE moviesXCinema(
-	idMoviesXCinema int not null auto_increment,
-    idMovie int not null,
-    idCinema int not null,
-    constraint pkIdMoviesXCinema primary key (idMoviesXCinema),
-    constraint fkIdMoviesXCinema foreign key (idMovie) references movies(idMovie),
-    constraint fkIdMoviesXCinema foreign key (idCinema) references cinemas(idCinema)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE languages(
@@ -94,3 +87,21 @@ CREATE TABLE languagesXMovie(
     constraint fkLanguagesXMovieIdMovie foreign key (idMovie) references movies(idMovie),
     constraint fkLanguagesXMovieIdLanguage foreign key (idLanguage) references languages(idLanguage)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+
+INSERT INTO cinemas (name,adress) VALUES
+('Ambassador','Cordoba 1552'),
+('Cines del Paseo','Belgrano 2955'),
+('Aldrey','Las Heras 2551');
+
+INSERT INTO auditoriums (idCinema,name,capacity,ticketValue) VALUES
+('1','Sala Bolt','100','150'),
+('1','Sala Silio','209','180'),
+('2','Sala Kipchoge','159','210'),
+('2','Sala Borelli','110','195'),
+('3','Sala Casetta','92','170'),
+('3','Sala Luna','116','250');
+
+INSERT INTO Functions (idCinema,idAuditorium,idMovie,functionDate,functionTime) VALUES
+(1,2,337401,"2020-10-10","19:30"),
+(2,2,337401,"2020-10-11","19:30"),
+(2,2,505379,"2020-10-10","19:30");
