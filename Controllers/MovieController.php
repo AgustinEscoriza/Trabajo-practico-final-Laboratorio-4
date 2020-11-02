@@ -32,6 +32,7 @@
             $this->genreDAOmysql->apiToSql($genresList);
             $this->genreXMovieDAOmysql->matchMoviesWithGenre($moviesList);
 
+            require_once(VIEWS_PATH."movies-list.php");
         }
         public function showMoviesListView (){
 

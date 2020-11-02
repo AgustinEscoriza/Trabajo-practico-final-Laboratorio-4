@@ -26,6 +26,5 @@
 
             require_once(VIEWS_PATH."billboard-View.php");
         }
-
     }
 ?>

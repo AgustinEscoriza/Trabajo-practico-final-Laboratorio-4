@@ -14,7 +14,7 @@ class FunctionDAO implements IFunctionDAO
 {    
     private $functionsList = array ();
 
-    public function Add($newFunction){
+    public function Add($cinema, $auditoriumId, Functions $newFunction){
         $this->retrieveData();
         
         if (!$this->chekExistence($newFunction->getMovieId(),$newFunction->getDate())){
@@ -42,7 +42,7 @@ class FunctionDAO implements IFunctionDAO
                 }
             }
         }
-    return $flag;          
+        return $flag;          
     }
 
     public function getAll(){
@@ -94,11 +94,13 @@ class FunctionDAO implements IFunctionDAO
        }
 
 
-       public function saveData(){
+    public function saveData(){
         $arrayToEncode = array();
 
         foreach ($this->functionsList as $function) {
-            $valueArray['id'] = $function->getId();
+            echo 'DAO ID: '.$function->getId().'<br>';
+            echo 'DAO AUDITORIUM: '.$function->getAuditoriumId().'<br>';
+            //$valueArray['id'] = $function->getId();
             $valueArray['auditoriumId'] = $function->getAuditoriumId();
             $valueArray['date'] = $function->getDate();
             $valueArray['time'] = $function->getTime();
