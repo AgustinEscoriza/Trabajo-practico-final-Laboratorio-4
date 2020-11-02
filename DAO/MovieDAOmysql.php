@@ -6,7 +6,6 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Movie as Movie;
-    use Models\Genre as Genre;
 
     class MovieDAOmysql {
         private $connection;
@@ -35,7 +34,7 @@
 
                     $this->connection = Connection::GetInstance();
 
-                    $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
+                    $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
                 }
             }
             catch(\PDOException $ex){
@@ -49,7 +48,7 @@
     
                 $this->connection = Connection::GetInstance();
                 
-                $result = $this->connection->Execute($query,array(),QueryType::Query);
+                $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
     
     
             }
@@ -72,7 +71,7 @@
     
                 $this->connection = Connection::GetInstance();
                 
-                $result = $this->connection->Execute($query,array(),QueryType::Query);
+                $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
     
                 
     
@@ -82,7 +81,7 @@
             }
     
             if(!empty($result)){
-                return $this->mapear($result)[0];
+                return $this->mapear($result);
             }
             else{
                 return false;
@@ -96,7 +95,7 @@
     
             return $this->moviesList;
         }
-
+    
         function moviesToObject($moviesInJSON)
         {
             $this->moviesList = array();
@@ -123,55 +122,6 @@
             }
         }
 
-        public function getGenresByMovieId($idMovie)
-        {
-                try {
-                    $query = "SELECT genres.idGenre, genres.name FROM moviesXgenre as mxg JOIN genres ON genres.idGenre = mxg.idGenre WHERE mxg.idMovie =$idMovie";
-                    $this->connection = Connection::GetInstance();
-                    $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
-                    $genresList = array();
-
-                    foreach ($resultSet as $row) {
-                        $genre = new Genre();
-
-                        $genre->setId($row["idGenre"]);
-                        $genre->setName($row["name"]);
-
-                        array_push($genresList, $genre);
-                    }
-
-                    return $genresList;
-                } catch (Exception $ex) {
-                    throw $ex;
-                }
-            }
-
-        public function getGenreList()
-        {
-            try {
-                $genreList = array();
-
-                $query = "SELECT * FROM genres";
-
-                $this->connection = Connection::GetInstance();
-
-                $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
-
-                foreach ($resultSet as $row) {
-                    $genre = new Genre();
-
-                    $genre->setId($row["idGenre"]);
-                    $genre->setName($row["name"]);
-
-                    array_push($genreList, $genre);
-                }
-
-                return $genreList;
-            } catch (Exception $ex) {
-                throw $ex;
-            }
-        }
-
         function getMovie($id){
             $resp = file_get_contents(API_ROOT.MOVIE_PATH.$id.API_KEY);
             
@@ -189,13 +139,12 @@
                 $a->setOverview($p["overview"]);        
                 $a->setPosterPath($p["posterPath"]);   
                 $a->setReleaseDate($p["releaseDate"]);   
-                $a->setRuntime($p["runtime"]);   
+                $a->setReleaseDate($p["runtime"]);   
 
                 return $a;
             }, $value);   // $value es cada array q quiero convertir a objeto
             return $resp;
         }
     }
-
 
 ?>

@@ -5,13 +5,14 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Functions as Functions;
-    use Models\Movie as Movie;
     use DAO\MovieDAOmysql as MovieDAO;
+    
 
-    class FunctionDAOMySQL {
+    class FunctionDAOMySQL implements IFunctionDAO{
         private $movieDAO;
         private $connection;
-        private $tableName = "functions";
+        private $tableName = "Functions";
+        private $billboardController;
 
     public function __construct(){
         $this->movieDAO = new MovieDAO();
@@ -37,8 +38,8 @@
             }
             else
             {
-                echo  "<script> alert ('La Funcion que intenta agregar no ha podido ser ingresada.'); </script>)";
-                require_once(VIEWS_PATH."cinema-list.php");
+                echo  "<script> alert ('La Funcion que intenta agregar Ya  sera reproducida en otro cine'); </script>)";
+                require_once(VIEWS_PATH."movies-list.php");
             }
         }
         catch(\PDOException $ex){
@@ -47,37 +48,7 @@
         
     }
 
-    public function getMovies()
-    {
-        try {
-            $movieList = array();
 
-            $query = "SELECT movies.idMovie, movies.title, movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview, movies.runtime FROM movies join functions on functions.idMovie = movies.idMovie";
-            $resultSet = $this->connection->execute($query,array(),QueryType::Query);
-
-            if (!empty($resultSet)) {
-                foreach ($resultSet as $p) {
-                    $a = new Movie();
-                    $a->setId($p["idMovie"]);       
-                    $a->setTitle($p["title"]);               
-                    $a->setOriginalLanguage($p["originalLanguage"]); 
-                    $a->setOverview($p["overview"]);        
-                    $a->setPosterPath($p["posterPath"]);   
-                    $a->setReleaseDate($p["releaseDate"]);   
-                    $a->setRuntime($p["runtime"]);  
-
-                    array_push($movieList, $a);
-                }
-            }
-
-            return $movieList;
-        } catch (\PDOException $ex) {
-            throw $ex;
-        }
-    }
-
-
-    
     public function chekExistence ($movieId,$date)
     {
         $flag = false;
@@ -111,32 +82,6 @@
             return false;
         }        
                  
-    }
-    public function getMoviesByGenre($genreId)
-    {
-        try {
-            $query = "SELECT movies.idMovie, movies.title,movies.runtime , movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview FROM movies JOIN moviesxgenre ON movies.idMovie = moviesxgenre.idmovie JOIN functions ON functions.idMovie = movies.idMovie WHERE moviesxgenre.idGenre =$genreId";
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
-            $moviesList = array();
-            foreach ($resultSet as $p) {
-                $a = new Movie();
-                $a->setId($p["idMovie"]);       
-                $a->setTitle($p["title"]);               
-                $a->setOriginalLanguage($p["originalLanguage"]); 
-                $a->setOverview($p["overview"]);        
-                $a->setPosterPath($p["posterPath"]);   
-                $a->setReleaseDate($p["releaseDate"]);   
-                $a->setRuntime($p["runtime"]);  
-
-
-                array_push($moviesList, $a);
-            }
-
-            return $moviesList;
-        } catch (Exception $ex) {
-            throw $ex;
-        }
     }
 
     public function MoviesInBilboard($functionsList){
@@ -252,7 +197,7 @@
             $functions = new Functions();
             $functions->setDate($p['functionDate']);
             $functions->setTime($p['functionTime']);
-            $functions->setMovie($this->movieDAO->getByMovieId($p['idMovie']));
+            $functions->setMovieId($p['idMovie']);
             return $functions;
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;

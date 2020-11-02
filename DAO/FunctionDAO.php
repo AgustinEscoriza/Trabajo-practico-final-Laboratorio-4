@@ -23,7 +23,7 @@ class FunctionDAO implements IFunctionDAO
             $this->saveData();
 
         }else{
-            echo  "<script> alert ('La Funcion que intenta agregar no ha podido ser ingresada.'); </script>)";
+            echo  "<script> alert ('La Funcion que intenta agregar LA CONCHA DE TU MADRE ALL BOYS.'); </script>)";
             require_once(VIEWS_PATH."cinema-list.php");
         }
        }

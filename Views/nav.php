@@ -2,12 +2,6 @@
      
      <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>BillBoard/showList">Show Billboard</a>
-          </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Function/showAddView">Add MovieShow</a>
-          </li>
-          <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Movie/cargarDatabaseMoviesGenre">Update DB</a>
           </li>
           <li class="nav-item">

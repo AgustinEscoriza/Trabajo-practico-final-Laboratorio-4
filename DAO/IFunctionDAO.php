@@ -1,6 +1,6 @@
 <?php
 namespace DAO;
-
+use Models\Functions as Functions;
 
 interface IFunctionDAO
 {    
@@ -11,5 +11,6 @@ interface IFunctionDAO
     public function getAuditorium($id);
     public function delete($id);
     public function retrieveData();
+
 }
 ?>
