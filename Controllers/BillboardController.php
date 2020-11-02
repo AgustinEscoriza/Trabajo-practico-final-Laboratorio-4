@@ -21,10 +21,26 @@
         }
 
 
-        public function showListView(){
-            $moviesList = $this->functionDAO->getAll();
+        public function showList(){
 
-            require_once(VIEWS_PATH."billboard-View.php");
+            $functionList = $this->functionDAO->getAll();
+            $moviesList = $this->filterMovieList($this->functionDAO->getMovies());
+      
+            
+            require_once(VIEWS_PATH . "billboard-View.php");
+    
+        }
+
+        private function filterMovieList($moviesList){
+            $result = array();
+
+            foreach($moviesList as $value){
+                if(!in_array($value,$result)){
+                    array_push($result,$value);
+                }
+            }
+    
+            return $result;
         }
     }
 ?>

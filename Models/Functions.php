@@ -32,6 +32,14 @@
             $this->tickets = $tickets;
         }
 
+
+        public function getRuntime(){
+            return $this->runtime;
+        }
+        public function setRuntime ($runtime){
+            $this->runtime = $runtime;
+        }
+
         public function getAuditorium(){
             return $this->auditorium;
         }

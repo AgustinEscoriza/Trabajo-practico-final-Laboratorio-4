@@ -5,12 +5,13 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Functions as Functions;
+    use Models\Movie as Movie;
     use DAO\MovieDAOmysql as MovieDAO;
 
-    class FunctionDAOMySQL implements IFunctionDAO{
+    class FunctionDAOMySQL {
         private $movieDAO;
         private $connection;
-        private $tableName = "Functions";
+        private $tableName = "functions";
 
     public function __construct(){
         $this->movieDAO = new MovieDAO();
@@ -46,7 +47,38 @@
         
     }
 
+    public function getMovies()
+    {
+        try {
+            $movieList = array();
 
+            $query = "SELECT movies.idMovie, movies.title, movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview FROM movies join functions on functions.idMovie = movies.idMovie";
+            $resultSet = $this->connection->execute($query,array(),QueryType::Query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movie = new Movie();
+                    $a->setId($p["idMovie"]);       
+                    $a->setTitle($p["title"]);               
+                    $a->setOriginalLanguage($p["originalLanguage"]); 
+                    $a->setOverview($p["overview"]);        
+                    $a->setPosterPath($p["posterPath"]);   
+                    $a->setReleaseDate($p["releaseDate"]);   
+                    $a->setReleaseDate($p["runtime"]);  
+
+                    array_push($movieList, $movie);
+                }
+            }
+
+            return $movieList;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+
+
+    
     public function chekExistence ($movieId,$date)
     {
         $flag = false;
