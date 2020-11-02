@@ -42,5 +42,13 @@
     
             return $result;
         }
+
+        public function getGenresByMovieId($idMovie){
+
+
+            $result= $this->movieDAO->getGenresByMovieId($idMovie); 
+
+            return $result;
+        }
     }
 ?>

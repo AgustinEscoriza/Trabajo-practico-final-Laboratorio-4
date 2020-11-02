@@ -6,6 +6,7 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Movie as Movie;
+    use Models\Genre as Genre;
 
     class MovieDAOmysql {
         private $connection;
@@ -81,7 +82,7 @@
             }
     
             if(!empty($result)){
-                return $this->mapear($result);
+                return $this->mapear($result)[0];
             }
             else{
                 return false;
@@ -121,6 +122,29 @@
                 array_push($this->moviesList,$newMovie);
             }
         }
+
+        public function getGenresByMovieId($idMovie)
+        {
+                try {
+                    $query = "SELECT genres.idGenre, genres.name FROM moviesXgenre as mxg JOIN genres ON genres.idGenre = mxg.idGenre WHERE mxg.idMovie =$idMovie";
+                    $this->connection = Connection::GetInstance();
+                    $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
+                    $genresList = array();
+
+                    foreach ($resultSet as $row) {
+                        $genre = new Genre();
+
+                        $genre->setId($row["idGenre"]);
+                        $genre->setName($row["name"]);
+
+                        array_push($genresList, $genre);
+                    }
+
+                    return $genresList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+            }
 
         function getMovie($id){
             $resp = file_get_contents(API_ROOT.MOVIE_PATH.$id.API_KEY);

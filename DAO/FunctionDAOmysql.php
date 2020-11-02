@@ -52,22 +52,21 @@
         try {
             $movieList = array();
 
-            $query = "SELECT movies.idMovie, movies.title, movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview FROM movies join functions on functions.idMovie = movies.idMovie";
+            $query = "SELECT movies.idMovie, movies.title, movies.posterPath, movies.releaseDate, movies.originalLanguage, movies.overview, movies.runtime FROM movies join functions on functions.idMovie = movies.idMovie";
             $resultSet = $this->connection->execute($query,array(),QueryType::Query);
 
             if (!empty($resultSet)) {
-                foreach ($resultSet as $row) {
-
-                    $movie = new Movie();
+                foreach ($resultSet as $p) {
+                    $a = new Movie();
                     $a->setId($p["idMovie"]);       
                     $a->setTitle($p["title"]);               
                     $a->setOriginalLanguage($p["originalLanguage"]); 
                     $a->setOverview($p["overview"]);        
                     $a->setPosterPath($p["posterPath"]);   
                     $a->setReleaseDate($p["releaseDate"]);   
-                    $a->setReleaseDate($p["runtime"]);  
+                    $a->setRuntime($p["runtime"]);  
 
-                    array_push($movieList, $movie);
+                    array_push($movieList, $a);
                 }
             }
 
@@ -227,6 +226,7 @@
             $functions = new Functions();
             $functions->setDate($p['functionDate']);
             $functions->setTime($p['functionTime']);
+            $functions->setMovie($this->movieDAO->getByMovieId($p['idMovie']));
             return $functions;
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
