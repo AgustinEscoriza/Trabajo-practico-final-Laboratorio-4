@@ -7,7 +7,6 @@
     class Functions{
 
         private $id;
-        private $auditoriumId;
         private $date;
         private $time;
         private $movieId;
@@ -21,13 +20,6 @@
             return $this->id;
         }
         public function setId ($id){
-            $this->id = $id;
-        }
-
-        public function getAuditoriumId(){
-            return $this->id;
-        }
-        public function setAuditoriumId ($id){
             $this->id = $id;
         }
         

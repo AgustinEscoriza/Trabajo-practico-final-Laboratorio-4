@@ -3,8 +3,9 @@
 
     use DAO\BillboardDAO as BillboardDAO;
     use DAO\AuditoriumDAO as AuditoriumDAO;
+    use DAO\FunctionDAOMySQL as FunctionDAO;
     use Models\Billboard as Billboard;
-    use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieDAOmysql as MovieDAO;
 
     class BillboardController{
 
@@ -15,53 +16,30 @@
 
             $this->billboardDAO = new BillboardDAO();
             $this->auditoriumDAO = new AuditoriumDAO();
+            $this->functionDAO = new FunctionDAO();
             $this->movieDAO = new MovieDAO();
         }
 
 
         public function ShowBillboard ($cinemaId){
             $cinemaId=$cinemaId;
-            $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
-            $moviesList = $this->movieDAO->getNowPlayingMovies();;
-            $functionsList = $this->billboardDAO->getAll();
+
+            $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId);
+            $moviesList = $this->MoviesInBilboard($functionsList);
+            
     
             require_once(VIEWS_PATH."billboard-View.php");
             
         }
-        public function showModifyView(){
-            
-            require_once(VIEWS_PATH."cine-modify.php");
+
+        public function MoviesInBilboard($functionsList){
+            $resp = array();
+            foreach($functionsList as $function)
+            {
+                array_push($resp,$this->movieDAO->getByMovieId($function->getMovieId())[0]);
+            }            
+    
+            return $resp;           
         }
-
-        public function showLoginView(){
-
-            session_destroy();
-            require_once(VIEWS_PATH."user-login.php");
-        }
-
-        public function Add($name, $adress)
-        {
-            $cine = new Cine();
-            $cine->setName($name);
-            $cine->setAdress($adress);
-
-            $this->showAddView($this->cineDAO->Add($cine));;
-        }
-
-        public function Remove($cineId)
-        {
-            $this->cineDAO->delete($cineId);
-
-            $this->showListView();
-        }
-
-        public function Modify($cineId)
-        {
-            $cine = $this->cineDAO->getCinema($cineId);
-            $this->cineDAO->delete($cineId);
-            require_once(VIEWS_PATH."cine-modify.php");
-
-        }
-
     }
 ?>

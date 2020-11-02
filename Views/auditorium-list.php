@@ -28,12 +28,15 @@
                                              <td><?php echo $auditorium->getName() ?></td>
                                              <td><?php echo $auditorium->getCapacity() ?></td>
                                              <td><?php echo $auditorium->getTicketValue() ?></td>
-                                             <td><button type="submit" name="remove" class="btn btn-danger" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>auditorium/Remove')"> Remove </button> 
-                                             <button type="submit" name="modify" class="btn btn-dark ml-auto d-block" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>auditorium/Modify')"> Modify </button>
-                                             <form method="post" id="columnarForm">
-                                             <button type="submit" name="cinemaId" class="btn btn-success" value="<?php echo $cinemaId ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Function/showAddView')"> Add Function</button>
-                                             <input type="hidden" name="auditoriumId" value="<?php echo $auditorium->getId(); ?>" class="form-control">
-                                             </form>
+                                             <td style="display:flex">
+                                                  <form method="post" id="columnarForm">
+                                                       <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/Remove')"> Remove </button> 
+                                                       
+                                                       <button type="submit" name="modify" class="btn btn-dark" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/Modify')"> Modify </button>                    
+                                                       
+                                                       <button type="submit" name="Add" class="btn btn-success" value="<?php echo $cinemaId ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Function/showAddView')"> Add Function</button>
+                                                       <input type="hidden" name="auditoriumId" value="<?php echo $auditorium->getId(); ?>" class="form-control">
+                                                  </form>
                                              </td> 
                                         </tr>
                                    <?php

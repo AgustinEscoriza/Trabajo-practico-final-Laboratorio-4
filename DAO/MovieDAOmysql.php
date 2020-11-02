@@ -20,7 +20,8 @@
             try{
                 foreach($movieList as $movie){
                     
-                    $query = "INSERT INTO movies (idMovie,originalTitle,originalLanguage,overview,posterPath,releaseDate,title) VALUES ( :idMovie, :originalTitle, :originalLanguage, :overview, :posterPath, :releaseDate, :title)";
+                    $query = "INSERT INTO movies (idMovie,originalTitle,originalLanguage,overview,posterPath,releaseDate,runtime,title) VALUES 
+                                                ( :idMovie, :originalTitle, :originalLanguage, :overview, :posterPath, :releaseDate, :runtime, :title)";
 
                     $parameters["idMovie"] =            $movie->getId();
                     $parameters["title"] =              $movie->getTitle();
@@ -29,6 +30,7 @@
                     $parameters["overview"] =           $movie->getOverview();
                     $parameters["posterPath"] =         $movie->getPosterPath();
                     $parameters["releaseDate"] =        $movie->getReleaseDate();
+                    $parameters["runtime"] =            $movie->getRuntime();
 
                     $this->connection = Connection::GetInstance();
 
@@ -64,7 +66,8 @@
 
         public function getByMovieId($id){
             try{
-                $query = "SELECT * FROM cinemas WHERE idMovie = $id";
+                $query = "SELECT * FROM ".$this->tableName. " WHERE ".$this->tableName.".idMovie ='$id'";
+
     
                 $this->connection = Connection::GetInstance();
                 
@@ -84,6 +87,47 @@
                 return false;
             }
         }
+
+        function getNowPlayingMovies(){
+            $resp = file_get_contents(API_ROOT.MOVIE_PATH.MOVIE_NOW_PLAYING.API_KEY);
+    
+            $this->moviesToObject($resp);
+    
+            return $this->moviesList;
+        }
+
+        function moviesToObject($moviesInJSON)
+        {
+            $this->moviesList = array();
+    
+            $movies = json_decode($moviesInJSON, true);
+    
+            foreach($movies["results"] as $movie)
+            {
+                $newMovie = new Movie();
+                $newMovie->setTitle($movie["title"]);
+                $newMovie->setId($movie["id"]);
+                foreach($movie["genre_ids"] as $genre)
+                {
+                    $newMovie->setGenre($genre);
+                }
+                $newMovie->setPosterPath($movie["poster_path"]);
+                $newMovie->setOverview($movie["overview"]);
+                $newMovie->setOriginalTitle($movie["original_title"]);
+                $newMovie->setReleaseDate($movie["release_date"]);
+                $newMovie->setOriginalLanguage($movie["original_language"]);
+                $resp = $this-> getMovie($movie["id"]);
+                $newMovie->setRuntime($resp["runtime"]);
+                array_push($this->moviesList,$newMovie);
+            }
+        }
+
+        function getMovie($id){
+            $resp = file_get_contents(API_ROOT.MOVIE_PATH.$id.API_KEY);
+            
+        return json_decode($resp, true);
+        }
+
         protected function mapear($value) {
             $value = is_array($value) ? $value : [];
             $resp = array_map(function($p){
@@ -95,6 +139,7 @@
                 $a->setOverview($p["overview"]);        
                 $a->setPosterPath($p["posterPath"]);   
                 $a->setReleaseDate($p["releaseDate"]);   
+                $a->setReleaseDate($p["runtime"]);   
 
                 return $a;
             }, $value);   // $value es cada array q quiero convertir a objeto

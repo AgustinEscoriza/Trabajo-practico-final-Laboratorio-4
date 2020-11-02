@@ -60,6 +60,8 @@ class MovieDAO
             $newMovie->setOriginalTitle($movie["original_title"]);
             $newMovie->setReleaseDate($movie["release_date"]);
             $newMovie->setOriginalLanguage($movie["original_language"]);
+            $resp = $this-> getMovie($movie["id"]);
+            $newMovie->setRuntime($resp["runtime"]);
             array_push($this->moviesList,$newMovie);
         }
     }

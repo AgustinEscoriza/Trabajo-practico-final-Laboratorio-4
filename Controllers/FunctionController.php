@@ -4,9 +4,9 @@
     use DAO\MovieDAO as MovieDAO;
     use \DateTime as NewDT;
     use DAO\CinemaDAOmysql as CinemaDAO;
-    use DAO\FunctionDAO as FunctionDAO;
+    use DAO\FunctionDAOMySQL as FunctionDAO;
     use DAO\BillboardDAO as BillboardDAO;
-    use DAO\AuditoriumDAO as AuditoriumDAO;
+    use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use Models\Cine as Cine;
     use Models\Functions as Functions;
     use Models\Movie as Movie;
@@ -41,33 +41,25 @@
             else
             {
                 $auditoriumsList = $this->auditoriumDAO->getAuditorium($auditoriumId);
+                foreach($auditoriumsList as $result)
+                {
+                    $auditorium = $result;
+                }
             }
             $date = $this->dateGlobal;
+
             require_once(VIEWS_PATH."function-add.php");
         }
 
         public function Add($cinemaId, $auditoriumId, $movieId, $date, $time)
-        {
-            //tengo que guardarlo en el archivo, agregarlo a la cartelera, antes de guardar la funcion checkear que no este en otro cine, 
-            //y la duracion de la funcion anterior
+        {            
             $newFunction = new Functions();
-            $newFunction->setAuditoriumId($auditoriumId);
             $newFunction->setDate($date);
             $newFunction->setTime($time);
             $newFunction->setMovieId($movieId); 
 
-            $this->functionDAO->Add($newFunction);
-            //$this->CinemaDAO->AddFunctionToBillboard($cinemaId, $newFunction);
+            $this->functionDAO->Add($cinemaId, $auditoriumId, $newFunction);
             $this->showAddView(0,$auditoriumId);
-        }
-
-        public function showMoviesListView (){
-            $moviesList = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->movieDAO->getGenres();
-            
-           // $this->setGenres($moviesList,$genresList);
-
-            require_once(VIEWS_PATH."movies-list.php");
         }
     }
 ?>
