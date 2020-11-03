@@ -24,7 +24,7 @@
         public function cargarDatabaseMoviesGenre (){
 
             $moviesList = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->genreXMovieDAOmysql->getGenres();
+            $genresList = $this->genreDAOmysql->getGenres();
 
             $this->movieDAO->apiToSql($moviesList);
             $this->genreDAOmysql->apiToSql($genresList);
@@ -58,7 +58,7 @@
         public function filter($genreSelector){
             
             $movies = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->movieDAO->getGenres();
+            $genresList = $this->genreDAOmysql->getGenres();
             if($genreSelector!=0){                
                 $moviesList = array();
                 foreach($movies as $movie){
