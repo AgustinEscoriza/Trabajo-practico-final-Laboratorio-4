@@ -33,6 +33,29 @@
                 throw $ex;
             }
         }
+
+        public function getAll(){
+            try{
+                $query = "SELECT * FROM ".$this->tableName;
+    
+                $this->connection = Connection::GetInstance();
+                
+                $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+    
+    
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+    
+            if(!empty($result)){
+                return $this->mapear($result);
+            }
+            else{
+                return false;
+            }
+        }
+        
     protected function mapear($value) {
         $value = is_array($value) ? $value : [];
         $resp = array_map(function($p){

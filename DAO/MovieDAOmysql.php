@@ -6,6 +6,7 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Movie as Movie;
+    use Models\Genre as Genre;
 
     class MovieDAOmysql {
         private $connection;
@@ -126,6 +127,31 @@
             $resp = file_get_contents(API_ROOT.MOVIE_PATH.$id.API_KEY);
             
         return json_decode($resp, true);
+        }
+
+        function getGenres(){
+            $resp = file_get_contents(LIST_ROOT.API_KEY);
+    
+            $this->genresToObject($resp);
+    
+            return $this->genresList;
+        }
+    
+        function genresToObject($genresInJSON)
+        {
+            $this->genresList = array();
+    
+            $genres = json_decode($genresInJSON, true);
+    
+            foreach($genres["genres"] as $genre)
+            {
+                $newGenre = new Genre();
+                $newGenre->setId($genre["id"]);
+                $newGenre->setName($genre["name"]);
+                
+    
+                array_push($this->genresList,$newGenre);
+            }
         }
 
         protected function mapear($value) {

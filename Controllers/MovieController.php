@@ -2,7 +2,6 @@
     namespace Controllers;
 
     use DAO\MovieDAOmysql as MovieDAO;
-    use DAO\MovieDAOmysql as MovieDAOmysql;
     use DAO\GenreDAOmysql as GenreDAOmysql;
     use DAO\GenreXMovieDAOmysql as GenreXMovieDAOmysql;
     use Models\Cinema as Cinema;
@@ -18,7 +17,6 @@
         public function __construct(){
 
             $this->movieDAO = new MovieDAO();
-            $this->movieDAOmysql = new MovieDAOmysql();
             $this->genreDAOmysql = new GenreDAOmysql();
             $this->genreXMovieDAOmysql = new GenreXMovieDAOmysql();
         }
@@ -28,7 +26,7 @@
             $moviesList = $this->movieDAO->getNowPlayingMovies();
             $genresList = $this->movieDAO->getGenres();
 
-            $this->movieDAOmysql->apiToSql($moviesList);
+            $this->movieDAO->apiToSql($moviesList);
             $this->genreDAOmysql->apiToSql($genresList);
             $this->genreXMovieDAOmysql->matchMoviesWithGenre($moviesList);
 
@@ -36,10 +34,11 @@
         }
         public function showMoviesListView (){
 
-            $moviesList = $this->movieDAOmysql->getAll();
+            $moviesList = $this->movieDAO->getAll();
 
             require_once(VIEWS_PATH."movies-list.php");
         }
+
         public function setGenres($movies,$genres){
             foreach($movies as $movie)
             {
