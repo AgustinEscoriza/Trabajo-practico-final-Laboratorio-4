@@ -4,8 +4,8 @@
                         
 <main class="py-5">
     <section id="listado" class="mb-5">
-        <div class="container">            
-            <h2 class="mb-4">Generate New Function</h2>                
+        <div class="container" style="text-align:center;">            
+            <h2 class="mb-4" style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;">Generate New Function</h2>                
             <form action="<?php echo FRONT_ROOT ?>Function/Add" method="post" class="add-form bg-light-alpha p-5">
                                                                                                          
                 <div>
@@ -53,14 +53,14 @@
                         <div class="col-lg-4" style="display:flex;">
                             <div class="form-group">
                                 <label for="">Date</label>
-                                <input style="width:150px" name="date"  class="form-control" type="date" id="date" value="<?php echo $date->format('Y-m-d') ?>" min=<?php echo $date->format('Y-m-d') ?> required>
+                                <input style="width:175px" name="date"  class="form-control" type="date" id="date" value="<?php echo $date->format('Y-m-d') ?>" min=<?php echo $date->format('Y-m-d') ?> required>
                             </div>
                             <div class="col-lg-4">
-                            <div class="form-group">
-                                <label for="">Time</label>
-                                <input style="width:150px" name="time"  class="form-control" type="time" id="time" value="" required>
-                            </div>
-                        </div>          
+                                <div class="form-group">
+                                    <label for="">Time</label>
+                                    <input style="width:175px" name="time"  class="form-control" type="time" id="time" value="" required>
+                                </div>
+                            </div>          
                         </div>              
                     </div>                                                                
                 <div class ="row">

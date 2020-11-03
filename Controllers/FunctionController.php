@@ -1,9 +1,10 @@
 <?php
     namespace Controllers;
 
-    use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieDAOmysql as MovieDAO;
     use \DateTime as NewDT;
     use DAO\CinemaDAOmysql as CinemaDAO;
+    use Controllers\BillboardController as BillboardController;
     use DAO\FunctionDAOMySQL as FunctionDAO;
     use DAO\BillboardDAO as BillboardDAO;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
@@ -19,6 +20,7 @@
 
         private $movieDAO;
         private $dateGlobal;
+        private $billboardController;
         public function __construct(){
 
             $this->movieDAO = new MovieDAO();
@@ -27,12 +29,12 @@
             $this->functionDAO = new FunctionDAO();
             $this->billboardDAO = new BillboardDAO();
             $this->dateGlobal = new NewDT('today');
+            $this->billboardController = new BillboardController();
         }
 
         public function showAddView ($cinemaId,$auditoriumId,$addMessage="")
-        {
-            
-            $moviesList = $this->movieDAO->getNowPlayingMovies();
+        {            
+            $moviesList = $this->movieDAO->getAll();
             $cinemaList = $this->CinemaDAO->getAll();
             if($auditoriumId == 0)
             {
@@ -58,9 +60,16 @@
             $newFunction->setTime($time);
             $newFunction->setMovieId($movieId); 
 
-            $this->functionDAO->Add($cinemaId, $auditoriumId, $newFunction);
-            echo  "<script> alert ('La Funcion se agrego con Exito'); </script>)";
-            $this->showAddView(0,$auditoriumId);
+            if($this->functionDAO->Add($cinemaId, $auditoriumId, $newFunction))
+            {
+                echo  "<script> alert ('La Funcion se agrego con Exito'); </script>";
+                $this->showAddView(0,$auditoriumId);
+            }
+            else
+            {
+                echo  "<script> alert ('La Funcion que intenta agregar Ya  sera reproducida en otro cine'); </script>";
+                $this->billboardController->ShowBillboard($cinemaId);
+            }            
         }
     }
 ?>

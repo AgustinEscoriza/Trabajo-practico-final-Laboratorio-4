@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-    use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieDAOmysql as MovieDAO;
     use DAO\MovieDAOmysql as MovieDAOmysql;
     use DAO\GenreDAOmysql as GenreDAOmysql;
     use DAO\GenreXMovieDAOmysql as GenreXMovieDAOmysql;
@@ -63,7 +63,7 @@
             if($genreSelector!=0){                
                 $moviesList = array();
                 foreach($movies as $movie){
-                    foreach($movie->getGenreId() as $gen){                        
+                    foreach($movie->getGenre() as $gen){                        
                         if($gen==$genreSelector){
                             array_push($moviesList,$movie);                       
                         }
