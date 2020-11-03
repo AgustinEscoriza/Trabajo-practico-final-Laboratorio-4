@@ -24,7 +24,7 @@
         public function cargarDatabaseMoviesGenre (){
 
             $moviesList = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->movieDAO->getGenres();
+            $genresList = $this->genreXMovieDAOmysql->getGenres();
 
             $this->movieDAO->apiToSql($moviesList);
             $this->genreDAOmysql->apiToSql($genresList);

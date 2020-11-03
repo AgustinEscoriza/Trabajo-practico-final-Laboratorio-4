@@ -129,30 +129,7 @@
         return json_decode($resp, true);
         }
 
-        function getGenres(){
-            $resp = file_get_contents(LIST_ROOT.API_KEY);
-    
-            $this->genresToObject($resp);
-    
-            return $this->genresList;
-        }
-    
-        function genresToObject($genresInJSON)
-        {
-            $this->genresList = array();
-    
-            $genres = json_decode($genresInJSON, true);
-    
-            foreach($genres["genres"] as $genre)
-            {
-                $newGenre = new Genre();
-                $newGenre->setId($genre["id"]);
-                $newGenre->setName($genre["name"]);
-                
-    
-                array_push($this->genresList,$newGenre);
-            }
-        }
+        
 
         protected function mapear($value) {
             $value = is_array($value) ? $value : [];
