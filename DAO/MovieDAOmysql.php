@@ -89,6 +89,27 @@
             }
         }
 
+        public function getGenresByMovieId($movieId)
+        {
+            try {
+                $query = "SELECT genres.idGenre, genres.name FROM moviesxgenre JOIN genres ON genres.idGenre = moviesxgenre.idGenre WHERE moviesXgenre.idMovie =$movieId";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
+                $genresList = array();
+                foreach ($resultSet as $row) {
+
+                    $genre = new Genre();
+                    $genre->setId($row["idGenre"]);
+                    $genre->setName($row["name"]);
+
+                    array_push($genresList, $genre);
+                }
+
+                return $genresList;
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+        }
         function getNowPlayingMovies(){
             $resp = file_get_contents(API_ROOT.MOVIE_PATH.MOVIE_NOW_PLAYING.API_KEY);
     

@@ -2,7 +2,7 @@
 
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
-define("FRONT_ROOT", "/Trabajo-practico-final-Laboratorio-4/");
+define("FRONT_ROOT", "/Trabajopracticofinal/");
 define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
@@ -17,7 +17,7 @@ define("LIST_ROOT", "https://api.themoviedb.org/3/genre/movie/list");
 define("DB_HOST", "localhost");
 define("DB_NAME", "moviePass");
 define("DB_USER", "root");
-define("DB_PASS", "localhost");
+define("DB_PASS", "");
 ?>
 
 

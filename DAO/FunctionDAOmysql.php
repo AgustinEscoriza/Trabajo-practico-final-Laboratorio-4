@@ -5,6 +5,7 @@
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Functions as Functions;
+    use Models\Movie as Movie;
     use DAO\MovieDAOmysql as MovieDAO;
     use \DateTime as NewDT;
     
@@ -214,7 +215,36 @@
             return false;
         }
     }
+    public function getMovies()
+    {
+        try {
+            $movieList = array();
 
+            $query = "SELECT distinct(movies.idMovie), movies.originalTitle, movies.originalLanguage, movies.posterPath, movies.releaseDate, movies.runtime, movies.title, movies.overview FROM movies join functions on functions.idMovie = movies.idMovie";
+            $resultSet = $this->connection->execute($query,array(),QueryType::Query);
+
+            if (!empty($resultSet)) {
+                foreach ($resultSet as $row) {
+
+                    $movie = new Movie();
+                    $movie->setId($row["idMovie"]);
+                    $movie->setTitle($row["title"]);
+                    $movie->setPosterPath($row["posterPath"]);
+                    $movie->setReleaseDate($row["releaseDate"]);
+                    $movie->setOriginalLanguage($row["originalLanguage"]);
+                    $movie->setOriginalTitle($row["originalTitle"]);
+                    $movie->setOverview($row["overview"]);
+                    $movie->setRuntime($row["runtime"]);
+
+                    array_push($movieList, $movie);
+                }
+            }
+
+            return $movieList;
+        } catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
     public function getCinema($id){
 
         try{

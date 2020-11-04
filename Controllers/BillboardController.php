@@ -25,14 +25,33 @@
             $cinemaId=$cinemaId;
 
             $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,0);
-            $moviesList = $this->MoviesInBilboard($functionsList);
-            
+            $moviesList = $this->MoviesInBillboard($functionsList);
+
+            foreach($moviesList as $movie){
+                $genreList= $this->movieDAO->getGenresByMovieId($movie->getId());
+                foreach($genreList as $genre){
+                    $movie->setGenre($genre);
+                }
+            }   
     
             require_once(VIEWS_PATH."billboard-View.php");
             
         }
 
-        public function MoviesInBilboard($functionsList){
+        public function showFullList(){
+            $moviesList = $this->functionDAO->getMovies();
+
+            foreach($moviesList as $movie){
+                $genreList= $this->movieDAO->getGenresByMovieId($movie->getId());
+                foreach($genreList as $genre){
+                    $movie->setGenre($genre);
+                }
+            }   
+    
+            require_once(VIEWS_PATH."fullBillboard-View.php");
+        }
+
+        public function MoviesInBillboard($functionsList){
             $resp = array();
             foreach($functionsList as $function)
             {

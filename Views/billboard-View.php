@@ -1,10 +1,7 @@
 <?php
-    require_once('nav-auditorium.php');
+    require_once('nav-billboard.php');
     require_once('Config\Autoload.php');
-    
-
-    use Models\Auditorium as Auditorium;
-    use DAO\AuditoriumDAO as AuditoriumDAO;
+  
 ?>
 <link rel="stylesheet" href="../Views/css/movies-list.css">
 <main class="py-5">
@@ -19,8 +16,8 @@
               
                <form method="post" id="columnarFormMovie">
                
-               <?php foreach($moviesList as $key => $res){  ?>              
-               
+               <?php foreach($moviesList as $key => $res){ ?>              
+              
               <div class="movieDiv" onclick="submitFormMovie('<?php echo FRONT_ROOT ?>Function/ShowFunctions')">
               <input type="hidden" name="cinemaId" value="<?php echo $cinemaId ?>" class="form-control">
               <input type="hidden" name="auditoriumId" value="0" class="form-control">
@@ -34,6 +31,13 @@
                   <h4 ><?php echo $res->getTitle();'<br>' ;?></h4>
                   <p><?php echo $res->getOverview();'<br>' ;?></p>
                   <h5>Genres:</h5>
+                    <p>
+                    <?php 
+                        $genreList = $res->getGenre();
+                        foreach ($genreList as $genre) {
+                          echo $genre->getName() . " ";
+                        }?>
+                    </p>
                   </form> 
                 </div>
               </div>

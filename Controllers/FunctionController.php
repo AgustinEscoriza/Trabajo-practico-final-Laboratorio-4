@@ -36,6 +36,7 @@
         {            
             $moviesList = $this->movieDAO->getAll();
             $cinemaList = $this->CinemaDAO->getAll();
+    
             if($auditoriumId == 0)
             {
                 $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
@@ -60,7 +61,7 @@
             $newFunction->setTime($time);
             $newFunction->setMovieId($movieId); 
 
-            if($this->functionDAO->Add($newFunction, $cinemaId, $auditoriumId))
+            if($this->functionDAO->Add($cinemaId, $auditoriumId,$newFunction))
             {
                 echo  "<script> alert ('La Funcion se agrego con Exito'); </script>";
                 $this->showAddView(0,$auditoriumId);

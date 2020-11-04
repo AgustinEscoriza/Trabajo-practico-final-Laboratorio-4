@@ -1,5 +1,5 @@
 <?php
-    require_once('nav-auditorium.php');
+    require_once('nav-function.php');
 ?>
                         
 <main class="py-5">

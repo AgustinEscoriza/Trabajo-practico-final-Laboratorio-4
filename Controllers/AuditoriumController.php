@@ -14,7 +14,7 @@
             $this->auditoriumDAOmysql = new auditoriumDAOmysql();
 
         }
-        public function showAddView ($cinemaId){
+        public function showAddView ($cinemaId,$addMessage=""){
             require_once(VIEWS_PATH."auditorium-add.php");
         }
 
@@ -35,15 +35,22 @@
 
         public function Add($name,$cinemaId, $capacity, $ticketValue)
         {
-            $auditorium = new Auditorium();
-            $auditorium->setName($name);
-            $auditorium->setCinemaId($cinemaId);
-            $auditorium->setCapacity($capacity);
-            $auditorium->setTicketValue($ticketValue);
 
-            $this->auditoriumDAOmysql->Add($auditorium,$cinemaId);
+            if($this->auditoriumDAOmysql->existName($name,$cinemaId)==false){
+                
+                $auditorium = new Auditorium();
+                $auditorium->setName($name);
+                $auditorium->setCinemaId($cinemaId);
+                $auditorium->setCapacity($capacity);
+                $auditorium->setTicketValue($ticketValue);
 
-            $this->showListView($cinemaId);
+                $this->auditoriumDAOmysql->Add($auditorium,$cinemaId);
+
+                $this->showListView($cinemaId);
+            }
+            else{
+                $this->showAddView($cinemaId,"Name already in use in this Cinema");
+            }
         }
 
         public function Remove($auditoriumId)

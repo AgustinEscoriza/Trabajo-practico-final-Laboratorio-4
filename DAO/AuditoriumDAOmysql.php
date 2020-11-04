@@ -38,6 +38,22 @@
             
         }
 
+        public function existName($name,$idCinema)
+        {
+            $exists = false;
+            try {
+                $query = "SELECT * FROM auditoriums WHERE auditoriums.name ='$name' AND auditoriums.idCinema ='$idCinema'";
+                $resultSet = $this->connection->execute($query,array(),QueryType::Query);
+
+                if (!empty($resultSet)) {
+                    $exists = true;
+                }
+                return $exists;
+            } catch (\PDOException $ex) {
+                throw $ex;
+            }
+        }
+
         public function getAuditoriumByCinemaId($cinemaId){
 
             $query = "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId'";
@@ -46,17 +62,6 @@
 
             $result = $this->connection->Execute($query,array(),QueryType::Query);
 
-   //    foreach($result as $row){
-
-   //        $auditorium = new Auditorium();
-   //        $auditorium->setId($row["idAuditorium"]);
-   //        $auditorium->setName($row["name"]);
-   //        $auditorium->setCapacity($row["capacity"]);
-   //        $auditorium->setTicketValue($row["ticketValue"]);
-
-   //        array_push($auditoriumList,$auditorium);
-   //    }
-   //    return $auditoriumList;
             if(!empty($result)){
                 return $this->mapear($result);
             }
