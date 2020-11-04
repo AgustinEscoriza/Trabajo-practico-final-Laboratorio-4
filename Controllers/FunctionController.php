@@ -60,7 +60,7 @@
             $newFunction->setTime($time);
             $newFunction->setMovieId($movieId); 
 
-            if($this->functionDAO->Add($cinemaId, $auditoriumId, $newFunction))
+            if($this->functionDAO->Add($newFunction, $cinemaId, $auditoriumId))
             {
                 echo  "<script> alert ('La Funcion se agrego con Exito'); </script>";
                 $this->showAddView(0,$auditoriumId);
@@ -69,7 +69,20 @@
             {
                 echo  "<script> alert ('La Funcion que intenta agregar Ya  sera reproducida en otro cine'); </script>";
                 $this->billboardController->ShowBillboard($cinemaId);
-            }            
+            }   
+        } 
+
+        public function ShowFunctions($cinemaId, $auditoriumId, $idMovie){
+
+            echo 'CINE ID: '.$cinemaId;
+            echo 'AUD ID: '.$auditoriumId;
+            echo 'MOVIE ID: '.$idMovie;
+
+            $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,$idMovie);
+
+            $movie = $this->movieDAO->getByMovieId($idMovie);
+
+            require_once(VIEWS_PATH."function-list.php");
         }
-    }
+    }      
 ?>

@@ -15,10 +15,12 @@
         private $tableName = "Functions";
         private $billboardController;
         private $functionMessage;
+        private $date;
 
     public function __construct(){
         $this->movieDAO = new MovieDAO();
         $this->connection = new Connection();
+        $this->date = new NewDT('today');
         $this->functionMessage ="";
     }
     public function Add($cinema, $auditoriumId, Functions $newFunction){
@@ -163,10 +165,14 @@
 
         return $resp;           
     }
-    public function getFunctionsByCinema($cinemaId){
+    public function getFunctionsByCinema($cinemaId,$idMovie){
 
         try{
-            $query = "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId'";
+            $today = $this->date->format('Y-m-d');
+
+            $query = ($idMovie==0) ? "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId'" :
+                                     "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId' 
+                                     and ".$this->tableName.".idMovie ='$idMovie' and ".$this->tableName.".functionDate >='$today'";
 
 
             $this->connection = Connection::GetInstance();
@@ -262,12 +268,15 @@
     }
 
     protected function mapear($value) {
+        
         $value = is_array($value) ? $value : [];
         $resp = array_map(function($p){
             $functions = new Functions();
             $functions->setDate($p['functionDate']);
             $functions->setTime($p['functionTime']);
             $functions->setMovieId($p['idMovie']);
+
+
             return $functions;
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;

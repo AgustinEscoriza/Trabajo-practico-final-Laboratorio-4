@@ -17,8 +17,16 @@
                </form>
                <table class="table bg-light-alpha">
               
-               <?php foreach($moviesList as $key => $res){  ?>
-              <div class="movieDiv" <?php echo 'onclick="hola(11)"'?>>
+               <form method="post" id="columnarFormMovie">
+               
+               <?php foreach($moviesList as $key => $res){  ?>              
+               
+              <div class="movieDiv" onclick="submitFormMovie('<?php echo FRONT_ROOT ?>Function/ShowFunctions')">
+              <input type="hidden" name="cinemaId" value="<?php echo $cinemaId ?>" class="form-control">
+              <input type="hidden" name="auditoriumId" value="0" class="form-control">
+              <?php echo 'ID: '.$res->getId().'<br>' ?>
+              <input type="hidden" name="idMovie" value="<?php echo $res->getId(); ?>" class="form-control">
+              
                 <div width="30%">
                   <img src=<?php echo IMAGE_ROOT. $res->getPosterPath();?>> </img>
                 </div>
@@ -26,7 +34,7 @@
                   <h4 ><?php echo $res->getTitle();'<br>' ;?></h4>
                   <p><?php echo $res->getOverview();'<br>' ;?></p>
                   <h5>Genres:</h5>
-                  
+                  </form> 
                 </div>
               </div>
               <div style ="maheight:250"></div>
@@ -43,6 +51,13 @@
 function submitForm(action)
     {
         var form = document.getElementById('columnarForm');
+        form.action = action;
+        form.submit();
+    }
+
+    function submitFormMovie(action)
+    {
+        var form = document.getElementById('columnarFormMovie');
         form.action = action;
         form.submit();
     }

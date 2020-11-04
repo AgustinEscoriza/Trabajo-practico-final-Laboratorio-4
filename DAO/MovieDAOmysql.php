@@ -118,7 +118,7 @@
                 $newMovie->setReleaseDate($movie["release_date"]);
                 $newMovie->setOriginalLanguage($movie["original_language"]);
                 $resp = $this-> getMovie($movie["id"]);
-                $newMovie->setRuntime($resp["runtime"]);
+                $newMovie->setRuntime($resp["runtime"]);              
                 array_push($this->moviesList,$newMovie);
             }
         }
@@ -142,7 +142,7 @@
                 $a->setOverview($p["overview"]);        
                 $a->setPosterPath($p["posterPath"]);   
                 $a->setReleaseDate($p["releaseDate"]);   
-                $a->setReleaseDate($p["runtime"]);   
+                $a->setRuntime($p["runtime"]);  
 
                 return $a;
             }, $value);   // $value es cada array q quiero convertir a objeto

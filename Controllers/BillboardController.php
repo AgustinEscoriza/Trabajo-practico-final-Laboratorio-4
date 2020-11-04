@@ -24,7 +24,7 @@
         public function ShowBillboard ($cinemaId){
             $cinemaId=$cinemaId;
 
-            $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId);
+            $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,0);
             $moviesList = $this->MoviesInBilboard($functionsList);
             
     
