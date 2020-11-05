@@ -84,7 +84,7 @@
     protected function mapear($value) {
         $value = is_array($value) ? $value : [];
         $resp = array_map(function($p){
-            $a = new Movie();
+            $a = new Genre();
             $a->setId($p["idGenre"]);       
             $a->setName($p["name"]);        
             return $a;

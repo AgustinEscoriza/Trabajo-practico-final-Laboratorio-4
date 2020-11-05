@@ -20,14 +20,19 @@ require_once('Config\Autoload.php');
                     <p>  <?php echo $genre;'<br>' ;?> </p>
                     <?php } ?>
                     <h5>Functions:</h5>
-                    <?php foreach($functionsList as $function) { 
+                    <?php
+                           if(isset($infoMessage)){
+                           echo $infoMessage;
+                           }
+                         ?>  
+                    <?php if (!empty($functionsList)) { foreach($functionsList as $function) { 
                         $day = date('l',strtotime($function->getDate()));
                         $dayNumber = date('d',strtotime($function->getDate()));
                         $time = date('H:i:s',strtotime($function->getTime()));
                         ?>
 
                     <p>  <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p>
-                    <?php } ?>
+                    <?php } }?>
                 </div>
             </div>
         <div style ="maheight:250"></div>

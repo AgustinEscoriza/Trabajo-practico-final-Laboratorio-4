@@ -170,10 +170,20 @@
 
         try{
             $today = $this->date->format('Y-m-d');
-
-            $query = ($idMovie==0) ? "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId'" :
-                                     "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId' 
-                                     and ".$this->tableName.".idMovie ='$idMovie' and ".$this->tableName.".functionDate >='$today'";
+ 
+            if($cinemaId==0)
+            {
+                $query = ($idMovie==0) ? "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".functionDate >='$today'" :
+                                         "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idMovie ='$idMovie' 
+                                         and ".$this->tableName.".functionDate >='$today'";
+            }
+            else
+            {
+                $query = ($idMovie==0) ? "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId'" :
+                                        "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idCinema ='$cinemaId' 
+                                        and ".$this->tableName.".idMovie ='$idMovie' and ".$this->tableName.".functionDate >='$today'";
+            }
+            
 
 
             $this->connection = Connection::GetInstance();

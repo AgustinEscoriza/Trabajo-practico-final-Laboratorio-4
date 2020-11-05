@@ -73,17 +73,36 @@
             }   
         } 
 
-        public function ShowFunctions($cinemaId, $auditoriumId, $idMovie){
-
-            echo 'CINE ID: '.$cinemaId;
-            echo 'AUD ID: '.$auditoriumId;
-            echo 'MOVIE ID: '.$idMovie;
-
+        public function ShowFunctions($cinemaId, $auditoriumId, $idMovie)
+        {
             $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,$idMovie);
 
+            if(empty($functionsList))
+            {
+                $infoMessage="No Hay Funciones Programadas";
+            }
             $movie = $this->movieDAO->getByMovieId($idMovie);
 
+            
+            
             require_once(VIEWS_PATH."function-list.php");
         }
+
+        /*public function FunctionsToCinema($functionsList)
+        {
+            $cinemaList = $this->cinemaDAO->getAll();
+
+            foreach($functionsList as $function)
+            {
+                foreach($cinemaList as $cinema)
+                {
+                    if($function->()==$cinema->getId())
+                    {
+                        $cinema->addFunctionsToBillboard($function);
+                    }
+                }
+            }
+        }*/
+        
     }      
 ?>

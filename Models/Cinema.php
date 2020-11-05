@@ -1,6 +1,6 @@
 <?php
     namespace Models;
-
+    use Models\Functions as Functions;
     class Cinema{
 
         private $id;
@@ -10,7 +10,7 @@
 
 
         public function __construct(){
-            
+            $this->billboard = array();
         }
 
         public function getId (){
@@ -40,8 +40,8 @@
             return $this->billboard;
         }
 
-        public function setBillboard (Billboard $billboard){
-            $this->billboard = $billboard;
+        public function addFunctionsToBillboard (Functions $function){
+            array_push($this->billboard,$function);
         }
         
     }
