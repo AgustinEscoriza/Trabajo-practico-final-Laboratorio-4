@@ -32,7 +32,27 @@ require_once('Config\Autoload.php');
                         ?>
 
                     <p>  <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p>
-                    <?php } }?>
+                    <?php } 
+                    }
+                    else
+                    { 
+                        if (!empty($functionsByCinemaList)) { 
+                            foreach($functionsByCinemaList as $cinema) { 
+                        ?> <h3>  <?php echo $cinema["cinemaName"]?> </h3> <?php
+                                if(!empty($cinema["functions"])){
+                                    
+                                    foreach($cinema["functions"] as $function){
+                                    $day = date('l',strtotime($function->getDate()));
+                                    $dayNumber = date('d',strtotime($function->getDate()));
+                                    $time = date('H:i:s',strtotime($function->getTime()));
+                                    }
+                                    ?>  <p>  <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p><?php
+                                }
+                                if(isset($cinema["disponibility"])){
+                                    echo $cinema["disponibility"];
+                                    } 
+                                
+                         } } }?>
                 </div>
             </div>
         <div style ="maheight:250"></div>

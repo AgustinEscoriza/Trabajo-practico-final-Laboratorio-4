@@ -16,7 +16,8 @@
 
             $this->connection = new Connection();
         }
-        
+        //primero comparo la lista actual con la nueva, si no hay alguna pelicula, la agrego a la base de datos, 
+        //luego comparo la base de datos con la lista que baje, las q no esten entre las nuevas, se pone status 0
         public function apiToSql($movieList){
             try{
                 foreach($movieList as $movie){
@@ -37,6 +38,23 @@
 
                     $this->connection->ExecuteNonQuery($query,$parameters,QueryType::StoredProcedure);
                 }
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+        }
+
+        public function ChangeMovieState($idMovie){
+            try{
+                
+                    $query = "UPDATE movies set movieState = 0 where idMovie='$idMovie'";
+
+                    //$parameters["idMovie"] = $idMovie; asi y se pasa parameters???????
+
+                    $this->connection = Connection::GetInstance();
+                
+                    $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+                
             }
             catch(\PDOException $ex){
                 throw $ex;

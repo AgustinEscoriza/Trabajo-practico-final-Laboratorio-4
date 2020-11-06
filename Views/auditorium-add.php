@@ -31,11 +31,11 @@
                               </div>
                          </div>
                          
-                    </div>1
+                    </div>
 
                     <div class ="row">
                          <?php
-                           if(isset($addMessage)){
+                           if(isset($addMessage) && $addMessage!=1){
                            echo $addMessage;
                            }
                          ?>   

@@ -32,7 +32,8 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-        }
+        }       
+
 
         public function getAll(){
             try{

@@ -22,22 +22,38 @@ require_once('Config\Autoload.php');
 </div>
 
 <div>
-  <?php foreach($moviesList as $key => $res){  ?>
-              <div class="movieDiv" <?php echo 'onclick="hola(11)"'?>>
-                <div width="30%">
-                  <img src=<?php echo IMAGE_ROOT. $res->getPosterPath();?>> </img>
-                </div>
-                <div class="textDiv">
-                  <h4 ><?php echo $res->getTitle();'<br>' ;?></h4>
-                  <p><?php echo $res->getOverview();'<br>' ;?></p>
-                  <h5>Genres:</h5>
-                  <?php foreach($res->getGenre() as $genre) { ?>
-                  <p>  <?php echo $genre->getName();'<br>' ;?> </p>
-                  <?php } ?>
-                </div>
-              </div>
-              <div style ="maheight:250"></div>
-  <?php } ?>
+<?php foreach($moviesList as $res){ ?>  
+
+<div class="movieDiv" >
+ 
+       <div width="30%">
+         <img src=<?php echo IMAGE_ROOT. $res->getPosterPath();?>> </img>
+       </div>
+       <div class="textDiv">
+         <h4 ><?php echo $res->getTitle();'<br>' ;?></h4>
+         <p><?php echo $res->getOverview();'<br>' ;?></p>
+         <h5>Genres:</h5>
+           <p>
+           <?php 
+             $genreList = $res->getGenre();
+             foreach ($genreList as $genre) {
+               echo $genre->getName() . " ";
+           }?>
+           </p>
+           <form method="post" id="columnarFormMovie" action="<?php echo FRONT_ROOT ?>Function/FunctionsToCinema"> 
+     <input type="hidden" id="idMovie" name="idMovie" value="<?php echo $res->getId(); ?>" class="form-control">
+     <div style="justify-content: flex-end;">
+      <button type="submit" name="button" class="btn btn-success">Functions</button>
+     </div>
+     </form> 
+       </div>
+       
+     
+</div>
+
+
+<div style ="maheight:250"></div>
+<?php } ?>
 </div>            
 <?php 
     echo "<div id='demo'></div>"; 

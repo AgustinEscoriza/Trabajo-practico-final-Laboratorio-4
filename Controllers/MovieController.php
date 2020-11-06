@@ -7,6 +7,7 @@
     use Models\Cinema as Cinema;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
+    use Controllers\BillboardController as BillboardController;
 
     class MovieController{
 
@@ -14,24 +15,40 @@
         private $movieDAOmysql;
         private $genreDAOmysql;
         private $genreXMovieDAOmysql;
+        private $billboardController;
         public function __construct(){
 
             $this->movieDAO = new MovieDAO();
             $this->genreDAOmysql = new GenreDAOmysql();
             $this->genreXMovieDAOmysql = new GenreXMovieDAOmysql();
+            $this->billboardController = new BillboardController();
         }
 
-        public function cargarDatabaseMoviesGenre (){
+        public function cargarDatabaseMoviesGenre ($movieMessage=""){
 
-            $moviesList = $this->movieDAO->getNowPlayingMovies();
-            $genresList = $this->genreDAOmysql->getGenres();
+            $moviesFromAPI = $this->movieDAO->getNowPlayingMovies();
+            $genresFromAPI = $this->genreDAOmysql->getGenres();
+
+            $moviesInDB = $this->movieDAO->getAll();
+            $moviesList = $this->checkMoviesExistences($moviesInDB, $moviesFromAPI);
 
             $this->movieDAO->apiToSql($moviesList);
-            $this->genreDAOmysql->apiToSql($genresList);
-            $this->genreXMovieDAOmysql->matchMoviesWithGenre($moviesList);
+            //$this->UpdateMovieDB($moviesInDB, $moviesFromAPI); falta agregar el campo estado en la base de datos
 
+            $genresInDB = $this->genreDAOmysql->getAll();
+            $genresList = $this->checkGenresExistences($genresInDB, $genresFromAPI);
+
+            $this->genreDAOmysql->apiToSql($genresList);
+            //$this->UpdateGenresDB($genresInDB, $genresFromAPI); falta agregar el campo estado en la base de datos
+                        
+            $this->genreXMovieDAOmysql->matchMoviesWithGenre($moviesList);
+            if(count($moviesList)==0)
+            {
+                $movieMessage="No Hay Nuevas Peliculas Para Mostrar";
+            }
             require_once(VIEWS_PATH."movies-list.php");
         }
+
         public function showMoviesListView (){
 
             $moviesList = $this->movieDAO->getAll();
@@ -77,5 +94,93 @@
             //$this->setGenres($moviesList,$genresList);
             require_once(VIEWS_PATH."movies-list.php");             
         }
-    }
+
+        public function checkMoviesExistences($moviesInDB, $moviesFromAPI)
+        {
+            $moviesList = array();
+
+            foreach($moviesFromAPI as $movieAPI)
+            {
+                $existence = false;
+                foreach($moviesInDB as $movieDB)
+                {
+                    if($movieAPI->getId()==$movieDB->getId())
+                    {
+                        $existence = true;
+                    }
+                }
+
+                if(!$existence)
+                {
+                    array_push($moviesList,$movieAPI);
+                }
+            }       
+
+            return $moviesList;
+        }
+
+        public function UpdateMovieDB($moviesInDB, $moviesFromAPI)
+        {
+            foreach($moviesInDB as $movieDB)
+            {
+                $existence = false;
+                foreach($moviesFromAPI as $movieAPI)
+                {
+                    if($movieAPI->getId()==$movieDB->getId())
+                    {
+                        $existence = true;
+                    }
+                }
+
+                if(!$existence)
+                {
+                    $this->movieDAO->ChangeState($movieDB->getId());
+                }
+            }       
+        }
+
+        public function checkGenresExistences($genresInDB, $genresFromAPI)
+        {
+            $genresList = array();
+
+            foreach($genresFromAPI as $genreAPI)
+            {
+                $existence = false;
+                foreach($genresInDB as $genreDB)
+                {
+                    if($genreAPI->getId()==$genreDB->getId())
+                    {
+                        $existence = true;
+                    }
+                }
+
+                if(!$existence)
+                {
+                    array_push($genresList,$genreAPI);
+                }
+            }       
+
+            return $genresList;
+        }
+
+        public function UpdateGenreDB($genresInDB, $genresFromAPI)
+        {
+            foreach($genresInDB as $genreDB)
+            {
+                $existence = false;
+                foreach($genresFromAPI as $genreAPI)
+                {
+                    if($genreAPI->getId()==$genreDB->getId())
+                    {
+                        $existence = true;
+                    }
+                }
+
+                if(!$existence)
+                {
+                    $this->movieDAO->ChangeMovieState($genreDB->getId());
+                }
+            }       
+        }
+    }  
 ?>
