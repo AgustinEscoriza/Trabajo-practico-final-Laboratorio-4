@@ -70,6 +70,17 @@ CREATE TABLE moviesXGenre(
     constraint fkIdMovieXGenreGenre foreign key (idGenre) references genres(idGenre)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 
+CREATE TABLE tickets(
+    idTicket int not null auto_increment,
+    idFunction int not null,
+    idUser int not null,
+    quantity int,
+    price float,
+    status boolean,
+    constraint pkIdTicket primary key(idTicket),
+    constraint fkTicketIdFunction foreign key (idFunction) references functions(idFunction),
+    constraint fkTicketIdUser foreign key (idUser) references users(idUser)
+)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
 CREATE TABLE languages(
 	idLanguage int not null,
     iso_639_1 varchar(50),
