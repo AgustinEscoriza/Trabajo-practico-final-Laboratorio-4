@@ -1,6 +1,7 @@
 <div class="d-flex align-items-center justify-content-center" style="color:#ffd9b3; background-color: rgb(32, 31, 31); border: 2px solid rgba(0, 0, 0, 0.2)">
           <h1>BIENVENIDO A MOVIE PASS</h1>
             </div>
+            
 <main class="d-flex align-items-center justify-content-center height-100">
           <div class="content">
                 <br>
@@ -21,6 +22,14 @@
                        ?> 
                     </div>
                     <button class="btn btn-success btn-block btn-lg" type="submit">Iniciar Sesión</button>
+                    <br>
+                    <div class="form-group">
+							      <a href="<?php echo FRONT_ROOT?>User/fbLogin "class="a-fb">
+							    	<div class="fb-button-container">
+									   Login with Facebook 
+								</div>
+							      </a>
+				</div>
                </form>
                <br>
                <div class="login-form">

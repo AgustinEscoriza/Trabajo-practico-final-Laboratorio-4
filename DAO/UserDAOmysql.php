@@ -15,22 +15,75 @@
         public function Add(User $newUser){
 
             try{
-                $query = "INSERT INTO ".$this->tableName." (userName, userEmail, userPassword, userState) VALUES (:userName, :userEmail, :userPassword, :userState)";
+                if($this->checkUserNameExistence($newUser->getUserName())==0){
 
-                //$parameters['idUser'] = $newUser->getIdUser();
-                $parameters['userName'] = $newUser->getUserName();
-                $parameters['userEmail'] = $newUser->getUserEmail();
-                $parameters['userPassword'] = $newUser->getUserPassword();
-                $parameters['userState'] = 1;
+                  $query = "INSERT INTO ".$this->tableName." (idUser, idRole, userName, userEmail, userPassword, userState) VALUES (:idUser, :idRole, :userName, :userEmail, :userPassword, :userState)";
 
-                $this->connection = Connection::GetInstance();
+                  $parameters['idUser'] = $newUser->getIdUser();
+                  $parameters['idRole'] = 2;
+                  $parameters['userName'] = $newUser->getUserName();
+                  $parameters['userEmail'] = $newUser->getUserEmail();
+                  $parameters['userPassword'] = $newUser->getUserPassword();
+                  $parameters['userState'] = 1;
 
-                $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
+                  $this->connection = Connection::GetInstance();
+
+                  $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
+
+                  $message = 'Usuario registrado exitosamente';
+
+                }else{
+                    throw new \PDOException("El nombre de usuario ya esta en uso");
+                }
             }
             catch(\PDOException $ex){
+                $message = $ex->getMessage();
+            }
+            return $message;
+        }
+
+        public function AddFBuser(User $newUser){
+
+            try{
+                //if($this->checkUserNameExistence($newUser->getUserName())==0){
+
+                  $query = "INSERT INTO ".$this->tableName." (idUser, idRole, userName, userEmail, userPassword, userState, fbAccesToken ) VALUES (:idUser, :idRole, :userName, :userEmail, :userPassword, :userState, :fbAccesToken )";
+
+                  $parameters['idUser'] = $newUser->getIdUser();
+                  $parameters['idRole'] = 2;
+                  $parameters['userName'] = $newUser->getUserName();
+                  $parameters['userEmail'] = $newUser->getUserEmail();
+                  $parameters['userPassword'] = rand(8,20);
+                  $parameters['userState'] = 1;
+                  $parameters['fbId'] = $newUser->getfbId();
+                  $parameters['fbAccesToken'] = $newUser->getfbAccesToken();
+
+                  $this->connection = Connection::GetInstance();
+
+                  $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
+
+                  $message = 'Usuario registrado exitosamente';
+
+                //}else{
+                    //throw new \PDOException("El nombre de usuario ya esta en uso");
+                //}
+            }
+            catch(\PDOException $ex){
+                //$message = $ex->getMessage();
                 throw $ex;
             }
-            
+            return $message;
+        }
+
+        public function checkUserNameExistence ($userName)
+        {
+            $condition = 0;
+            $u = new User();
+            $u = $this->read($userName);
+            if($u){
+                $condition = 1;
+            }
+            return $condition;
         }
 
         public function read ($userNameLogin)

@@ -39,3 +39,21 @@ body {
      border: 2px solid rgba(0, 0, 0, 0.2);
      background-color: rgb(103, 57, 121);
 }
+
+.a-fb {
+	text-decoration: none;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.fb-button-container {
+	padding: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background: #3d6ad6;
+}
+
+.fb-button-container:hover {
+	background: #1D3C78;
+}

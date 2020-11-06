@@ -8,6 +8,9 @@ class User{
 	private $userEmail;
 	private $userPassword;
 	private $userState;
+	private $userRole;
+	private $fbId;
+	private $fbAccesToken;
 
 	public function __construct(){
             
@@ -27,6 +30,15 @@ class User{
 	public function getUserState(){
 		return $this->userState;
 	}
+	public function getUserRole(){
+		return $this->userRole;
+	}
+	public function getfbfbId(){
+		return $this->fbId;
+	}
+	public function getfbAccesToken(){
+		return $this->fbAccesToken;
+	}
 	public function setIdUser ($idUser){
 		$this->idUser = $idUser;
 	}
@@ -41,6 +53,15 @@ class User{
 	}
 	public function setUserState($userState){
 		$this->userState = $userState;
+	}
+	public function setUserRole($userSRole){
+		$this->userRole = $userRole;
+	}
+	public function setfbId($fbId){
+		$this->fbId = $fbId;
+	}
+	public function setfbAccesToken($fbAccesToken){
+		$this->fbAccesToken = $fbAccesToken;
 	}
 	
 }

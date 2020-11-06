@@ -20,15 +20,26 @@ CREATE TABLE users(
 INSERT INTO users(idUser,userName,userEmail,userPassword,userState) 
 VALUES (1,'Agus','agusescoriza@outlook.es','1234',1);
 
-CREATE TABLE auditoriums(
-	idAuditorium int auto_increment not null,
-    idCinema int not null,
-    name varchar(50),
-    capacity int,
-    ticketValue float,
-    constraint pkIdAuditorium primary key (idAuditorium),
-    constraint fkIdCinema foreign key (idCinema) references cinemas(idCinema)
+CREATE TABLE users(
+	idUser int AUTO_INCREMENT NOT NULL,
+    idRole int NOT NULL,
+    userName varchar(50),
+    userEmail varchar(100),
+    userPassword varchar(50),
+    userState int NOT NULL,
+    fbId int,
+    fbAccesToken int,
+    CONSTRAINT pkIdUser PRIMARY KEY (idUser),
+    CONSTRAINT fkIdRole FOREIGN KEY (idRole) references roles (idRole)
 )ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE roles(
+	idRole int AUTO_INCREMENT NOT NULL,
+    roleName varchar(50),
+    CONSTRAINT pkIdRole PRIMARY KEY (idRole)
+)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+
+insert into roles (idRole,roleName) values (1,'admin'),(2,'user'),(3,'guest');
 
 CREATE TABLE movies(
 	idMovie int not null,

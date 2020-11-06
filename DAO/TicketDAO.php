@@ -4,7 +4,7 @@ namespace DAO;
 
 use Models\Ticket;
 use Models\User;
-use Models\Function;
+use Models\FunctionS;
 use Models\Movie;
 
 class TicketDAO implements ITicketDAO{
