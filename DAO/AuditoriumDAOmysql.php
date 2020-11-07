@@ -70,6 +70,25 @@
             }
         }
 
+        public function GetAuditoriumByFunctionId($idFunction)
+        {
+            $query = "SELECT * FROM auditoriums 
+            INNER JOIN Functions 
+            ON ".$this->tableName.".idAuditorium = Functions.idAuditorium 
+            AND Functions.idFunction = '$idFunction'";
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
+
+            if(!empty($result)){
+                return $this->mapear($result);
+            }
+            else{
+                return false;
+            }
+        }
+
         public function getAuditorium($id){
 
             $query = "SELECT * FROM auditoriums WHERE ".$this->tableName.".idAuditorium ='$id'";

@@ -166,6 +166,23 @@
 
         return $resp;           
     }
+
+    public function getByFunctionId($idFunction)
+    {
+        $query = "SELECT * FROM Functions WHERE idFunction = '$idFunction'";
+
+        $this->connection = Connection::GetInstance();
+
+        $result = $this->connection->Execute($query,array(),QueryType::Query);
+
+        if(!empty($result)){
+            return $this->mapear($result);
+        }
+        else{
+            return false;
+        }
+    }
+    
     public function getFunctionsByCinema($cinemaId,$idMovie){
 
         try{
@@ -312,6 +329,7 @@
         $value = is_array($value) ? $value : [];
         $resp = array_map(function($p){
             $functions = new Functions();
+            $functions->setId($p['idFunction']);
             $functions->setDate($p['functionDate']);
             $functions->setTime($p['functionTime']);
             $functions->setMovieId($p['idMovie']);

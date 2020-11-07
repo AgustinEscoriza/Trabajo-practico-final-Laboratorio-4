@@ -41,7 +41,9 @@
             
         }
 
-        public function showFullList(){
+        public function showFullList($idFunction){
+
+                
             $functionsList = $this->functionDAO->getFunctionsByCinema(0,0);
             $genresList =   $this->genreDAO->getAll();
             $moviesList = $this->MoviesInBillboard($functionsList);

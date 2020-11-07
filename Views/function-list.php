@@ -30,8 +30,12 @@ require_once('Config\Autoload.php');
                         $dayNumber = date('d',strtotime($function->getDate()));
                         $time = date('H:i:s',strtotime($function->getTime()));
                         ?>
-
-                    <p>  <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p>
+                    <form method="post" id="genreForm<?php echo $function->getId()?>">
+                    <div name="functionSelectior" id="functionSelectior"  onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/buyTicketView',<?php echo $function->getId() ?>)" > 
+                    <input type="hidden" name="idFunction" value="<?php echo $function->getId()?>">
+                    </form> 
+                       <p> <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p>
+                    </div>
                     <?php } 
                     }
                     else
@@ -45,8 +49,18 @@ require_once('Config\Autoload.php');
                                     $day = date('l',strtotime($function->getDate()));
                                     $dayNumber = date('d',strtotime($function->getDate()));
                                     $time = date('H:i:s',strtotime($function->getTime()));
+                                    
+                                    ?>  
+                                    <form method="post" id="genreForm<?php echo $function->getId()?>">
+                                    <div name="functionSelectior" id="functionSelectior"  onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/buyTicketView',<?php echo $function->getId() ?>)" > 
+                                    <input type="hidden" name="idFunction" value="<?php echo $function->getId()?>">
+                                    <input type="hidden" name="function" value="<?php echo $function?>">
+                                    <!-- esta ultima linea la puse para mandar la funcion completa, fijate si la toma asi para evitar una query mas ala base-->
+                                    </form> 
+                                    <p> <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p>
+                                    </div>
+                                    <?php
                                     }
-                                    ?>  <p>  <?php echo $day.' '.$dayNumber.', '.$time.' HS'?> </p><?php
                                 }
                                 if(isset($cinema["disponibility"])){
                                     echo $cinema["disponibility"];
@@ -62,9 +76,10 @@ require_once('Config\Autoload.php');
 ?> 
 
 <script type=text/javascript>
-function submitForm(action)
+function submitForm(action,num)
     {      
-        var form = document.getElementById('genreForm');
+
+        var form = document.getElementById('genreForm'+num);
         form.action = action;
         form.submit();
     }

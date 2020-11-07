@@ -5,6 +5,7 @@
     use DAO\CinemaDAOmysql as CinemaDAO;
     use DAO\MovieDAOmysql as MovieDAO;
     use DAO\FunctionDAOmysql as FunctionDAO;
+    use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use DAO\TicketDAO;
     use Models\Functions;
     use Models\Ticket;
@@ -16,6 +17,7 @@
         private $movieDAO;
         private $functionDAO;
         private $cinemaDAO;
+        private $auditoriumDAO;
 
         public function __construct(){
 
@@ -23,12 +25,17 @@
             $this->movieDAO = new MovieDAO();
             $this->functionDAO = new FunctionDAO();
             $this->cinemaDAO = new MovieDAO();
+            $this->auditoriumDAO = new AuditoriumDAO();
         }
 
-        public function buyTicketView($functionId, $addMessage = ""){
+        public function buyTicketView($idFunction, $function, $addMessage = ""){
 
-            $function = $this->functionDAO->getByFunctionId($functionId); // falta armar esta funcion en el dao, o puedo traer funciones enteras tal vez
-
+            $movie = $this->movieDAO->GetMovieByFunctionId($idFunction);
+            $cinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
+            $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
+            $functionFromDAO = $this->functionDAO->getByFunctionId($idFunction); 
+            //ya lo cree el metodo, pero fijate quiza ni se necesite si la vista te devuelve el objeto funcion completo que puse como parametro
+            //
             require_once(VIEWS_PATH . "buy-Ticket-View.php");
 
         }

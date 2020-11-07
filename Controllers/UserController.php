@@ -7,15 +7,18 @@
     use DAO\UserDAOmysql as UserDAOmysql;
     use Models\User as User;
     use Facebook\Facebook as Facebook;
+    use Controllers\BillboardController as BillboardController;
 
     class UserController{
 
         private $userDAO;
+        private $billboardController;
 
         public function __construct()
         {
 
             $this->userDAO = new userDAOmysql();
+            $this->billboardController = new BillboardController();
         }
 
         public function Add($userName, $userEmail, $password)
@@ -45,7 +48,7 @@
                    if($loggedUser->getUserRole() == '1'){
                     require_once(VIEWS_PATH."cinema-add.php");  
                    }else{
-                    require_once(VIEWS_PATH."movies-list.php");
+                    $this->billboardController->showFullList();
                    }     
                }else{
                $message='Verifique que los datos ingresados sean correctos';

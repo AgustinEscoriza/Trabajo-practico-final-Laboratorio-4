@@ -61,6 +61,25 @@
             }
         }
 
+        public function GetMovieByFunctionId($idFunction)
+        {
+            $query = "SELECT * FROM movies 
+            INNER JOIN Functions 
+            ON ".$this->tableName.".idCinema = Functions.idCinema 
+            AND Functions.idFunction = '$idFunction'";
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query,array(),QueryType::Query);
+
+            if(!empty($result)){
+                return $this->mapear($result);
+            }
+            else{
+                return false;
+            }
+        }
+
         public function getAll(){
             try{
                 $query = "SELECT * FROM ".$this->tableName;
@@ -68,8 +87,7 @@
                 $this->connection = Connection::GetInstance();
                 
                 $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
-    
-    
+
             }
             catch(\PDOException $ex){
                 throw $ex;
