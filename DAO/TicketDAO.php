@@ -27,7 +27,7 @@ class TicketDAO implements ITicketDAO{
             $parameters["idFunction"] = $ticket->getFunction()->getId();
             $parameters["quantity"] = $ticket->getQuantity();
             $parameters["price"] = $ticket->getPrice();
-            $parameters["ticketStatus"] = $ticket->getStatus();
+            //$parameters["ticketStatus"] = $ticket->getStatus();
 
             $this->connection->executeNonQuery($query,$parameters,QueryType::Query);    
         }
@@ -71,7 +71,7 @@ class TicketDAO implements ITicketDAO{
         }
     }
 
-    /*public function getTicketsByUser(User $user){
+    public function getTicketsByUser(User $user){
         try{
 
             $query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM ticket as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
@@ -82,31 +82,11 @@ class TicketDAO implements ITicketDAO{
 
             if(!empty($resultSet)){
 
-               // return $this->mapear($result);
-                foreach($result as $i){
+               return $this->mapear($result);
 
-                    $ticket = new Ticket();
-                    $ticket->setId($i["id"]);
-                    $ticket->setPrice($i["price"]);
-                    $ticket->setQuantity($i["quantity"]);
-                    $ticket->setStatus($i["status"]);
-
-                    $function = new Functions();
-                    $function->setTime($i["functionTime"]);
-                    $function->setDate($i["functionDate"]);
-
-                  //  $movie = new Movie();
-                  //  $movie->setTitle($i["title"]);
-                  //  $function->setMovie($movie);   no puedo hacer esto porque tenemos el id de movie adentro de la funcion
-                    $function->setMovieId($i["idMovie"]);
-
-                    $ticket->setFunction($function);
-                    
-                }
-                else{
-                    return false;
-                }
-
+            }
+            else{
+                return false;
             }
 
 
@@ -115,7 +95,7 @@ class TicketDAO implements ITicketDAO{
         catch (\PDOException $ex) {
             throw $ex;
         }
-    }*/
+    }
 
     protected function mapear($value) {
         
