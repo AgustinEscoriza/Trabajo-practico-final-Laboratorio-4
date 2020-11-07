@@ -139,6 +139,20 @@
             }       
         }
 
+        public function ChangeMovieStatus($idMovie)
+        {
+            $cinemaId = $this->auditoriumDAOmysql->getIdCinema($auditoriumId); 
+
+            if($this->functionsDAO->CheckFunctionsStatus($idMovie))
+            {
+                $this->cineDAO->delete(0,$idMovie);
+
+                $this->showListView();
+            }
+            
+            $this->showListView($cinemaId);
+        }
+
         public function checkGenresExistences($genresInDB, $genresFromAPI)
         {
             $genresList = array();

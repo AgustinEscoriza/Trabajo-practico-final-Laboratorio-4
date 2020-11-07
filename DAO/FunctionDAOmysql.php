@@ -33,14 +33,15 @@
 
             if ((!$this->chekExistence($newFunction->getMovieId(),$newFunction->getDate()))&&
                 (!$this->checkDate($auditoriumId,$newFunction->getDate(), $newFunction->getTime(),$runtime))){
-                $query = "INSERT INTO ".$this->tableName." ( idCinema, idAuditorium, idMovie, functionDate, functionTime) VALUES 
-                                                            (:idCinema, :idAuditorium, :idMovie, :functionDate, :functionTime)";
+                $query = "INSERT INTO ".$this->tableName." ( idCinema, idAuditorium, idMovie, functionDate, functionTime, functionStatus) VALUES 
+                                                            (:idCinema, :idAuditorium, :idMovie, :functionDate, :functionTime, :functionStatus)";
             
                 $parameters["idCinema"] = $cinema;
                 $parameters["idAuditorium"] = $auditoriumId;
                 $parameters["idMovie"] = $newFunction->getMovieId();
                 $parameters["functionDate"] = $newFunction->getDate();
                 $parameters["functionTime"] = $newFunction->getTime();
+                $parameters["functionStatus"] = 1;
 
                 $this->connection = Connection::GetInstance();
 
@@ -169,11 +170,52 @@
 
     public function getByFunctionId($idFunction)
     {
+        try{
         $query = "SELECT * FROM Functions WHERE idFunction = '$idFunction'";
 
         $this->connection = Connection::GetInstance();
 
         $result = $this->connection->Execute($query,array(),QueryType::Query);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+        if(!empty($result)){
+            return $this->mapear($result);
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function CheckFunctionsStatus($idAuditorium,$idMovie)
+    {
+        $status = false;
+
+        $functionsList = ($idAuditorium !=0) ? GetFunctionsByAuditoriumId($idAuditorium) 
+                                              :GetFunctionsByMovieId($idMovie);
+
+        if(empty($functionsList))
+        {
+            $status = true;
+        }
+
+        return $status;
+    }
+    
+    public function GetFunctionsByAuditoriumId($idAuditorium)
+    {
+        try{
+        $query = "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idAuditorium ='$idAuditorium' 
+                                                    and".$this->tableName.".functionStatus = 1" ;
+    
+        $this->connection = Connection::GetInstance();
+            
+            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
 
         if(!empty($result)){
             return $this->mapear($result);
@@ -182,7 +224,29 @@
             return false;
         }
     }
+
+    public function GetFunctionsByMovieId($idMovie)
+    {
+        try{
+        $query = "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idMovie ='$idMovie' 
+                                                    and".$this->tableName.".functionStatus = 1" ;
     
+        $this->connection = Connection::GetInstance();
+            
+            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result)){
+            return $this->mapear($result);
+        }
+        else{
+            return false;
+        }
+    }
+
     public function getFunctionsByCinema($cinemaId,$idMovie){
 
         try{
@@ -242,7 +306,7 @@
             return false;
         }
     }
-    public function getMovies()
+    /*public function getMovies()
     {
         try {
             $movieList = array();
@@ -271,7 +335,8 @@
         } catch (\PDOException $ex) {
             throw $ex;
         }
-    }
+    }*/
+
     public function getCinema($id){
 
         try{

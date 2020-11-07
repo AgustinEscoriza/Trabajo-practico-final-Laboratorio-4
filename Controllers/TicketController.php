@@ -24,18 +24,17 @@
             $this->ticketDAO = new TicketDAO();
             $this->movieDAO = new MovieDAO();
             $this->functionDAO = new FunctionDAO();
-            $this->cinemaDAO = new MovieDAO();
+            $this->cinemaDAO = new CinemaDAO();
             $this->auditoriumDAO = new AuditoriumDAO();
         }
 
-        public function buyTicketView(Functions $function, $addMessage = ""){
+        public function buyTicketView($idFunction, $addMessage = ""){
 
-            $movie = $this->movieDAO->GetMovieByFunctionId($function->getId());
-            $cinema = $this->cinemaDAO->GetCinemaByFunctionId($function->getId());
-            $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($function->getId()); 
-            //ya lo cree el metodo, pero fijate quiza ni se necesite si la vista te devuelve el objeto funcion completo que puse como parametro
-            //
-            require_once(VIEWS_PATH . "buyTicket-View.php");
+            $movie = $this->movieDAO->GetMovieByFunctionId($idFunction);
+            $cinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
+            $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
+            $function = $this->functionDAO->getByFunctionId($idFunction); 
+            require_once(VIEWS_PATH."buy-Ticket-View.php");
 
         }
 

@@ -2,6 +2,7 @@
     namespace Controllers;
 
     use DAO\CineDAO as CineDAO;
+    use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use Models\Cine as Cine;
 
     class CineController{
@@ -11,6 +12,7 @@
         public function __construct(){
 
             $this->cineDAO = new CineDAO();
+            $this->auditoriumDAO = new AuditoriumDAO();
         }
 
         public function showAddView ($addMessage=""){
@@ -44,19 +46,13 @@
             $this->showAddView($this->cineDAO->Add($cine));;
         }
 
-        public function Remove($cineId)
-        {
-            $this->cineDAO->delete($cineId);
-
-            $this->showListView();
-        }
+        
 
         public function Modify($cineId)
-        {
+        {            
             $cine = $this->cineDAO->getCinema($cineId);
             $this->cineDAO->delete($cineId);
             require_once(VIEWS_PATH."cine-modify.php");
-
         }
 
     }

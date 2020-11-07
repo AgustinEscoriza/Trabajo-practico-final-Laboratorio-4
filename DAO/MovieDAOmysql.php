@@ -22,8 +22,8 @@
             try{
                 foreach($movieList as $movie){
                     
-                    $query = "INSERT INTO movies (idMovie,originalTitle,originalLanguage,overview,posterPath,releaseDate,runtime,title) VALUES 
-                                                ( :idMovie, :originalTitle, :originalLanguage, :overview, :posterPath, :releaseDate, :runtime, :title)";
+                    $query = "INSERT INTO movies (idMovie,originalTitle,originalLanguage,overview,posterPath,releaseDate,runtime,title, movieStatus) VALUES 
+                                                ( :idMovie, :originalTitle, :originalLanguage, :overview, :posterPath, :releaseDate, :runtime, :title, :movieStatus)";
 
                     $parameters["idMovie"] =            $movie->getId();
                     $parameters["title"] =              $movie->getTitle();
@@ -33,6 +33,7 @@
                     $parameters["posterPath"] =         $movie->getPosterPath();
                     $parameters["releaseDate"] =        $movie->getReleaseDate();
                     $parameters["runtime"] =            $movie->getRuntime();
+                    $parameters["movieStatus"] =        1;
 
                     $this->connection = Connection::GetInstance();
 
@@ -65,7 +66,7 @@
         {
             $query = "SELECT * FROM movies 
             INNER JOIN Functions 
-            ON ".$this->tableName.".idCinema = Functions.idCinema 
+            ON ".$this->tableName.".idMovie = Functions.idMovie 
             AND Functions.idFunction = '$idFunction'";
 
             $this->connection = Connection::GetInstance();

@@ -9,3 +9,13 @@
     background:rgba(0, 0, 0, 0.7);
     text-align: center;
 }
+
+#functionSelectior:hover
+{
+    color: black ;
+    background-color: aqua;
+    width: 220px ;
+    margin-left: 38%;
+    text-align: center;
+
+}

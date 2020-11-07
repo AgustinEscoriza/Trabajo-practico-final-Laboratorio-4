@@ -35,7 +35,7 @@
                                                        <button type="submit" name="modify" class="btn btn-dark" value="<?php echo $auditorium->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/Modify')"> Modify </button>                    
                                                        
                                                        <button type="submit" name="Add" class="btn btn-success" value="<?php echo $cinemaId ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Function/showAddView')"> Add Function</button>
-                                                       <input type="hidden" name="auditoriumId" value="<?php echo $auditorium->getId(); ?>" class="form-control">
+                                                       <input type="hidden" name="idAuditorium" value="<?php echo $auditorium->getId(); ?>" class="form-control">
                                                   </form>
                                              </td> 
                                         </tr>

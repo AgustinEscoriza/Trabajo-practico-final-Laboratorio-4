@@ -3,15 +3,18 @@
     namespace Controllers;
 
     use DAO\auditoriumDAOmysql as auditoriumDAOmysql;
+    use DAO\FunctionDAOmysql as FunctionDAO;
     use Models\Auditorium as Auditorium;
 
     class AuditoriumController{
 
         private $auditoriumDAOmysql;
+        private $functionsDAO;
 
         public function __construct(){
 
             $this->auditoriumDAOmysql = new auditoriumDAOmysql();
+            $this->functionsDAO = new FunctionDAO();
 
         }
         public function showAddView ($cinemaId,$addMessage=""){
@@ -21,7 +24,7 @@
         public function showListView ($cinemaId){
 
             $auditoriumList = array();
-            $auditoriumList = $this->auditoriumDAOmysql->getAuditoriumByCinemaId($cinemaId);
+            $auditoriumList = $this->auditoriumDAOmysql->getAuditoriumByCinemaId($cinemaId,1);
 
 
             require_once(VIEWS_PATH."auditorium-list.php");
@@ -53,13 +56,22 @@
             }
         }
 
-        public function Remove($auditoriumId)
+
+
+        public function ChangeAuditoriumStatus($idAuditorium)
         {
             $cinemaId = $this->auditoriumDAOmysql->getIdCinema($auditoriumId); 
-            $this->auditoriumDAOmysql->delete($auditoriumId);
 
+            if($this->functionsDAO->CheckFunctionsStatus($idAuditorium,0))
+            {
+                $this->cineDAO->delete($idAuditorium);
+
+                $this->showListView();
+            }
+            
             $this->showListView($cinemaId);
         }
+
 
         public function Modify($auditoriumId)
         {

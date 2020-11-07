@@ -21,12 +21,14 @@
         public function Add(Auditorium $auditorium,$idCinema){
 
             try{
-                $query = "INSERT INTO auditoriums (name,idCinema,ticketValue,capacity) VALUES (:name, :idCinema, :ticketValue, :capacity)";
+                $query = "INSERT INTO auditoriums (name,idCinema,ticketValue,capacity,auditoriumStatus) 
+                                    VALUES (:name, :idCinema, :ticketValue, :capacity, :auditoriumStatus)";
 
                 $parameters["name"] = $auditorium->getName();
                 $parameters["idCinema"] = $idCinema;
                 $parameters["capacity"] = $auditorium->getCapacity();
                 $parameters["ticketValue"] = $auditorium->getTicketValue();
+                $parameters["auditoriumStatus"] = 1;
 
                 $this->connection = Connection::GetInstance();
 
@@ -54,9 +56,12 @@
             }
         }
 
-        public function getAuditoriumByCinemaId($cinemaId){
+        public function getAuditoriumByCinemaId($cinemaId, $status)
+        {
 
             $query = "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId'";
+            //$query = ($status==-1) ? "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId'"
+            //                        :"SELECT * FROM auditoriums WHERE idCinema ='$cinemaId' AND auditoriumStatus ='$status'";
 
             $this->connection = Connection::GetInstance();
 
@@ -150,6 +155,20 @@
             else{
                 return false;
             }
+        }
+
+        public function CheckAuditoriumStatus($idCinema)
+        {
+            $status = false;
+
+            $auditoriumsList = getAuditoriumByCinemaId($idCinema,1);
+
+            if(empty($auditoriumsList))
+            {
+                $status = true;
+            }
+
+            return $status;
         }
 
         protected function mapear($value) {

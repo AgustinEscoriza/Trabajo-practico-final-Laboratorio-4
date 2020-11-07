@@ -8,6 +8,7 @@
     use DAO\FunctionDAOMySQL as FunctionDAO;
     use DAO\BillboardDAO as BillboardDAO;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
+    use DAO\TicketDAO as TicketDAO;
     use Models\Cine as Cine;
     use Models\Functions as Functions;
     use Models\Movie as Movie;
@@ -29,6 +30,7 @@
             $this->auditoriumDAO = new AuditoriumDAO();
             $this->functionDAO = new FunctionDAO();
             $this->billboardDAO = new BillboardDAO();
+            $this->ticketDAO = new TicketDAO();
             $this->dateGlobal = new NewDT('today');
             $this->billboardController = new BillboardController();
         }
@@ -36,11 +38,11 @@
         public function showAddView ($cinemaId,$auditoriumId,$addMessage="")
         {            
             $moviesList = $this->movieDAO->getAll();
-            $cinemaList = $this->CinemaDAO->getAll();
+            $cinemaList = $this->cinemaDAO->getAll();
     
             if($auditoriumId == 0)
             {
-                $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId);
+                $auditoriumsList = $this->auditoriumDAO->getAuditoriumbyCinemaId($cinemaId,1);
             }
             else
             {
@@ -87,6 +89,19 @@
             
             
             require_once(VIEWS_PATH."function-list.php");
+        }
+
+        public function ChangeFunctionsStatus($idFunction)
+        {
+
+            if($this->ticketDAO->CheckTicketsStatus($idFunction))
+            {
+                $this->cineDAO->delete($idFunction);
+
+                $this->showListView();
+            }
+            
+            $this->showListView($cinemaId);
         }
 
         public function FunctionsToCinema($idMovie) //puedo hacer 1 query por cada cine, 

@@ -18,11 +18,13 @@
     public function Add(Cinema $cinema){
 
         try{
-            $query = "INSERT INTO ".$this->tableName." (name, adress) VALUES (:name, :adress)";
+            $query = "INSERT INTO ".$this->tableName." (name, adress, cinemaStatus) 
+                                                VALUES (:name, :adress, :cinemaStatus)";
 
         
             $parameters["name"] = $cinema->getName();
             $parameters["adress"] = $cinema->getAdress();
+            $parameters["cinemaStatus"] = 1;
 
 
             $this->connection = Connection::GetInstance();
@@ -101,10 +103,10 @@
         }
     }
 
-    public function delete($id){ 
+    public function ChangeCinemaStatus($idCinema){ 
        
         try{
-            $query = "DELETE FROM ". $this->tableName." WHERE ". $this->tableName. ".idCinema ='$id'";
+            $query = "UPDATE ". $this->tableName." SET cinemaStatus = 0 WHERE ". $this->tableName. ".idCinema ='$idCinema'";
             $this->connection->ExecuteNonQuery($query,QueryType::Query);
         }
         catch(\PDOException $ex){
@@ -142,6 +144,7 @@
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
     }
+    public function delete($id){}
 
 }
 
