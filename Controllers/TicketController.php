@@ -28,23 +28,22 @@
             $this->auditoriumDAO = new AuditoriumDAO();
         }
 
-        public function buyTicketView($idFunction, $function, $addMessage = ""){
+        public function buyTicketView(Functions $function, $addMessage = ""){
 
-            $movie = $this->movieDAO->GetMovieByFunctionId($idFunction);
-            $cinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
-            $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
-            $functionFromDAO = $this->functionDAO->getByFunctionId($idFunction); 
+            $movie = $this->movieDAO->GetMovieByFunctionId($function->getId());
+            $cinema = $this->cinemaDAO->GetCinemaByFunctionId($function->getId());
+            $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($function->getId()); 
             //ya lo cree el metodo, pero fijate quiza ni se necesite si la vista te devuelve el objeto funcion completo que puse como parametro
             //
-            require_once(VIEWS_PATH . "buy-Ticket-View.php");
+            require_once(VIEWS_PATH . "buyTicket-View.php");
 
         }
 
 
 
-        public setAndValidatePurchase($functionId,$quantity){
+        public function setAndValidatePurchase(Functions $function,$quantity){
             
-            $function = $this->functionDAO->getByFunctionId($functionId);
+            $function = $this->functionDAO->getByFunctionId($function->getId());
             $price = $function->getAuditorium()->getPrice(); // no va a andar porque no hay auditorium dentro de funcion, creo que hay que armar dao que devuelva auditorium de funcion
 
             $user =  $_SESSION["user"];
@@ -67,7 +66,7 @@
             }
         }
 
-        public showTotal(Function $function, Ticket $ticket){
+        public function showTotal(Functions $function, Ticket $ticket){
 
             require_once(VIEWS_PATH . "addToCartView.php");
         }
@@ -123,7 +122,7 @@
             $function = $ticket->getFunction();
             $this->ticketDAO->add($ticket);
             $function->setTicketsSold($function->getTicketsSold() + $ticket->getQuantity());    // depende de si agregamos un atributo con la cantidad de tickets vendidos a las
-            $this->functionDAO->updateTicketsSold($function);                                   // funciones
+            $this->functionDAO->updateTicketsSold($function);                                   // funciones, sino DAO que traiga cantidad
         }
 
 

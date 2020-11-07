@@ -17,7 +17,7 @@ define("LIST_ROOT", "https://api.themoviedb.org/3/genre/movie/list");
 define("DB_HOST", "localhost");
 define("DB_NAME", "moviePass");
 define("DB_USER", "root");
-define("DB_PASS", "localhost");
+define("DB_PASS", "");
 ?>
 
 

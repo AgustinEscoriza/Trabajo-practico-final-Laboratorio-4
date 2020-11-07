@@ -41,10 +41,10 @@
             
         }
 
-        public function showFullList($idFunction){
+        public function showFullList(){
 
                 
-            $functionsList = $this->functionDAO->getFunctionsByCinema(0,0);
+            $functionsList = $this->functionDAO->getAll();
             $genresList =   $this->genreDAO->getAll();
             $moviesList = $this->MoviesInBillboard($functionsList);
             foreach($moviesList as $movie){
@@ -110,12 +110,14 @@
 
         public function MoviesInBillboard($functionsList){
             $resp = array();
-            foreach($functionsList as $function)
-            {
-                if($this->checkFunction($resp, $function->getMovieId()))
+            if(!empty($functionsList)){
+                foreach($functionsList as $function)
                 {
-                    array_push($resp,$this->movieDAO->getByMovieId($function->getMovieId())[0]);
-                }               
+                    if($this->checkFunction($resp, $function->getMovieId()))
+                    {
+                        array_push($resp,$this->movieDAO->getByMovieId($function->getMovieId())[0]);
+                    }               
+                }
             }               
             return $resp;           
         }

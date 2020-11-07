@@ -53,7 +53,6 @@ require_once('Config\Autoload.php');
                                     ?>  
                                     <form method="post" id="genreForm<?php echo $function->getId()?>">
                                     <div name="functionSelectior" id="functionSelectior"  onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/buyTicketView',<?php echo $function->getId() ?>)" > 
-                                    <input type="hidden" name="idFunction" value="<?php echo $function->getId()?>">
                                     <input type="hidden" name="function" value="<?php echo $function?>">
                                     <!-- esta ultima linea la puse para mandar la funcion completa, fijate si la toma asi para evitar una query mas ala base-->
                                     </form> 
