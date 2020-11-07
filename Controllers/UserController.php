@@ -8,17 +8,30 @@
     use Models\User as User;
     use Facebook\Facebook as Facebook;
     use Controllers\BillboardController as BillboardController;
+    use DAO\TicketDAO as TicketDAO;
+    use DAO\CinemaDAOmysql as CinemaDAO;
+    use DAO\MovieDAOmysql as MovieDAO;
+    use DAO\AuditoriumDAOmysql as AuditoriumDAO;
 
     class UserController{
 
+        private $userProfile;
         private $userDAO;
         private $billboardController;
+        private $ticketDAO;
+        private $movieDAO;
+        private $cinemaDAO;
+        private $auditoriumDAO;
 
         public function __construct()
         {
-
+            $this->userProfile = new User ();
             $this->userDAO = new userDAOmysql();
             $this->billboardController = new BillboardController();
+            $this->ticketDAO = new TicketDAO();
+            $this->movietDAO = new MovieDAO();
+            $this->cinemaDAO = new CinemaDAO();
+            $this->auditoriumDAO = new AuditoriumDAO();
         }
 
         public function Add($userName, $userEmail, $password)
@@ -149,6 +162,52 @@
 
         public function showRegisterView($message=""){
             require_once(VIEWS_PATH."user-register.php");
+        }
+
+        public function userRole ()
+        {
+            if(isset($_SESSION["userLogin"])){
+                if($_SESSION['userLogin']->getUserRole()==1){
+                    require_once(VIEWS_PATH."cinema-add.php");
+                }elseif($_SESSION['userLogin']->getUserRole()==2){
+                    require_once(VIEWS_PATH."billboard-View.php");
+                }else{
+                    require_once(VIEWS_PATH."billboard-View.php");
+                }
+            }
+        }
+
+        public function userCheck ()
+        {
+            if(!isset($_SESSION["userLogin"])){
+                require_once(VIEWS_PATH."user-login.php");
+                echo  "<script> alert ('debe registrase'); </script>";
+            }
+        }
+
+        public function showUserProfile ()
+        {
+            if(isset($_SESSION['userLogin'])){
+                
+                $ticketList = array();
+                $ticketObject = array();
+                $newTicketList = array();
+
+                $this->userProfile = $_SESSION['userLogin'];
+                $ticketList = $this->ticketDAO->getTicketsByUser($userProfile);
+                
+                foreach($ticketList as $ticket){
+                    
+                    $ticketObject["functionDate"] = $ticket->getFunction()->getDate();
+                    $ticketObject["functionTime"] = $ticket->getFunction()->getTime();
+                    $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction()->getId())->getTitle();
+                    $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction()->getId())->getName();
+                    $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction()->getId())->getName();
+                    
+                    array_push($newTicketList,$ticketObject);
+                }
+                require_once(VIEWS_PATH."user-profile.php");
+            }
         }
     }
     

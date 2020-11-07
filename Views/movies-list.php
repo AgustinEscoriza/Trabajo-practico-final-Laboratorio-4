@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="../Views/css/movies-list.css">
 <?php
+   use Controllers\UserController as UserController;
+   $userController = new UserController();
+   $userController->userCheck();
+   require_once('nav-user.php');
 require_once('nav-billboard.php');
 require_once('Config\Autoload.php');
 ?>

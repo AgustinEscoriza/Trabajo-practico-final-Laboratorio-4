@@ -1,4 +1,8 @@
 <?php
+   use Controllers\UserController as UserController;
+   $userController = new UserController();
+   $userController->userCheck();
+   require_once('nav-user.php');
     require_once('nav.php');
 ?>
 <main class="py-5">

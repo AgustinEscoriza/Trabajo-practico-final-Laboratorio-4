@@ -84,7 +84,7 @@ CREATE TABLE roles(
 	idRole int AUTO_INCREMENT NOT NULL,
     roleName varchar(50),
     CONSTRAINT pkIdRole PRIMARY KEY (idRole)
-)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+)ENGINE=InnoDB;
 
 insert into roles (idRole,roleName) values (1,'admin'),(2,'user'),(3,'guest');
 
@@ -99,7 +99,7 @@ CREATE TABLE users(
     fbAccesToken int,
     CONSTRAINT pkIdUser PRIMARY KEY (idUser),
     CONSTRAINT fkIdRole FOREIGN KEY (idRole) references roles (idRole)
-)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+)ENGINE=InnoDB;
 
 CREATE TABLE tickets(
     idTicket int not null auto_increment,
@@ -112,19 +112,19 @@ CREATE TABLE tickets(
     constraint pkIdTicket primary key(idTicket),
     constraint fkTicketIdFunction foreign key (idFunction) references functions(idFunction),
     constraint fkTicketIdUser foreign key (idUser) references users(idUser)
-)ENGINE=InnoDB DEFAULT CHARACTER SET = utf8;
+)ENGINE=InnoDB;
 
 select * from Functions where functionDate = '2020-11-11' and idAuditorium=3 order by functionTime desc limit 1;
 select * from Functions where functionDate like '%18'  order by functionTime desc limit 1;
 select * from Functions;
 
 
-INSERT INTO cinemas (name,adress) VALUES
+INSERT INTO cinemas (name,adress, cinemaStatus) VALUES
 ('Ambassador','Cordoba 1552',1),
 ('Cines del Paseo','Belgrano 2955',1),
 ('Aldrey','Las Heras 2551',1);
 
-INSERT INTO auditoriums (idCinema,name,capacity,ticketValue) VALUES
+INSERT INTO auditoriums (idCinema,name,capacity,ticketValue,auditoriumStatus) VALUES
 ('1','Sala Bolt','100','150',1),
 ('1','Sala Silio','209','180',1),
 ('2','Sala Kipchoge','159','210',1),
