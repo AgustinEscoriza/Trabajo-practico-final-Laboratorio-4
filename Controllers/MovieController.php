@@ -134,23 +134,18 @@
 
                 if(!$existence)
                 {
-                    $this->movieDAO->ChangeState($movieDB->getId());
+                    $this->ChangeMovieStatus($movieDB->getId());
                 }
             }       
         }
 
         public function ChangeMovieStatus($idMovie)
         {
-            $cinemaId = $this->auditoriumDAOmysql->getIdCinema($auditoriumId); 
-
             if($this->functionsDAO->CheckFunctionsStatus($idMovie))
             {
-                $this->cineDAO->delete(0,$idMovie);
-
-                $this->showListView();
+                $this->movieDAO->ChangeMovieStatus($idMovie);
             }
-            
-            $this->showListView($cinemaId);
+            //falta setear el mensaje si no se puede eliminar
         }
 
         public function checkGenresExistences($genresInDB, $genresFromAPI)

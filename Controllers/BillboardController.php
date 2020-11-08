@@ -41,7 +41,7 @@
             
         }
 
-        public function showFullList(){
+        public function showFullList($message=""){
 
                 
             $functionsList = $this->functionDAO->getAll();

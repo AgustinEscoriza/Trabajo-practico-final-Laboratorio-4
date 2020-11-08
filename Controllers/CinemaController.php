@@ -19,7 +19,7 @@
             require_once(VIEWS_PATH."cinema-add.php");
         }
 
-        public function showListView (){
+        public function showListView ($message=""){
             
             $cinemaList = $this->cinemaDAOmysql->getAll();
     
@@ -51,10 +51,11 @@
         {
             if($this->auditoriumDAO->CheckAuditoriumStatus($idCinema))
             {
-                $this->cineDAO->delete($idCinema);
+                $this->cinemaDAOmysql->ChangeCinemaStatus($idCinema);
 
-                $this->showListView();
+                $this->showListView(($result==1) ? "El Cine Ha Sido Eliminado Correctamente" : "Revise el Listado Por Posibles Errores de Eliminacion");
             }
+            $this->showListView("El Cine no Puede Eliminarse, Ya que hay Auditoriums Activos Pertenecientes al Mismo");
         }
 
         public function Modify($cinemaId,$name,$adress)

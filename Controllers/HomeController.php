@@ -1,14 +1,21 @@
 <?php
     namespace Controllers;
 
-    
+    use Controllers\BillboardController as BillboardController;
 
     class HomeController
     {
+        private $billboardController;
+
+        public function __construct()
+        {
+            $this->billboardController = new BillboardController();
+        }
+
         public function Index($message = "")
         {
             
-            require_once(VIEWS_PATH."fullBillboard-View.php");
+            $this->billboardController->showFullList();
         }        
     }
 ?>

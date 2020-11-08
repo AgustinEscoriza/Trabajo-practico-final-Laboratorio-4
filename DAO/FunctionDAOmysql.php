@@ -124,6 +124,7 @@
         }                         
     }
 
+
     public function chekExistence ($movieId,$date)
     {
         $flag = false;
@@ -188,12 +189,27 @@
         }
     }
 
+    public function ChangeFunctionsStatus($idFunction){
+        try{
+            
+                $query = "UPDATE Functions set functionStatus = 0 WHERE idFunction='$idFunction'";
+
+                $this->connection = Connection::GetInstance();
+            
+                $result = $this->connection->ExecuteNonQuery($query,array(),QueryType::StoredProcedure);
+            
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+    }
+    
     public function CheckFunctionsStatus($idAuditorium,$idMovie)
     {
         $status = false;
 
-        $functionsList = ($idAuditorium !=0) ? GetFunctionsByAuditoriumId($idAuditorium) 
-                                              :GetFunctionsByMovieId($idMovie);
+        $functionsList = ($idAuditorium !=0) ? $this->GetFunctionsByAuditoriumId($idAuditorium) 
+                                              :$this->GetFunctionsByMovieId($idMovie);
 
         if(empty($functionsList))
         {
@@ -207,7 +223,7 @@
     {
         try{
         $query = "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".idAuditorium ='$idAuditorium' 
-                                                    and".$this->tableName.".functionStatus = 1" ;
+                                                    and ".$this->tableName.".functionStatus = 1" ;
     
         $this->connection = Connection::GetInstance();
             

@@ -107,9 +107,13 @@
        
         try{
             $query = "UPDATE ". $this->tableName." SET cinemaStatus = 0 WHERE ". $this->tableName. ".idCinema ='$idCinema'";
+            
+            $this->connection = Connection::GetInstance();
+            
             $this->connection->ExecuteNonQuery($query,QueryType::Query);
         }
-        catch(\PDOException $ex){
+        catch(\PDOException $ex)
+        {
             throw $ex;
         }
         

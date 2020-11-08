@@ -59,7 +59,7 @@
         public function getAuditoriumByCinemaId($cinemaId, $status)
         {
 
-            $query = "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId'";
+            $query = "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId' AND auditoriumStatus = 1";
             //$query = ($status==-1) ? "SELECT * FROM auditoriums WHERE idCinema ='$cinemaId'"
             //                        :"SELECT * FROM auditoriums WHERE idCinema ='$cinemaId' AND auditoriumStatus ='$status'";
 
@@ -169,6 +169,21 @@
             }
 
             return $status;
+        }
+
+        public function ChangeAuditoriumStatus($idAuditorium){
+            try{
+                
+                    $query = "UPDATE auditoriums set auditoriumStatus = 0 WHERE idAuditorium='$idAuditorium'";
+    
+                    $this->connection = Connection::GetInstance();
+                
+                   return $this->connection->ExecuteNonQuery($query,array(),QueryType::StoredProcedure);
+                
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
         }
 
         protected function mapear($value) {

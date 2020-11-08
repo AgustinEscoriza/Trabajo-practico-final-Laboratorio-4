@@ -86,7 +86,6 @@ CREATE TABLE roles(
     CONSTRAINT pkIdRole PRIMARY KEY (idRole)
 )ENGINE=InnoDB;
 
-insert into roles (idRole,roleName) values (1,'admin'),(2,'user'),(3,'guest');
 
 CREATE TABLE users(
 	idUser int AUTO_INCREMENT NOT NULL,
@@ -131,3 +130,9 @@ INSERT INTO auditoriums (idCinema,name,capacity,ticketValue,auditoriumStatus) VA
 ('2','Sala Borelli','110','195',1),
 ('3','Sala Casetta','92','170',1),
 ('3','Sala Luna','116','250',1);
+
+INSERT INTO roles (idRole,roleName) VALUES 
+(1,'admin'),(2,'user'),(3,'guest');
+
+INSERT INTO users (idUser,idRole,userName,userEmail,userPassword,userState) VALUES 
+('1','1','admin','admin@gmail.com','123456','1');

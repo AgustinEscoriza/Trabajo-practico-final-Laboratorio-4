@@ -45,16 +45,14 @@
             }
         }
 
-        public function ChangeMovieState($idMovie){
+        public function ChangeMovieStatus($idMovie){
             try{
                 
-                    $query = "UPDATE movies set movieState = 0 where idMovie='$idMovie'";
-
-                    //$parameters["idMovie"] = $idMovie; asi y se pasa parameters???????
+                    $query = "UPDATE movies set movieStatus = 0 WHERE idMovie='$idMovie'";
 
                     $this->connection = Connection::GetInstance();
                 
-                    $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+                    $result = $this->connection->ExecuteNonQuery($query,array(),QueryType::StoredProcedure);
                 
             }
             catch(\PDOException $ex){
@@ -83,7 +81,7 @@
 
         public function getAll(){
             try{
-                $query = "SELECT * FROM ".$this->tableName;
+                $query = "SELECT * FROM ".$this->tableName." WHERE movieStatus = 1";
     
                 $this->connection = Connection::GetInstance();
                 

@@ -93,19 +93,17 @@
 
         public function ChangeFunctionsStatus($idFunction)
         {
-
             if($this->ticketDAO->CheckTicketsStatus($idFunction))
             {
-                $this->cineDAO->delete($idFunction);
+                $this->functionDAO->ChangeFunctionsStatus($idFunction);
 
-                $this->showListView();
+                $this->showFullList(($result==1) ? "La Funcion Ha Sido Eliminada Correctamente" : "Revise el Listado Por Posibles Errores de Eliminacion");
             }
-            
-            $this->showListView($cinemaId);
+            //falta setear el mensaje si no se puede eliminar
+            $this->billboardController->showFullList("La Funcion no Puede Eliminarse, Ya que hay Tickets Emitidos Para La Misma");
         }
 
-        public function FunctionsToCinema($idMovie) //puedo hacer 1 query por cada cine, 
-                                                            //y traerme las funciones en ese cine, con eso armar el array de funciones dentro del array de cines
+        public function FunctionsToCinema($idMovie)
         {
             $functionsByCinemaList = array();
             $cinemaList = $this->cinemaDAO->getAll();

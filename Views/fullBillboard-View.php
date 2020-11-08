@@ -23,7 +23,13 @@ require_once('Config\Autoload.php');
 </div>
 
 <div>
-<?php foreach($moviesList as $res){ ?>  
+<?php
+                if(isset($message) && $message!=1){ ?> 
+                              <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+                              <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $message; ?> </h5>
+
+                              <?php }
+ foreach($moviesList as $res){ ?>  
 
 <div class="movieDiv" >
  

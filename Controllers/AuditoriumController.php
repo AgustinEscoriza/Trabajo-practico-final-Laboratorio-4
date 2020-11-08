@@ -21,7 +21,7 @@
             require_once(VIEWS_PATH."auditorium-add.php");
         }
 
-        public function showListView ($cinemaId){
+        public function showListView ($cinemaId,$message=""){
 
             $auditoriumList = array();
             $auditoriumList = $this->auditoriumDAOmysql->getAuditoriumByCinemaId($cinemaId,1);
@@ -60,16 +60,16 @@
 
         public function ChangeAuditoriumStatus($idAuditorium)
         {
-            $cinemaId = $this->auditoriumDAOmysql->getIdCinema($auditoriumId); 
+            $cinemaId = $this->auditoriumDAOmysql->getIdCinema($idAuditorium); 
 
             if($this->functionsDAO->CheckFunctionsStatus($idAuditorium,0))
             {
-                $this->cineDAO->delete($idAuditorium);
+                $result = $this->auditoriumDAOmysql->ChangeAuditoriumStatus($idAuditorium);
 
-                $this->showListView();
+                $this->showListView($cinemaId,($result==1) ? "El Auditorium Ha Sido Eliminado Correctamente" : "Revise el Listado Por Posibles Errores de Eliminacion");
             }
-            
-            $this->showListView($cinemaId);
+            //falta setear el mensaje si no se puede eliminar
+            $this->showListView($cinemaId,"El Auditorium no Puede Eliminarse, Ya que hay Funciones Establecidas en Esa Sala");
         }
 
 

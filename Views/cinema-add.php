@@ -37,6 +37,12 @@ if(isset($_SESSION["userLogin"])) {
                            if(isset($addMessage)){
                            echo $addMessage;
                            }
+
+                           if(isset($message) && $message!=1){ ?> 
+                              <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+                              <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $message; ?> </h5>
+
+                              <?php }
                          ?>   
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
