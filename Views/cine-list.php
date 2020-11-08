@@ -2,7 +2,7 @@
    use Controllers\UserController as UserController;
    $userController = new UserController();
    $userController->userCheck();
-   require_once('nav-user.php');
+   
     require_once('nav.php');
     require_once('Config\Autoload.php');
     use Models\Cinema as Cinema;

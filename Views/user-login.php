@@ -1,3 +1,6 @@
+<?php
+require_once("nav.php");
+?>
 <div class="d-flex align-items-center justify-content-center" style="color:#ffd9b3; background-color: rgb(32, 31, 31); border: 2px solid rgba(0, 0, 0, 0.2)">
           <h1>BIENVENIDO A MOVIE PASS</h1>
             </div>

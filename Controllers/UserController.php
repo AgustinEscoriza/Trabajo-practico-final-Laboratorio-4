@@ -47,6 +47,8 @@
 
         public function setSession ($user)
         {
+            unset($_SESSION['userGuest']);
+            unset($_SESSION['userLogin']);
             $_SESSION['userLogin']=$user;
         }
 
@@ -61,7 +63,7 @@
                    if($loggedUser->getUserRole() == '1'){
                     require_once(VIEWS_PATH."cinema-add.php");  
                    }else{
-                    $this->billboardController->showFullList();
+                    require_once(VIEWS_PATH."fullBillboard-View.php");
                    }     
                }else{
                $message='Verifique que los datos ingresados sean correctos';
@@ -117,13 +119,16 @@
         
         public function logout ()
         {
-            if (session_status( )== PHP_SESSION_NONE){
-                session_start();
-                session_destroy();
-            }else{
-                session_destroy();
+            //if (session_status( )== PHP_SESSION_NONE){
+             //   session_start();
+              //  session_destroy();
+           // }else{
+              //  session_destroy();
+            //}
+            if(isset($_SESSION['userLogin'])){
+                unset($_SESSION['userLogin']);
             }
-            $this->showLoginView();
+            require_once(VIEWS_PATH."fullBillboard-View.php");
         }
         
         /*$userLoginName=$userName;
@@ -154,9 +159,9 @@
         }*/  
 
         public function showLoginView($message=""){
-            if (isset($_SESSION["userLogin"])) session_unset();
-            if (isset($_SESSION["fbUser"])) session_destroy();
-            $_SESSION["userLogin"] = null;
+            //if (isset($_SESSION["userLogin"])) session_unset();
+            //if (isset($_SESSION["fbUser"])) session_destroy();
+            //$_SESSION["userLogin"] = null;
             require_once(VIEWS_PATH."user-login.php");
         }
 
@@ -179,10 +184,20 @@
 
         public function userCheck ()
         {
-            if(!isset($_SESSION["userLogin"])){
-                require_once(VIEWS_PATH."user-login.php");
-                echo  "<script> alert ('debe registrase'); </script>";
+            //unset($_SESSION["userLogin"]);
+            if(!isset($_SESSION["userGuest"])){
+                $userGuest = new User();
+                $userGuest->setUserName("guest");
+                $userGuest->setUserEmail("guest");
+                $userGuest->setUserPassword("guest");
+                $userGuest->setUserState(1);
+                $userGuest->setUserRole(3);
+                $this->setSession($userGuest);  
+                
+                //require_once(VIEWS_PATH."user-login.php");
+                //echo  "<script> alert ('debe registrase'); </script>";
             }
+
         }
 
         public function showUserProfile ()

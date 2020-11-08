@@ -54,7 +54,7 @@ class User{
 	public function setUserState($userState){
 		$this->userState = $userState;
 	}
-	public function setUserRole($userSRole){
+	public function setUserRole($userRole){
 		$this->userRole = $userRole;
 	}
 	public function setfbId($fbId){

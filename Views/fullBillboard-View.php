@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="../Views/css/movies-list.css">
 <?php
-require_once('nav-billboard.php');
+require_once('nav.php');
 require_once('Config\Autoload.php');
+
 ?>
 
 <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">

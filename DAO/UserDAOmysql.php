@@ -118,6 +118,8 @@
                 $u->setUserName ($p['userName']);
                 $u->setUserEmail($p['userEmail']);
                 $u->setUserPassword ($p['userPassword']);
+                $u->setUserRole($p['idRole']);
+                $u->setUserState($p['userState']);
                 return $u;
             }, $value);
                  

@@ -8,7 +8,7 @@
         public function Index($message = "")
         {
             
-            require_once(VIEWS_PATH."user-login.php");
+            require_once(VIEWS_PATH."fullBillboard-View.php");
         }        
     }
 ?>

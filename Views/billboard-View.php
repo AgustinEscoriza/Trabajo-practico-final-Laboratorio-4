@@ -1,11 +1,11 @@
 <?php
-       use Controllers\UserController as UserController;
-       $userController = new UserController();
-       $userController->userCheck();
-       require_once('nav-user.php');
+      // use Controllers\UserController as UserController;
+       //$userController = new UserController();
+       //$userController->userCheck();
+      
 
-    require_once('nav-billboard.php');
-    require_once('Config\Autoload.php');
+    require_once('nav.php');
+    //require_once('Config\Autoload.php');
   
 ?>
 <link rel="stylesheet" href="../Views/css/movies-list.css">
@@ -14,7 +14,12 @@
           <div class="container">
                <h2><?php echo ' | Cinema '.$cinemaId ?></h2>
                <form method="post" id="columnarForm">
+               <?php  if (isset($_SESSION['userLogin'])){
+                                                  $userLogin=$_SESSION['userLogin'];
+                                                  if($userLogin->getUserRole()==1){
+                                                   ?>                                  
                <button type="submit" name="cinemaId" class="btn btn-success" value="<?php echo $cinemaId ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Function/showAddView')"> Add Function</button>
+               <?php } }?>
                <input type="hidden" name="auditoriumId" value="0" class="form-control">
                </form>
 

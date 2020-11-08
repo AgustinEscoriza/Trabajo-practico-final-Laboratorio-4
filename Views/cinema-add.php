@@ -1,9 +1,15 @@
 <?php
-   use Controllers\UserController as UserController;
-   $userController = new UserController();
-   $userController->userCheck();
-   require_once('nav-user.php');
-    require_once('nav.php');
+if(isset($_SESSION["userLogin"])) { 
+     $userLogin = $_SESSION["userLogin"]; 
+     if($userLogin->getUserRole() != 1){
+          echo  "<script> alert ('debe loguearse'); </script>";
+          require_once(VIEWS_PATH."user-Login.php");
+     }
+ 
+  }
+     require_once('nav.php');
+
+   
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">

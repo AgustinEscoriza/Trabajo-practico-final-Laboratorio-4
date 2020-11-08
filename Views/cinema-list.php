@@ -1,11 +1,11 @@
 <?php
-   use Controllers\UserController as UserController;
-   $userController = new UserController();
-   $userController->userCheck();
-   require_once('nav-user.php');
+     //use Controllers\UserController as UserController;
+     //$userController = new UserController();
+     //$userController->userCheck();
     require_once('nav.php');
     require_once('Config\Autoload.php');
     use Models\Cinema as Cinema;
+   
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -28,11 +28,16 @@
                                              <td><?php echo $cinema->getName() ?></td>
                                              <td><?php echo $cinema->getAdress() ?></td>
                                              <td style="text-align: center;">
-                                             <button type="submit" name="billboard" class="btn btn-info" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Billboard/ShowBillboard')"> BillBoard </button>                                             
+                                             <button type="submit" name="billboard" class="btn btn-info" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Billboard/ShowBillboard')"> BillBoard </button> 
+                                             <?php  if (isset($_SESSION['userLogin'])){
+                                                  $userLogin=$_SESSION['userLogin'];
+                                                  if($userLogin->getUserRole()==1){
+                                                   ?>                                      
                                              <button type="submit" name="cinemaId" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/ShowListView')"> Show Auditoriums </button>
                                              <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Remove')"> Remove </button> 
                                              <button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Modify')"> Modify </button>
-                                             </td>
+                                             <?php } }?>
+                                        </td>
                                         </tr>
                                    <?php
                               }
@@ -41,7 +46,12 @@
                     </tbody>
                </table>
                <br>
+               <?php  if (isset($_SESSION['userLogin'])){
+                                                  $userLogin=$_SESSION['userLogin'];
+                                                  if($userLogin->getUserRole()==1){
+                                                   ?>                                      
                <button type="submit" name=" " class="btn btn-dark ml-auto d-block" value=" " onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/ShowAddView')"> Add Cinema</button>
+               <?php } }?>
           </div>
      </section>
 </main>
