@@ -73,6 +73,7 @@ class TicketDAO implements ITicketDAO{
 
     public function getTicketsByUser(User $user){
         try{
+            $userId = $user->getIdUser();
 
             $query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM ticket as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
 

@@ -108,6 +108,27 @@
             }
         }
 
+        public function getAll ()
+        {
+            $query= "SELECT *FROM users";
+
+            try{
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,array(),QueryType::Query);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+            
+            //var_dump($resultSet);
+
+            if (!empty($resultSet)){
+                return $this->mapear($resultSet);
+            }else{
+                return false;
+            }
+        }
+
         protected function mapear ($value)
         {
             $value = is_array($value) ? $value : [];
@@ -125,6 +146,8 @@
                  
             return count($resp) > 1 ? $resp : $resp['0'];
         }
+
+       
 /*
 
         public function getAuditorium($id){
@@ -137,18 +160,18 @@
 
             return $result;
         }
+*/
+        public function deleteUser($id){
+            $query = "UPDATE users SET userState = '0' WHERE idUser = '$id'";
 
-        public function delete($id){
-            $query = "CALL Auditorium_Delete(?)";
-
-            $parameters["id"] = $id;
+            $parameters['id'] = $id;
 
             $this->connection = Connection::GetInstance();
             
             $this->connection->ExecuteNonQuery($query,$parameters,QueryType::Query);
             
         }
-*/
+
     }
     
 ?>

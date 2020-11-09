@@ -16,6 +16,7 @@
     class UserController{
 
         private $userProfile;
+        //private $usersList=array();
         private $userDAO;
         private $billboardController;
         private $ticketDAO;
@@ -200,6 +201,13 @@
 
         }
 
+        public function getUsersList ()
+        {
+            $usersList = $this->userDAO->getAll();
+            require_once(VIEWS_PATH."users-list.php");
+
+        }
+
         public function showUserProfile ()
         {
             if(isset($_SESSION['userLogin'])){
@@ -208,7 +216,7 @@
                 $ticketObject = array();
                 $newTicketList = array();
 
-                $this->userProfile = $_SESSION['userLogin'];
+                $userProfile = $_SESSION['userLogin'];
                 $ticketList = $this->ticketDAO->getTicketsByUser($userProfile);
                 
                 foreach($ticketList as $ticket){
@@ -223,6 +231,22 @@
                 }
                 require_once(VIEWS_PATH."user-profile.php");
             }
+        }
+
+        public function showAdminDataView ()
+        {
+            require_once(VIEWS_PATH."admin-data.php");
+        }
+
+        public function showStatisticsView()
+        {
+            require_once(VIEWS_PATH."statistics-view.php");
+        }
+
+        public function deleteUser ($userId)
+        {
+            $this->userDAO->deleteUser($userId);
+            $this->getUsersList();
         }
     }
     

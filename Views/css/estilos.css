@@ -57,3 +57,22 @@ body {
 .fb-button-container:hover {
 	background: #1D3C78;
 }
+
+#sidebar-container{
+     min-height: 100vh;
+}
+
+#sidebar-container .menu{
+     width: 18rem;
+}
+
+.bg-primary{
+     background-color: black !important;
+}
+
+#content {
+     overflow-y: auto;
+     height: 100vh;
+     padding-bottom: 5rem;
+}
+

@@ -13,7 +13,10 @@
           </li>  
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cinema/showListView">Show Cinemas</a>
-          </li>     
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/showAdminDataView">Admin Data</a>
+          </li>       
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/logout">Log Out</a>
           </li>
