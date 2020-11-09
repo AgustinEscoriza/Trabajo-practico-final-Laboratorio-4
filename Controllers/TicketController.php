@@ -2,6 +2,8 @@
 
     namespace Controllers;
 
+
+
     use DAO\CinemaDAOmysql as CinemaDAO;
     use DAO\MovieDAOmysql as MovieDAO;
     use DAO\FunctionDAOmysql as FunctionDAO;
@@ -124,7 +126,16 @@
             $this->functionDAO->updateTicketsSold($function);                                   // funciones, sino DAO que traiga cantidad
         }
 
-
+        public function GenerateQR(/*$userName, $cinemaName, $auditoriumName, $functionDate, $ticketsPurchased*/)
+        {             
+             $userName ='Dami';
+             $cinemaName='Ambassador';
+             $auditoriumName ='Sala Bolt';
+             $functionDate ='Jueves 3';
+             $ticketsPurchased= '2';
+            
+            require_once(VIEWS_PATH."QRCode-View.php");
+        }
     }
 
 ?>

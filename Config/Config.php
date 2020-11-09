@@ -6,6 +6,10 @@ define("FRONT_ROOT", "/Trabajo-practico-final-Laboratorio-4/");
 define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
+define("QR_ROOT", ROOT. "QRGenerator/");
+
+define("IMG_PATHSAVE", ROOT.VIEWS_PATH . "img/");
+define("IMG_PATH", FRONT_ROOT.VIEWS_PATH . "img/");
 
 define("API_ROOT", "https://api.themoviedb.org/3/");
 define("API_KEY", "?api_key=ac2b338077edff8c77e3671b8dbc9930");
