@@ -60,7 +60,7 @@
     public function getAll(){
 
         try{
-            $query = "SELECT * FROM ".$this->tableName;
+            $query = "SELECT * FROM ".$this->tableName." WHERE cinemaStatus = 1";
 
             $this->connection = Connection::GetInstance();
             
@@ -110,7 +110,7 @@
             
             $this->connection = Connection::GetInstance();
             
-            $this->connection->ExecuteNonQuery($query,QueryType::Query);
+            $this->connection->ExecuteNonQuery($query,array(),QueryType::Query);
         }
         catch(\PDOException $ex)
         {
@@ -129,7 +129,7 @@
         try {
 
         $this->connection = Connection::getInstance();
-        $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
+        return $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
 
         }catch(\PDOException $ex) {
 

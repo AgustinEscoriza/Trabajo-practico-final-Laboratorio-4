@@ -26,14 +26,12 @@
             $auditoriumList = array();
             $auditoriumList = $this->auditoriumDAOmysql->getAuditoriumByCinemaId($cinemaId,1);
 
+            $message = ($message == "") ? (empty($auditoriumList)) ? " No Hay Cines Disponibles" : "" : $message;
 
             require_once(VIEWS_PATH."auditorium-list.php");
             
         }
-        public function showModifyView(){
-            
-            require_once(VIEWS_PATH."auditorium-modify.php");
-        }   
+        
 
 
         public function Add($name,$cinemaId, $capacity, $ticketValue)
@@ -72,12 +70,16 @@
             $this->showListView($cinemaId,"El Auditorium no Puede Eliminarse, Ya que hay Funciones Establecidas en Esa Sala");
         }
 
+        public function showModifyView($idAuditorium){
+            $auditorium =  $this->auditoriumDAOmysql->getAuditorium($idAuditorium)[0];
+            require_once(VIEWS_PATH."auditorium-modify.php");
+        }   
 
-        public function Modify($auditoriumId)
+        public function Modify($idAuditorium, $name, $capacity, $ticketValue)
         {
-            $this->auditoriumDAOmysql->modify($auditoriumId,$name,$capacity,$ticketValue);
-            $this->showListView();
-            
+            $result = $this->auditoriumDAOmysql->modify($idAuditorium,$name,$capacity,$ticketValue);
+            $message = ($result == 1) ? "La Sala Se Ha Modificado Correctamente" : "Ha Habido Errores de Edicion, Verifique la Lista";
+            $this->showListView($this->auditoriumDAOmysql->getIdCinema($idAuditorium), $message);           
         }
 
     }

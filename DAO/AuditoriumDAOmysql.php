@@ -122,9 +122,9 @@
             
         }
 
-        public function  modify($cinemaId,$name,$capacity,$ticketValue){
+        public function  modify($idAuditorium,$name,$capacity,$ticketValue){
 
-            $query = "UPDATE cinemas SET name = :name, capacity = :capacity, ticketValue = :ticketValue WHERE idCinema = $cinemaId";
+            $query = "UPDATE auditoriums SET name = :name, capacity = :capacity, ticketValue = :ticketValue WHERE idAuditorium = $idAuditorium";
             
             $parameters['name'] = $name;
             $parameters['capacity'] = $capacity;
@@ -133,7 +133,7 @@
             try {
     
             $this->connection = Connection::getInstance();
-            $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
+            return $this->connection->ExecuteNonQuery($query, $parameters,QueryType::Query);
     
             }catch(\PDOException $ex) {
     
@@ -161,7 +161,7 @@
         {
             $status = false;
 
-            $auditoriumsList = getAuditoriumByCinemaId($idCinema,1);
+            $auditoriumsList = $this-> getAuditoriumByCinemaId($idCinema,1);
 
             if(empty($auditoriumsList))
             {

@@ -35,8 +35,9 @@
                                                   if($userLogin->getUserRole()==1){
                                                    ?>                                      
                                              <button type="submit" name="cinemaId" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Auditorium/ShowListView')"> Show Auditoriums </button>
-                                             <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Remove')"> Remove </button> 
-                                             <button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/Modify')"> Modify </button>
+                                             <button type="submit" name="remove" class="btn btn-danger" value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/ChangeCinemaStatus')"> Remove </button> 
+                                             <button type="submit" name="modify" class="btn btn-dark ml-auto " value="<?php echo $cinema->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/showModifyView')"> Modify </button>
+                                             
                                              <?php } }?>
                                         </td>
                                         </tr>
@@ -53,7 +54,14 @@
                                                   if($userLogin->getUserRole()==1){
                                                    ?>                                      
                <button type="submit" name=" " class="btn btn-dark ml-auto d-block" value=" " onclick="submitForm('<?php echo FRONT_ROOT ?>Cinema/ShowAddView')"> Add Cinema</button>
-               <?php } }?>
+               <?php } }
+               
+               if(isset($message) && $message!=1){ ?> 
+                    <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+                    <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $message; ?> </h5>
+
+                    <?php }
+                    ?>
           </div>
      </section>
 </main>

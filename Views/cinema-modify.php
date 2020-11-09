@@ -36,13 +36,13 @@
 
                               <div class="form-group">
                                    <label for="">Name</label>
-                                   <input type="text" name="name" value="" class="form-control">
+                                   <input type="text" name="name" value="<?php echo $cinema->getName() ?>" class="form-control">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Adress</label>
-                                   <input type="text" name="adress" value="" class="form-control">
+                                   <input type="text" name="adress" value="<?php echo $cinema->getAdress() ?>" class="form-control">
                               </div>
                          </div>
                         

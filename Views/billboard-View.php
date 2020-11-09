@@ -22,7 +22,16 @@
                <?php } }?>
                <input type="hidden" name="auditoriumId" value="0" class="form-control">
                </form>
-
+              <?php
+                if(isset($addMessage) && $addMessage!=1){ 
+              ?> 
+                <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+                  <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $addMessage; ?> </h5>
+                </div>
+              <?php
+                }
+              ?>
+          
               
                
                  

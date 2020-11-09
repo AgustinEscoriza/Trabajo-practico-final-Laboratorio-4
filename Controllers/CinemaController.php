@@ -15,14 +15,14 @@
             $this->auditoriumDAO = new AuditoriumDAO();
         }
 
-        public function showAddView ($addMessage=""){
+        public function showAddView ($message=""){
             require_once(VIEWS_PATH."cinema-add.php");
         }
 
         public function showListView ($message=""){
             
             $cinemaList = $this->cinemaDAOmysql->getAll();
-    
+            $message = ($message == "") ? (empty($cinemaList)) ? " No Hay Cines Disponibles" : "" : $message;
             require_once(VIEWS_PATH."cinema-list.php");
             
         }
@@ -51,18 +51,19 @@
         {
             if($this->auditoriumDAO->CheckAuditoriumStatus($idCinema))
             {
-                $this->cinemaDAOmysql->ChangeCinemaStatus($idCinema);
+                $result = $this->cinemaDAOmysql->ChangeCinemaStatus($idCinema);
 
                 $this->showListView(($result==1) ? "El Cine Ha Sido Eliminado Correctamente" : "Revise el Listado Por Posibles Errores de Eliminacion");
             }
             $this->showListView("El Cine no Puede Eliminarse, Ya que hay Auditoriums Activos Pertenecientes al Mismo");
         }
 
-        public function Modify($cinemaId,$name,$adress)
+        public function Modify($cinemaId,$name,$adress,$message="")
         {
 
-            $this->cinemaDAOmysql->modify($cinemaId,$name,$adress);
-            $this->showListView();
+            $result = $this->cinemaDAOmysql->modify($cinemaId,$name,$adress);
+            $message = ($result == 1) ? "El Cine Se Ha Modificado Correctamente" : "Ha Habido Errores de Edicion, Verifique la Lista";
+            $this->showListView($message);
         }
 
     }

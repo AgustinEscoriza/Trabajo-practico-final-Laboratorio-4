@@ -28,25 +28,26 @@ if(isset($_SESSION["userLogin"])) {
                          </tr>
                     </tbody>
                </table>
-               <form action="<?php echo FRONT_ROOT ?>Auditorium/Add" method="post" class="bg-light-alpha p-5">
+               <form action="<?php echo FRONT_ROOT ?>Auditorium/Modify" method="post" class="bg-light-alpha p-5">
                     <div class="row">                       
                          <div class="col-lg-4">
+                         <input type="hidden" name="idAuditorium" value="<?php echo $auditorium->getId();?>" class="form-control">
                               <div class="form-group">
                                    <label for="">Name</label>
-                                   <input type="text" name="name" value="" class="form-control">
+                                   <input type="text" name="name" value="<?php echo $auditorium->getName() ?>" class="form-control">
                               </div>
                          </div>
-                         <input type="hidden" name="cinemaId" value="<?php echo $auditorium->getCinemaId();?>" class="form-control">
+                         
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Capacity</label>
-                                   <input type="text" name="capacity" value="" class="form-control">
+                                   <input type="text" name="capacity" value="<?php echo $auditorium->getCapacity() ?>" class="form-control">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Ticket Value</label>
-                                   <input type="text" name="ticketValue" value="" class="form-control">
+                                   <input type="text" name="ticketValue" value="<?php echo $auditorium->getTicketValue() ?>" class="form-control">
                               </div>
                          </div>
                         

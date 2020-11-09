@@ -23,7 +23,7 @@
         }
 
 
-        public function ShowBillboard ($cinemaId){
+        public function ShowBillboard ($cinemaId, $addMessage=""){
             $cinemaId=$cinemaId;
 
             $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,0);
@@ -36,6 +36,7 @@
                     $movie->setGenre($genre);
                 }
             }   
+            $addMessage = ($addMessage == "") ? (empty($moviesList)) ? " No Hay Funciones Disponibles" : "" : $addMessage;
             
             require_once(VIEWS_PATH."billboard-View.php");
             

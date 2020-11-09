@@ -22,7 +22,9 @@
                             <label for="">Auditorium</label>
                             <div class="movieSelect">   
                             <input type="hidden" name="cinemaId" value="<?php echo $cinemaId ?>" class="form-control"> 
-                                <?php if(count($auditoriumsList)>1) { ?>                                           
+                                <?php 
+                                    if(!empty($auditoriumsList)){
+                                    if(count($auditoriumsList)>1) { ?>                                           
                                 <select name="auditoriumId" id="auditoriumId">
                                     <option type="submit" name="auditoriumId" value="0">Select Auditorium</option>
                                     <?php foreach($auditoriumsList as $auditorium){   ?>  
@@ -73,13 +75,21 @@
                     </div>                                                                
                 <div class ="row">
                         <?php
-                        if(isset($addMessage)){
-                        echo $addMessage;
-                        }                        
+                                               
                         ?>   
                 </div>
-            
+                
                 <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
+                <?php } 
+                
+                if(isset($addMessage)){
+                    ?> 
+                    <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+                    <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $addMessage; ?> </h5>
+
+                    <?php
+                    } 
+                    ?>
             </form>
         </div>
     </section>
