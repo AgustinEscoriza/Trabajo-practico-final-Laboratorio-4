@@ -22,8 +22,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <td> <?php echo $movie->getPosterPath(); ?> </td>
-                        <td> <?php echo $movie->getName(); ?> </td>
+                        <td> <img src=<?php echo IMAGE_ROOT. $movie->getPosterPath();?>> </img> </td>
+                        <td> <?php echo $movie->getTitle(); ?> </td>
                         <td> <?php echo $cinema->getName();?> </td>
                         <td> <?php echo $auditorium->getName()?> </td>
                         <td> <?php echo $function->getDate();  ?> </td>
@@ -34,7 +34,9 @@
 
             <form action="<?php echo FRONT_ROOT ?>Ticket/setAndValidatePurchase" method="post" class="add-form bg-light-alpha p-5">
 
-                <input type="hidden" name="function" value="<?php echo $function?>"required>
+                <input type="hidden" name="functionId" value="<?php echo $function->getId()?>"required>
+                <input type="hidden" name="ticketValue" value="<?php echo $auditorium->getTicketValue()?>"required>
+                <input type="hidden" name="capacity" value="<?php echo $auditorium->getCapacity()?>"required>
 
                 <div class = "form group">
 
@@ -48,7 +50,7 @@
 
             <?php
             if (isset($addMessage) && $addMessage != "") {
-                echo "<div class='alert alert-primary' role='alert'> $message </div>";
+                echo "<div class='alert alert-primary' role='alert'> $addMessage </div>";
             }
             ?>
         </div>

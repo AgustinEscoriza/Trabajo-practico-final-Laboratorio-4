@@ -13,15 +13,15 @@ require_once('Config\Autoload.php');
 <div class="filter">
             <div class="functionDiv">
                 <div width="80%">
-                    <img src=<?php echo IMAGE_ROOT.$movie[0]->getPosterPath();?>> </img>
+                    <img src=<?php echo IMAGE_ROOT.$movie->getPosterPath();?>> </img>
                 </div>
                 <div class="">
-                    <h4 ><?php echo $movie[0]->getTitle();'<br>' ;?></h4>
-                    <p><?php echo $movie[0]->getOverview();'<br>' ;?></p>
-                    <h5>Duration: <?php echo $movie[0]->getRuntime().' Minutes<br>' ;?></h5>
+                    <h4 ><?php echo $movie->getTitle();'<br>' ;?></h4>
+                    <p><?php echo $movie->getOverview();'<br>' ;?></p>
+                    <h5>Duration: <?php echo $movie->getRuntime().' Minutes<br>' ;?></h5>
                     <h5>Genres:</h5>
-                    <?php foreach($movie[0]->getGenre() as $genre) { ?>
-                    <p>  <?php echo $genre;'<br>' ;?> </p>
+                    <?php foreach($movie->getGenre() as $genre) { ?>
+                    <p>  <?php echo $genre->getName();'<br>' ;?> </p>
                     <?php } ?>
                     <h5>Functions:</h5>
                     <?php

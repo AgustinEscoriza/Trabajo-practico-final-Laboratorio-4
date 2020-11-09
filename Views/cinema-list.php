@@ -20,9 +20,10 @@
                          <th style="text-align:center;">Actions </th>
                     </thead>
                     <tbody>
-                         <?php     
-                              foreach($cinemaList as $cinema)
-                              {
+                         <?php
+                              if(!empty($cinemaList)){     
+                                   foreach($cinemaList as $cinema)
+                                   {
                                    ?>
                                         <tr>
                                              <td><?php echo $cinema->getName() ?></td>
@@ -40,6 +41,7 @@
                                         </td>
                                         </tr>
                                    <?php
+                                   }
                               }
                          ?>
                          </tr>

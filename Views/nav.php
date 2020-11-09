@@ -28,6 +28,9 @@
                       <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cinema/showListView">Show Cinemas</a>
                  </li>
                  <li class="nav-item">
+                      <a class="nav-link" href="<?php echo FRONT_ROOT ?>Ticket/showShoppingCart">Show Cart</a>
+                 </li>
+                 <li class="nav-item">
                       <a class="nav-link" href="<?php echo FRONT_ROOT ?>User/showUserProfile">My Account</a>
                  </li>     
                  <li class="nav-item">

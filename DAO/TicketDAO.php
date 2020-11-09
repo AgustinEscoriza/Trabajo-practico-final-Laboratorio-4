@@ -23,11 +23,11 @@ class TicketDAO implements ITicketDAO{
         try{
 
             $query="INSERT INTO ".$this->tableName. " ( idUser, idFunction, quantity, price, ticketStatus) VALUES ( :idUser, :idFunction, :quantity, :price, :ticketStatus);";
-            $parameters["idUser"] = $ticket->getUser()->getId();
+            $parameters["idUser"] = $ticket->getUser()->getIdUser();
             $parameters["idFunction"] = $ticket->getFunction()->getId();
             $parameters["quantity"] = $ticket->getQuantity();
             $parameters["price"] = $ticket->getPrice();
-            //$parameters["ticketStatus"] = $ticket->getStatus();
+            $parameters["ticketStatus"] = $ticket->getStatus();
 
             $this->connection->executeNonQuery($query,$parameters,QueryType::Query);    
         }
@@ -75,13 +75,13 @@ class TicketDAO implements ITicketDAO{
         try{
             $userId = $user->getIdUser();
 
-            $query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM ticket as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
+            $query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM tickets as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
 
             $result = $this->connection->execute($query,array(),QueryType::Query);
 
             $ticketList = array();
 
-            if(!empty($resultSet)){
+            if(!empty($result)){
 
                return $this->mapear($result);
 
@@ -92,6 +92,21 @@ class TicketDAO implements ITicketDAO{
 
 
             return $ticketList;
+        }
+        catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
+    public function getTicketsSoldByFunctionId($functionId){
+        try{
+
+            $query= "SELECT count(tickets.idTicket) as ticketsSold FROM tickets WHERE tickets.idFunction ='$functionId'";
+
+            $result = $this->connection->execute($query,array(),QueryType::Query);
+  
+            
+            return $result[0]['ticketsSold'];
+
         }
         catch (\PDOException $ex) {
             throw $ex;

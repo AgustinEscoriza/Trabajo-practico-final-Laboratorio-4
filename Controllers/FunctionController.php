@@ -120,7 +120,11 @@
             {
                 $infoMessage="No Hay Funciones Programadas";
             }
-            $movie = $this->movieDAO->getByMovieId($idMovie); 
+            $movie = $this->movieDAO->getByMovieId($idMovie);
+            $genres= $this->movieDAO->getGenresByMovieId($movie->getId());
+            foreach($genres as $genre){
+                $movie->setGenre($genre);
+            }
             require_once(VIEWS_PATH."function-list.php");
         }              
     }      

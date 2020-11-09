@@ -64,7 +64,7 @@
                    if($loggedUser->getUserRole() == '1'){
                     require_once(VIEWS_PATH."cinema-add.php");  
                    }else{
-                    require_once(VIEWS_PATH."fullBillboard-View.php");
+                    $this->billboardController->ShowFullList();
                    }     
                }else{
                $message='Verifique que los datos ingresados sean correctos';
@@ -129,7 +129,7 @@
             if(isset($_SESSION['userLogin'])){
                 unset($_SESSION['userLogin']);
             }
-            require_once(VIEWS_PATH."fullBillboard-View.php");
+            $this->billboardController->ShowFullList();
         }
         
         /*$userLoginName=$userName;
@@ -176,9 +176,9 @@
                 if($_SESSION['userLogin']->getUserRole()==1){
                     require_once(VIEWS_PATH."cinema-add.php");
                 }elseif($_SESSION['userLogin']->getUserRole()==2){
-                    require_once(VIEWS_PATH."billboard-View.php");
+                    $this->billboardController->ShowFullList();
                 }else{
-                    require_once(VIEWS_PATH."billboard-View.php");
+                    $this->billboardController->ShowFullList();
                 }
             }
         }

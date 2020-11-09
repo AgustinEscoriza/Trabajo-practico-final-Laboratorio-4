@@ -72,7 +72,7 @@
             $result = $this->connection->Execute($query,array(),QueryType::Query);
 
             if(!empty($result)){
-                return $this->mapear($result);
+                return $this->mapear($result)[0];
             }
             else{
                 return false;
@@ -117,7 +117,7 @@
             }
     
             if(!empty($result)){
-                return $this->mapear($result);
+                return $this->mapear($result)[0];
             }
             else{
                 return false;

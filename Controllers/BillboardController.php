@@ -115,7 +115,7 @@
                 {
                     if($this->checkFunction($resp, $function->getMovieId()))
                     {
-                        array_push($resp,$this->movieDAO->getByMovieId($function->getMovieId())[0]);
+                        array_push($resp,$this->movieDAO->getByMovieId($function->getMovieId()));
                     }               
                 }
             }               

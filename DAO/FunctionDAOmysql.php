@@ -182,7 +182,7 @@
             throw $ex;
         }
         if(!empty($result)){
-            return $this->mapear($result);
+            return $this->mapear($result)[0];
         }
         else{
             return false;
