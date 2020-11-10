@@ -18,7 +18,7 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Auditorium List</h2>
+          <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Auditorium List</h2>
              
                <table class="table bg-light-alpha">
               
@@ -69,7 +69,13 @@
                          ?>   
                     </div>
                <br>
-               <button type="submit" name="cinemaId" class="btn btn-dark ml-auto d-block" value="<?php echo $cinemaId ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>auditorium/showAddView','')"> Add Auditorium</button>
+               <div style="text-align:center;">
+                    <form method="post" id="columnarForm" action="<?php echo FRONT_ROOT ?>Auditorium/showAddView">
+                    <input type="hidden" name="cinemaId" value="<?php echo $cinemaId ?>" class="form-control">
+                         <button type="submit" name="cinemaId"  value="<?php echo $cinemaId ?>" class="btn btn-dark"> Add Auditorium</button>
+                         
+                    </form>
+               </div>
           </div>
      </section>
 </main>

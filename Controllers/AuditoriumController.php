@@ -18,6 +18,7 @@
 
         }
         public function showAddView ($cinemaId,$addMessage=""){
+            $cinemaId=$cinemaId;   
             require_once(VIEWS_PATH."auditorium-add.php");
         }
 

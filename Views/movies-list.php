@@ -8,7 +8,7 @@
 require_once('Config\Autoload.php');
 ?>
 
-<div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+<div class="movieSelect" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">
   <h3 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;">NUEVAS PELICULAS:</h3>
 </div>
 <?php

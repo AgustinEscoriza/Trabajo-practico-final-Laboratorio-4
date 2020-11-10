@@ -14,7 +14,7 @@
           <div id="sidebar-container" class="bg-primary">
           <div class="menu">
           <a href="<?php echo FRONT_ROOT ?>User/getUsersList" class="d-block p-3 text-light">Users </a>
-          <a href="#" class="d-block p-3 text-light">Statistics </a>
+          <a href="<?php echo FRONT_ROOT ?>User/showStatisticsView" class="d-block p-3 text-light">Statistics </a>
           </div>
           </div>
 

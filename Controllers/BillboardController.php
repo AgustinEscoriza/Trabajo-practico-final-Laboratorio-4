@@ -7,11 +7,16 @@
     use DAO\GenreDAOmysql as GenreDAO;
     use Models\Billboard as Billboard;
     use DAO\MovieDAOmysql as MovieDAO;
+    use DAO\CinemaDAOmysql as CinemaDAO;
 
     class BillboardController{
 
         private $billboardDAO;
+        private $auditoriumDAO;
+        private $functionDAO;
+        private $genreDAO;
         private $movieDAO;
+        private $cinemaDAO;
 
         public function __construct(){
 
@@ -20,11 +25,12 @@
             $this->functionDAO = new FunctionDAO();
             $this->genreDAO = new GenreDAO();
             $this->movieDAO = new MovieDAO();
+            $this->cinemaDAO = new CinemaDAO();
         }
 
 
         public function ShowBillboard ($cinemaId, $addMessage=""){
-            $cinemaId=$cinemaId;
+            $cinema= $this->cinemaDAO->getCinema($cinemaId);
 
             $functionsList = $this->functionDAO->getFunctionsByCinema($cinemaId,0);
             

@@ -14,7 +14,7 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Modify Cinema</h2>
+               <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Modify Cinema</h2>
                <table class="table bg-light-alpha">
                     <thead>
                          <th>Name</th>

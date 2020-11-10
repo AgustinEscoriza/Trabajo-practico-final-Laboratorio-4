@@ -22,7 +22,7 @@
           <div id="content">
           <section id="cinemaList" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Cinemas</h2>
+          <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Cinemas</h2>
                <form action="<?php echo FRONT_ROOT ?>Cinema/getCinemaList" method="post" id="columnarForm">
                <table class="table bg-light-alpha">
               

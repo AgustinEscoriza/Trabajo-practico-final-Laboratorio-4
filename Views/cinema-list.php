@@ -10,7 +10,7 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Cinema List</h2>
+               <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Cinema List</h2>
                <form method="post" id="columnarForm">
                <table class="table bg-light-alpha">
               

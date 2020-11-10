@@ -12,8 +12,8 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2><?php echo ' | Cinema '.$cinemaId ?></h2>
-               <form method="post" id="columnarForm">
+          <h2 style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;"><?php echo 'Cinema '.$cinema->getName() ?></h2>
+               <form style="text-align:center" method="post" id="columnarForm">
                <?php  if (isset($_SESSION['userLogin'])){
                                                   $userLogin=$_SESSION['userLogin'];
                                                   if($userLogin->getUserRole()==1){
