@@ -142,22 +142,24 @@
 
         public function showShoppingCart($addMessage = '') 
         {
-    
             if (!isset($_SESSION['ticketsInCart'])) {
                 $ticketList = array();
             } else {
                 $ticketList = $_SESSION['ticketsInCart'];
                 $newTicketList = array();
-                foreach($ticketList as $ticket){
+                if(!empty($ticketList)){
 
-                    $ticketObject["functionDate"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
-                    $ticketObject["functionTime"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
-                    $ticketObject["price"]          = $ticket->getPrice();
-                    $ticketObject["movieName"]      = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
-                    $ticketObject["cinemaName"]     = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
-                    $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                    foreach($ticketList as $ticket){
+
+                        $ticketObject["functionDate"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                        $ticketObject["functionTime"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                        $ticketObject["price"]          = $ticket->getPrice();
+                        $ticketObject["movieName"]      = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                        $ticketObject["cinemaName"]     = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                        $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
                         
-                    array_push($newTicketList,$ticketObject);
+                        array_push($newTicketList,$ticketObject);
+                    }
                 }
             }
             require_once(VIEWS_PATH . "shoppingCart-View.php");
@@ -210,8 +212,6 @@
                 unset($_SESSION['ticketsInCart']);
                 unset($_SESSION['tickets']);
                 unset($_SESSION['qrTickets']);
-
-                $this->billboardController->showFullList("Purchase confirmed, the tickets will be send to your user Email");
             }
             else{
                 $this->showShoppingCart("The cart is empty. Try adding it some tickets first!");
@@ -284,19 +284,22 @@
             return $newQRFilePath;
         }
         public function showQRCode($ticketList, $ticketUser){
+
+            $newTicketList = array();
             
-            foreach($ticketList as $ticket){ 
+            if(!empty($TicketList)){
+                foreach($ticketList as $ticket){ 
 
-                $ticketObject["cinemaName"]         = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
-                $ticketObject["auditoriumName"]     = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
-                $ticketObject["userName"]           = $ticketUser->getUserName();
-                $ticketObject["movieName"]          = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
-                $ticketObject["functionDate"]       = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
-                $ticketObject["ticketsPurchased"]   = $ticket->getQuantity();
-                $ticketObject["qr"]                 = $ticket->getQr(); 
-                array_push($newTicketList,$ticketObject);
+                    $ticketObject["cinemaName"]         = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                    $ticketObject["auditoriumName"]     = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                    $ticketObject["userName"]           = $ticketUser->getUserName();
+                    $ticketObject["movieName"]          = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                    $ticketObject["functionDate"]       = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                    $ticketObject["ticketsPurchased"]   = $ticket->getQuantity();
+                    $ticketObject["qr"]                 = $ticket->getQr(); 
+                    array_push($newTicketList,$ticketObject);
+                }
             }
-
             require_once(VIEWS_PATH."QRCode-View.php");
 
         }

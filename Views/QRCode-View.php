@@ -37,7 +37,7 @@
 
             <form action="<?php echo FRONT_ROOT ?>Billboard/showFullList" method="post" class="add-form bg-light-alpha p-5">
 
-                <button class="btn btn-success" style="text-align:center;">Volver a La Cartelera</button>
+                <button type="submit" name="button" class="btn btn-success" style="text-align:center;">Volver a La Cartelera</button>
             </form>
 
             <?php
