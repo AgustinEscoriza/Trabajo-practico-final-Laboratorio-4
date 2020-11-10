@@ -64,15 +64,15 @@
             $newFunction->setTime($time);
             $newFunction->setMovieId($movieId); 
             $auditorium = $this->auditoriumDAO->getAuditorium($auditoriumId)[0];
-            $resp = $this->movieDAO->getMovie($newFunction->getMovieId());
-                    $runtime = $resp["runtime"];
+            $movieResp = $this->movieDAO->getMovie($newFunction->getMovieId());
+                    $runtime = $movieResp["runtime"];
 
             if ((!$existence = $this->chekExistence($movieId,$date)) && (!$chkDate = $this->checkDate($auditoriumId, $date, $time ,$runtime)))
             {
                 $resp = $this->functionDAO->Add($cinemaId, $auditoriumId,$newFunction);   
 
                 $addMessage = ($resp == 1) ? "Sa Ha Agregado Con Exito La Funcion La Sala: ".$auditorium->getName().
-                                            ", Pelicula: ".$resp["title"].", 
+                                            ", Pelicula: ".$movieResp["title"].", 
                                             Para La Fecha: ".date('l',strtotime($date))." ".date('d',strtotime($date)).", ".$time." HS" 
                                             : "Ha Habido Errores En La Creacion de La Funcion, Revise El Listado";
 

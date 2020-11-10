@@ -12,6 +12,7 @@
     use DAO\CinemaDAOmysql as CinemaDAO;
     use DAO\MovieDAOmysql as MovieDAO;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
+    use DAO\FunctionDAOmysql as FunctionDAO;
 
     class UserController{
 
@@ -30,9 +31,10 @@
             $this->userDAO = new userDAOmysql();
             $this->billboardController = new BillboardController();
             $this->ticketDAO = new TicketDAO();
-            $this->movietDAO = new MovieDAO();
+            $this->movieDAO = new MovieDAO();
             $this->cinemaDAO = new CinemaDAO();
             $this->auditoriumDAO = new AuditoriumDAO();
+            $this->functionDAO = new FunctionDAO();
         }
 
         public function Add($userName, $userEmail, $password)
@@ -59,7 +61,7 @@
             $loggedUser= $this->userDAO->read($userName);
 
              if($loggedUser){
-               if($loggedUser->getUserPassword()==$userPassword){
+               if($loggedUser->getUserPassword()==$userPassword && $loggedUser->getUserState()==1){
                    $this->setSession($loggedUser);
                    if($loggedUser->getUserRole() == '1'){
                     require_once(VIEWS_PATH."cinema-add.php");  
@@ -220,15 +222,79 @@
                 $ticketList = $this->ticketDAO->getTicketsByUser($userProfile);
                 
                 foreach($ticketList as $ticket){
-                    
-                    $ticketObject["functionDate"] = $ticket->getFunction()->getDate();
-                    $ticketObject["functionTime"] = $ticket->getFunction()->getTime();
-                    $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction()->getId())->getTitle();
-                    $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction()->getId())->getName();
-                    $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction()->getId())->getName();
+                    //var_dump($ticketList);
+     
+                    //$ticketObject["functionDate"] = strtotime($ticket->getFunction()->getDate()->format("Y-m-d"));
+                    //$ticketObject["functionTime"] = strtotime($ticket->getFunction()->getTime()->format("H:i"));
+                    $ticketObject["functionDate"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                    $ticketObject["functionTime"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                    $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                    $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                    $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
                     
                     array_push($newTicketList,$ticketObject);
                 }
+                
+                require_once(VIEWS_PATH."user-profile.php");
+            }
+        }
+
+        public function orderTicketByMovie ($movieName)
+        {
+            if(isset($_SESSION['userLogin'])){
+                
+                $ticketList = array();
+                $ticketObject = array();
+                $newTicketList = array();
+
+                $userProfile = $_SESSION['userLogin'];
+                $ticketList = $this->ticketDAO->getTicketsByUser($userProfile);
+
+                foreach($ticketList as $ticket){
+
+                    if( $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle() == $movieName)
+                    {
+                        $ticketObject["functionDate"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                        $ticketObject["functionTime"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                        $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                        $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                        $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                        
+                        array_push($newTicketList,$ticketObject);
+
+                    } 
+                }
+                
+                require_once(VIEWS_PATH."user-profile.php");
+            }
+        }
+
+        public function orderTicketByDate ($date)
+        {
+            if(isset($_SESSION['userLogin'])){
+                
+                $ticketList = array();
+                $ticketObject = array();
+                $newTicketList = array();
+
+                $userProfile = $_SESSION['userLogin'];
+                $ticketList = $this->ticketDAO->getTicketsByUser($userProfile);
+
+                foreach($ticketList as $ticket){
+
+                    if( $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate() == $date)
+                    {
+                        $ticketObject["functionDate"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                        $ticketObject["functionTime"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                        $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                        $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                        $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                        
+                        array_push($newTicketList,$ticketObject);
+
+                    } 
+                }
+                
                 require_once(VIEWS_PATH."user-profile.php");
             }
         }

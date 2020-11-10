@@ -76,3 +76,8 @@ body {
      padding-bottom: 5rem;
 }
 
+.table-header{
+     color:white; 
+     background:rgba(0, 0, 0, 0.7);
+}
+

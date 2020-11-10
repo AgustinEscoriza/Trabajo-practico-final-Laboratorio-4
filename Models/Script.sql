@@ -107,7 +107,6 @@ CREATE TABLE tickets(
     quantity int,
     price float,
     ticketStatus int not null,
-    status boolean,
     constraint pkIdTicket primary key(idTicket),
     constraint fkTicketIdFunction foreign key (idFunction) references functions(idFunction),
     constraint fkTicketIdUser foreign key (idUser) references users(idUser)

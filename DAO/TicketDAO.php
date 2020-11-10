@@ -27,7 +27,7 @@ class TicketDAO implements ITicketDAO{
             $parameters["idFunction"] = $ticket->getFunction()->getId();
             $parameters["quantity"] = $ticket->getQuantity();
             $parameters["price"] = $ticket->getPrice();
-            $parameters["ticketStatus"] = $ticket->getStatus();
+            $parameters["ticketStatus"] = 1;
 
             $this->connection->executeNonQuery($query,$parameters,QueryType::Query);    
         }
@@ -75,12 +75,11 @@ class TicketDAO implements ITicketDAO{
         try{
             $userId = $user->getIdUser();
 
-            $query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM tickets as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
+            //$query= "SELECT t.idTicket,t.quantity,t.price,t.status,f.functionDate,f.functionTime,movies.title,movies.idMovie FROM tickets as t JOIN functions as f on f.idFunction = t.idFunction JOIN movies on f.idMovie = movies.idMovie WHERE t.idUser ='$userId'";
+            $query= "SELECT * FROM tickets  WHERE idUser ='$userId'";
 
             $result = $this->connection->execute($query,array(),QueryType::Query);
-
-            $ticketList = array();
-
+        
             if(!empty($result)){
 
                return $this->mapear($result);
@@ -89,9 +88,6 @@ class TicketDAO implements ITicketDAO{
             else{
                 return false;
             }
-
-
-            return $ticketList;
         }
         catch (\PDOException $ex) {
             throw $ex;
@@ -112,22 +108,24 @@ class TicketDAO implements ITicketDAO{
             throw $ex;
         }
     }
+    
 
     protected function mapear($value) {
         
         $value = is_array($value) ? $value : [];
-        $resp = array_map(function($p){
+        
+        $resp = array_map(function($i){
             $ticket = new Ticket();
-            $ticket->setId($i["id"]);
-            $ticket->setPrice($i["price"]);
+            $ticket->setId($i["idTicket"]);
+            $ticket->setFunction($i["idFunction"]);
             $ticket->setQuantity($i["quantity"]);
-            $ticket->setStatus($i["status"]);
+            $ticket->setPrice($i["price"]); 
+            $ticket->setStatus($i["ticketStatus"]);
             //$ticket->setStatus($i["status"]);
             //$ticket->setStatus($i["status"]);
             //$ticket->setStatus($i["status"]);
-
-
             return $ticket;
+            var_dump($ticket);
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
     }
