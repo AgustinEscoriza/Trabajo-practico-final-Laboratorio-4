@@ -109,6 +109,26 @@ class TicketDAO implements ITicketDAO{
         }
     }
     
+    public function getAll(){
+        try{
+         
+            $query= "SELECT * FROM tickets";
+
+            $result = $this->connection->execute($query,array(),QueryType::Query);
+        
+            if(!empty($result)){
+
+               return $this->mapear($result);
+
+            }
+            else{
+                return false;
+            }
+        }
+        catch (\PDOException $ex) {
+            throw $ex;
+        }
+    }
 
     protected function mapear($value) {
         
@@ -125,7 +145,7 @@ class TicketDAO implements ITicketDAO{
             //$ticket->setStatus($i["status"]);
             //$ticket->setStatus($i["status"]);
             return $ticket;
-            var_dump($ticket);
+            
         }, $value);   // $value es cada array q quiero convertir a objeto
         return $resp;
     }

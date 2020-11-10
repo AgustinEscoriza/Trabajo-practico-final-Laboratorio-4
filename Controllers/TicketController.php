@@ -171,7 +171,7 @@
                 foreach($ticketList as $ticket){
                     $ticket->setStatus(1);
                     $this->add($ticket);
-                    $this->generateQR($ticketUser->getName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
+                    $this->generateQR($ticketUser->getUserName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
                 }
 
                 // mandarlo por mail iria aca, tendria que ser una funcion de este controller que se llame send ticket to email o sendEmail,
@@ -261,7 +261,7 @@
 
         }
 
-        public function sendEmail(){
+        /*public function sendEmail(){
             //moviepasslaboratorio4@gmail.com
             //laboratorio4     cuenta y password de gmail
 
@@ -321,7 +321,33 @@
                 $this->showTicketList("Tickets could not be sent to the mail");
             }
             
+        }*/
+
+        public function getTicketsByCinema($cinemaName){
+
+            $ticketList = $this->ticketDAO->getAll();
+            $newTicketList= array();
+            $ticketObjects= array();
+            $total=0;
+
+            foreach($ticketList as $ticket){
+                if($this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName()==$cinemaName){
+
+                    $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                    $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                    $ticketObject["functionId"] = $this->functionDAO->getByFunctionId($ticket->getFunction());
+                    $ticketObject["quantity"] = $ticket->getQuantity();
+                    $ticketObject["price"] = $ticket->getPrice();
+                    $total = $total + $ticket->getPrice();
+                    
+                    
+                    array_push($newTicketList,$ticketObject);
+                }   
+            }
+           
+            require_once(VIEWS_PATH."statistics-view.php");
         }
+        
     }
 
 ?>
