@@ -163,17 +163,22 @@
             if($total != 0){
 
                 $ticketList= $_SESSION['ticketsInCart'];
+                $ticketUser= $_SESSION["userLogin"];
+                $ticketCinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
+                $ticketAuditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
+                $ticketFunction = $this->functionDAO->getByFunctionId($idFunction); 
 
                 foreach($ticketList as $ticket){
                     $ticket->setStatus(1);
                     $this->add($ticket);
-                    $this->generateQR($ticket);
+                    $this->generateQR($ticketUser->getName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
                 }
 
                 // mandarlo por mail iria aca, tendria que ser una funcion de este controller que se llame send ticket to email o sendEmail,
-
+                $this->showQrCode($ticketUser->getName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
                 unset($_SESSION['ticketsInCart']);
                 unset($_SESSION['tickets']);
+                unset($_SESSION['qrTickets']);
 
                 $this->billboardController->showFullList("Purchase confirmed, the tickets will be send to your user Email");
             }
@@ -209,15 +214,113 @@
             //$this->functionDAO->updateTicketsSold($function);                                   // funciones, sino DAO que traiga cantidad
         }
 
-        public function GenerateQR(/*$userName, $cinemaName, $auditoriumName, $functionDate, $ticketsPurchased*/)
-        {             
-             $userName ='Dami';
-             $cinemaName='Ambassador';
-             $auditoriumName ='Sala Bolt';
-             $functionDate ='Jueves 3';
-             $ticketsPurchased= '2';
+        public function GenerateQR($userName, $cinemaName, $auditoriumName, $functionDate, $ticketsPurchased) // movi este codigo para aca porque necesito que me retorne el Qr para cargarlo en el mail
+        {   
+            require_once(ROOT.'QRGenerator/qrlib.php');
             
+            //require_once(ROOT.'../QRGenerator/qrlib.php');
+
+            //agrego todo el texto que va a contener el QR
+            $QRCodeText =   'User Name: '.$userName.
+                            ' - Cinema: '.$cinemaName.
+                            ' - Auditorium: '.$auditoriumName.
+                            ' - Date: '.$functionDate.
+                            ' - Tickets: '.$ticketsPurchased;
+                    
+            //el nombre del archivo se genera mediante md5 hash en base al texto de lqr
+            $fileName = 'Ticket_Purchase_'.md5($QRCodeText).'.png';
+                    
+            //seteo la direccion donde se almacena el QR, y la ruta de lectura
+            $savingQRFilePath = IMG_PATHSAVE.$fileName;
+            $newQRFilePath = IMG_PATH.$fileName;
+                    
+            // generating
+        //   if (!file_exists($savingQRFilePath)) {
+        //       QRcode::png($QRCodeText, $savingQRFilePath);
+        //       echo ' <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+        //       <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> QR Code Generado con Exito </h5>
+        //       </div>';
+        //   echo '<hr />';
+        //   } else {
+        //               echo '<div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
+        //               <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> Recuperar QR Code </h5>
+        //               </div>';
+        //               echo '<hr />';
+        //           }
+            QRcode::png($QRCodeText, $savingQRFilePath);
+
+            if (!isset($_SESSION['qrTickets'])) {
+                $_SESSION['qrTickets'] = array();
+            }
+            
+            array_push($_SESSION['qrTickets'], $newQRFilePath);
+        }
+        public function showQRCode(){
+
             require_once(VIEWS_PATH."QRCode-View.php");
+
+        }
+
+        public function sendEmail(){
+            //moviepasslaboratorio4@gmail.com
+            //laboratorio4     cuenta y password de gmail
+
+            require_once("Data/PHPMailer/src/Exception.php");
+            require_once("Data/PHPMailer/src/PHPMailer.php");
+            require_once("Data/PHPMailer/src/SMTP.php");
+
+            $userEmail = $_SESSION['user']->getEmail();
+            $qrsToSend = $_SESSION['qrTickets'];
+
+            $listToSend = array();
+            $counter = 0;
+
+            for ($qrsToSend as $qr){
+
+                $fileToSend = "Data/qrs/email".$counter.".png"; // probablemente este mal hay que poner el file donde este el Qr pero no se donde estan, creo que es la linea 231
+                fopen($fileToSend, "w");
+                $img = file_get_contents("$qr"); //"Data/qrs/qr1.png");
+                file_put_contents($fileToSend, $img);
+                $counter++;
+
+                array_push($listToSend, $fileToSend);
+
+            }
+
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 0;                      // Enable verbose debug output
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'moviepasslaboratorio4@gmail.com';                     // SMTP username
+                $mail->Password   = 'laboratorio4';                               // SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    
+                //Recipients
+                $mail->setFrom('moviepasslabiv@gmail.com', 'MoviePass');
+                $mail->addAddress($userEmail, 'MoviePass');     // Add a recipient
+    
+                // Attachments
+                foreach ($listToSend as $file) {
+                    $mail->addAttachment($file);
+                }
+    
+    
+                // Content
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'MoviePass!';
+                $mail->Body    = 'Thanks for buying your tickets in <b>MoviePass</b>';
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+                $mail->send();
+            } catch (MailerException $e) {
+                $this->showTicketList("Tickets could not be sent to the mail");
+            }
+            
         }
     }
 

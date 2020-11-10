@@ -1,36 +1,6 @@
 <?php
-    require_once(ROOT.'QRGenerator/qrlib.php');
     require_once('Config\Autoload.php');
     require_once("nav.php");
-    //require_once(ROOT.'../QRGenerator/qrlib.php');
-
-            //agrego todo el texto que va a contener el QR
-            $QRCodeText =   'User Name: '.$userName.
-                            ' - Cinema: '.$cinemaName.
-                            ' - Auditorium: '.$auditoriumName.
-                            ' - Date: '.$functionDate.
-                            ' - Tickets: '.$ticketsPurchased;
-            
-            //el nombre del archivo se genera mediante md5 hash en base al texto de lqr
-            $fileName = 'Ticket_Purchase_'.md5($QRCodeText).'.png';
-            
-            //seteo la direccion donde se almacena el QR, y la ruta de lectura
-            $savingQRFilePath = IMG_PATHSAVE.$fileName;
-            $newQRFilePath = IMG_PATH.$fileName;
-            
-            // generating
-            if (!file_exists($savingQRFilePath)) {
-                QRcode::png($QRCodeText, $savingQRFilePath);
-                echo ' <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
-                <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> QR Code Generado con Exito </h5>
-                </div>';
-                echo '<hr />';
-            } else {
-                echo '<div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
-                <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> Recuperar QR Code </h5>
-                </div>';
-                echo '<hr />';
-            }
 
 ?>
 

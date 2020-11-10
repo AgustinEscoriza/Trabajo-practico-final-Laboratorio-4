@@ -254,8 +254,9 @@
 
                     if( $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle() == $movieName)
                     {
-                        $ticketObject["functionDate"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
-                        $ticketObject["functionTime"] = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                        $function = $this->functionDAO->getByFunctionId($ticket->getFunction());
+                        $ticketObject["functionDate"] = $function->getDate();
+                        $ticketObject["functionTime"] = $function->getTime();
                         $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
                         $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
                         $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
