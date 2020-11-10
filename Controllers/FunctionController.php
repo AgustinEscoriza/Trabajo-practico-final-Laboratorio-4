@@ -5,7 +5,7 @@
     use \DateTime as NewDT;
     use DAO\CinemaDAOmysql as CinemaDAO;
     use Controllers\BillboardController as BillboardController;
-    use DAO\FunctionDAOMySQL as FunctionDAO;
+    use DAO\FunctionDAOmysql as FunctionDAO;
     use DAO\BillboardDAO as BillboardDAO;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use DAO\TicketDAO as TicketDAO;

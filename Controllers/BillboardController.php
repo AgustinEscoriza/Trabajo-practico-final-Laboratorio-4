@@ -70,7 +70,7 @@
                 $functionsList = array();
                 foreach($functions as $function){
                     
-                    $movie = $this->movieDAO->getByMovieId($function->getMovieId())[0];
+                    $movie = $this->movieDAO->getByMovieId($function->getMovieId());
                     
                     $genres= $this->movieDAO->getGenresByMovieId($movie->getId());
                     foreach($genres as $genre){
