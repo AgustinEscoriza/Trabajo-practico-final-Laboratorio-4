@@ -14,6 +14,8 @@
                 <thead>
                     <tr>
                         <th style="width: 15%;">Movie</th>
+                        <th style="width: 15%;">Cinema</th>
+                        <th style="width: 15%;">Auditorium</th>
                         <th style="width: 15%;">Time</th>
                         <th style="width: 15%;">Date</th>
                         <th style="width: 10%;">Total</th>
@@ -21,16 +23,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($ticketList as $ticket) { ?>
+                    <?php if(!empty($newTicketList)){foreach ($newTicketList as $ticketObject) { ?>
                         <tr>
-                        <?php  $movie = $movieDAO->GetMovieByFunctionId($ticket->getFunction()->getId()); // no quiero llamar a un dao adentro de la vista pero no tengo otra opcion en este caso, ya que function no contiene una pelicula?>  
-                        <td> <?php echo $movie->getTitle(); ?> </td>
-                        <td> <?php echo $ticket->getFunction()->getTime();?> </td>
-                        <td> <?php echo $ticket->getFunction()->getDate()?> </td>
-                        <td> <?php echo $ticket->getPrice();  ?> </td>
-                        <td><button type="submit" name="ticketId"
-                                    value="<?php echo $ticket->getId(); ?>" class="btn btn-danger">
-                                    Remove </button></td>
+                        <td> <?php echo $ticketObject["movieName"] ?> </td>
+                        <td> <?php echo $ticketObject["cinemaName"] ?> </td>
+                        <td> <?php echo $ticketObject["auditoriumName"]?> </td>
+                        <td> <?php echo $ticketObject["functionTime"]?> </td>
+                        <td> <?php echo $ticketObject["functionDate"] ?> </td>
+                        <td> <?php echo $ticketObject["price"]  ?> </td>
+                        <td>
+                            <button type="submit" name="ticketId" class="btn btn-danger" value="<?php echo $ticket->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/removeFromCart')"> Remove </button>
                         </tr>
                     <?php } ?>
                 <tbody>
@@ -39,7 +41,7 @@
                     <?php if(!empty($ticketList)){ ?>
                     <a class="btn btn-warning"  href="<?php echo FRONT_ROOT; ?>Ticket/purchaseView">
                         Confirm Purchase</a>
-                    <?php } ?>
+                    <?php } }?>
                 </li>
 
             <?php
@@ -50,3 +52,11 @@
         </div>
     </section>
 </main>
+<script>
+function submitForm(action)
+    {
+         var form = document.getElementById('columnarForm');
+        form.action = action;
+        form.submit();
+    }
+</script>

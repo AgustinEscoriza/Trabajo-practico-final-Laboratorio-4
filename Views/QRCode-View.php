@@ -18,13 +18,20 @@
                         <th style = "width: 15%;"> </th>
                     </tr>
                 </thead>
-                <tbody>                        
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $userName ?> </td>
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $cinemaName?> </td>
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $auditoriumName?> </td>
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $functionDate  ?> </td>
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketsPurchased ?> </td>
-                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <img src="<?php echo $newQRFilePath ?>" > </td>
+                <tbody>
+                <?php foreach($newTicketList as $ticketObject){ 
+                                  
+                ?>
+                    <tr>                        
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["userName"] ?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["cinemaName"]  ?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["auditoriumName"]?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["functionDate"]   ?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["ticketsPurchased"] ?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <?php echo $ticketObject["movieName"]?> </td>
+                        <td style="color:white; background:rgba(0, 0, 0, 0.7); widht:50"> <img src="<?php echo $ticketObject["qr"]?>" > </td>
+                    </tr>
+            <?php } ?>
                 <tbody>
             </table>
 

@@ -10,6 +10,7 @@ class Ticket{
     private $user;
     private $function;
     private $status;
+    private $qr;
 
     public function __construct(){
 
@@ -50,5 +51,11 @@ class Ticket{
     }
     public function setStatus($status){
         $this->status=$status;
+    }
+    public function getQr(){
+        return $this->qr;
+    }
+    public function setQr($qr){
+        $this->qr=$qr;
     }
 }

@@ -15,10 +15,10 @@
                 <form action="<?php echo FRONT_ROOT ?>Ticket/validateCreditCard" method="post" class="add-form bg-light-alpha p-5">                  
                          <div class="col-lg-4">
                                 <div class="form-group"> <label for="total">
-                                        <h6 style="color:white">Total Price</h6>
+                                        <h6 style="color:white">Total Price: $<?php echo $total ?></h6>
+                                        <input type="hidden" name="total" value="<?php echo $total?>" class="form-control">
+                                        
                                     </label>
-                                    <input type="number" name="total" value="<?php echo $total ?>"
-                                        class="form-control text-center">
                                 </div>
                          </div>
                     <div class ="row">

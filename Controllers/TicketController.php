@@ -2,7 +2,9 @@
 
     namespace Controllers;
 
-
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception as MailerException;
 
     use DAO\CinemaDAOmysql as CinemaDAO;
     use DAO\MovieDAOmysql as MovieDAO;
@@ -10,6 +12,7 @@
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use DAO\TicketDAO;
     use Models\Functions;
+    use QRcode;
     use Models\Ticket;
     use Controllers\BillboardController;
 
@@ -58,7 +61,7 @@
             $ticket = new Ticket();
             $ticket->setUser($user); 
             $ticket->setPrice($price); 
-            $ticket->setFunction($function); 
+            $ticket->setFunction($function->getId()); 
             $ticket->setQuantity($quantity); 
             $ticket->setStatus(1);
 
@@ -124,14 +127,38 @@
                 $this->billboardController->ShowFullList();
             }
         }
+        public function removeFromCart($ticketId){
+            $key = 0;
+            if(isset($_SESSION['ticketsInCart'])){
+                foreach($_SESSION['ticketsInCart'] as $ticket){
+                    
+                    if($ticketId == $ticket->getId()){    // no tengo la id cargada no va a andar, la cargo en el add de la bdd
+                        
+                    }
+                    $key++;
+                }
+            }
+        }
 
         public function showShoppingCart($addMessage = '') 
         {
+    
             if (!isset($_SESSION['ticketsInCart'])) {
                 $ticketList = array();
             } else {
                 $ticketList = $_SESSION['ticketsInCart'];
+                $newTicketList = array();
+                foreach($ticketList as $ticket){
 
+                    $ticketObject["functionDate"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                    $ticketObject["functionTime"]   = $this->functionDAO->getByFunctionId($ticket->getFunction())->getTime();
+                    $ticketObject["price"]          = $ticket->getPrice();
+                    $ticketObject["movieName"]      = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                    $ticketObject["cinemaName"]     = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                    $ticketObject["auditoriumName"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                        
+                    array_push($newTicketList,$ticketObject);
+                }
             }
             require_once(VIEWS_PATH . "shoppingCart-View.php");
         }
@@ -164,18 +191,22 @@
 
                 $ticketList= $_SESSION['ticketsInCart'];
                 $ticketUser= $_SESSION["userLogin"];
-                $ticketCinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
-                $ticketAuditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
-                $ticketFunction = $this->functionDAO->getByFunctionId($idFunction); 
+                
 
-                foreach($ticketList as $ticket){
+                foreach($ticketList as $ticket){    //movi los ticket Cinema, Auditorium y function adentro del foreach asi acepta entradas para distintos cines
+
+                    $ticketCinema = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction());
+                    $ticketAuditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction());
+                    $ticketFunction = $this->functionDAO->getByFunctionId($ticket->getFunction()); 
                     $ticket->setStatus(1);
+                    $qr = $this->generateQR($ticketUser->getUserName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket->getQuantity());
+                    $ticket->setQr($qr);
                     $this->add($ticket);
-                    $this->generateQR($ticketUser->getUserName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
                 }
 
-                // mandarlo por mail iria aca, tendria que ser una funcion de este controller que se llame send ticket to email o sendEmail,
-                $this->showQrCode($ticketUser->getName(),$ticketCinema->getName(),$ticketAuditorium->getName(),$ticketFunction->getDate(),$ticket);
+                $this->sendEmail($ticketList);
+                $this->showQrCode($ticketList,$ticketUser);
+
                 unset($_SESSION['ticketsInCart']);
                 unset($_SESSION['tickets']);
                 unset($_SESSION['qrTickets']);
@@ -249,36 +280,45 @@
         //           }
             QRcode::png($QRCodeText, $savingQRFilePath);
 
-            if (!isset($_SESSION['qrTickets'])) {
-                $_SESSION['qrTickets'] = array();
-            }
-            
-            array_push($_SESSION['qrTickets'], $newQRFilePath);
+
+            return $newQRFilePath;
         }
-        public function showQRCode(){
+        public function showQRCode($ticketList, $ticketUser){
+            
+            foreach($ticketList as $ticket){ 
+
+                $ticketObject["cinemaName"]         = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                $ticketObject["auditoriumName"]     = $this->auditoriumDAO->GetAuditoriumByFunctionId($ticket->getFunction())->getName();
+                $ticketObject["userName"]           = $ticketUser->getUserName();
+                $ticketObject["movieName"]          = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                $ticketObject["functionDate"]       = $this->functionDAO->getByFunctionId($ticket->getFunction())->getDate();
+                $ticketObject["ticketsPurchased"]   = $ticket->getQuantity();
+                $ticketObject["qr"]                 = $ticket->getQr(); 
+                array_push($newTicketList,$ticketObject);
+            }
 
             require_once(VIEWS_PATH."QRCode-View.php");
 
         }
 
-        /*public function sendEmail(){
+        public function sendEmail($ticketList){
             //moviepasslaboratorio4@gmail.com
             //laboratorio4     cuenta y password de gmail
 
             require_once("Data/PHPMailer/src/Exception.php");
             require_once("Data/PHPMailer/src/PHPMailer.php");
             require_once("Data/PHPMailer/src/SMTP.php");
-
-            $userEmail = $_SESSION['user']->getEmail();
-            $qrsToSend = $_SESSION['qrTickets'];
+            $userEmail = $_SESSION['userLogin']->getUserEmail();
+            $qrsToSend = $ticketList;
 
             $listToSend = array();
             $counter = 0;
 
-            for ($qrsToSend as $qr){
+            foreach ($ticketList as $ticket){
 
                 $fileToSend = "Data/qrs/email".$counter.".png"; // probablemente este mal hay que poner el file donde este el Qr pero no se donde estan, creo que es la linea 231
                 fopen($fileToSend, "w");
+                $qr = $ticket->getQr();
                 $img = file_get_contents("$qr"); //"Data/qrs/qr1.png");
                 file_put_contents($fileToSend, $img);
                 $counter++;
@@ -318,10 +358,10 @@
     
                 $mail->send();
             } catch (MailerException $e) {
-                $this->showTicketList("Tickets could not be sent to the mail");
+                $this->showShoppingCart("Tickets could not be sent to the mail");
             }
             
-        }*/
+        }
 
         public function getTicketsByCinema($cinemaName){
 
