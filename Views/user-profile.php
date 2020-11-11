@@ -12,37 +12,37 @@
 <main class="d-flex align-items-center justify-content-center height-100" style="color:white; text-align:center;">
           <div class="content">
           
-          <div class="mb-1 text-muted small">User: <?php echo $userProfile->getUserName();?></div>
-          <h6 class= "mb-1 text-muted small"><br>Order Tickets by:</h6>
+          <div class="mb-1 text-muted "><h5>User: <?php echo $userProfile->getUserName();?></h4></div>
+          <h5 class= "mb-1 text-muted "><br>Order Tickets by:</h4>
 
-          <form action="<?php echo FRONT_ROOT ?>User/orderTicketByMovie" method="post" class="btn" style="background-color:RED;color:white;background:rgba(0, 0, 0, 0.7);">
+          <form action="<?php echo FRONT_ROOT ?>User/orderTicketByMovie" method="post" class="btn" style="background-color:RED;color:white;background:rgba(0, 0, 0, 0.7); width:40%">
 
                   <div class = "form group" style="display:flex;">
 
                     <label >Movie Name</label>
-                    <input type="text" name="movieName" class="form-control" required>
+                    <input type="text" style="margin-left:20px; width:250px" name="movieName" class="form-control" required>
 
                  </div>
-             <button type="submit" name="button" class="btn">Search</button>
+             <button style="margin-top:20px;" type="submit" name="button" class="btn">Search</button>
 
          </form>
 
-         <form action="<?php echo FRONT_ROOT ?>User/orderTicketByDate" method="post" class="btn" style="background-color:RED;color:white;background:rgba(0, 0, 0, 0.7);">
+         <form action="<?php echo FRONT_ROOT ?>User/orderTicketByDate" method="post" class="btn" style="background-color:RED;color:white;background:rgba(0, 0, 0, 0.7); width:40%">
 
                   <div class = "form group" style="display:flex;">
 
                     <label >Movie Date</label>
-                    <input style="width:175px" name="movieDate"  class="form-control" type="date" id="date"  required>
+                    <input style="margin-left:20px; width:250px" name="movieDate"  class="form-control" type="date" id="date"  required>
 
                  </div>
-            <button type="submit" name="button" class="btn">Search</button>
+            <button style="margin-top:20px;" type="submit" name="button" class="btn">Search</button>
 
         </form>
     
-             <table class = "table" >
+             <table class = "table"style="background:rgba(0, 0, 0, 0.7); margin-top:30px;" >
                 <thead>
                   <tr>
-                    <th style="width: 100px; ">Dia</th>
+                    <th style="width: 100px;">Dia</th>
                     <th style="width: 100px;">Hora</th>
                     <th style="width: 400px;">Pelicula</th>
                     <th style="width: 200px;">Cine</th>
