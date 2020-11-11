@@ -44,6 +44,7 @@
                     <th style="width: 150px;">Date</th>
                     <th style="width: 100px;">Time</th>
                     <th style="width: 400px;">Movie</th>
+                    <th style="width: 100px;">Quantity</th>
                     <th style="width: 200px;">Cinema</th>
                     <th style="width: 200px;">Auditorium</th>               
                   </tr>
@@ -55,6 +56,7 @@
                     <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["functionDate"]; ?></td>
                     <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["functionTime"]; ?></td>
                     <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["movieName"]; ?></td> 
+                    <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["quantity"]; ?></td>
                     <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["cinemaName"]; ?></td>
                     <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["auditoriumName"]; ?></td>     
                    </tr>

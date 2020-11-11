@@ -19,6 +19,6 @@
             </div>
             <br>
             <div class="col text-center">
-                <a href="<?php echo FRONT_ROOT ?>Ticket/addToCart/" class="btn btn-primary">Cancel</a>
+                <a href="<?php echo FRONT_ROOT ?>Billboard/showFullList" class="btn btn-primary">Cancel</a>
             </div>
 </div>
