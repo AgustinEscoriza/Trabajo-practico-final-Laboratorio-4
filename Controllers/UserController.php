@@ -135,6 +135,7 @@
             if(isset($_SESSION['userLogin'])){
                 unset($_SESSION['userLogin']);
                 unset($_SESSION['ticketsInCart']);
+                unset($_SESSION['tickets']);
             }
             $this->billboardController->ShowFullList();
         }
