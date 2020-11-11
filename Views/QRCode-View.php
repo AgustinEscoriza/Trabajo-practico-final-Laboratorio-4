@@ -7,6 +7,7 @@
 <main class = "py-5">
     <section class = "mb-5">
         <div class = "container">
+        <p style="display:block; align-items: center; text-align: center; color:white; background:rgba(0, 0, 0, 0.7); widht:400">The QR codes have been sent to your email</p>
             <table class = "table">
                 <thead>
                     <tr>                        
@@ -40,7 +41,6 @@
                 }?>
                 <tbody>
             </table>
-
             <?php
             if (isset($addMessage) && $addMessage != "") {
                 echo "<div class='alert alert-primary' role='alert'> $message </div>";

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../Views/css/movies-list.css">
+<link rel="stylesheet" href="<?php echo CSS_PATH?>/movies-list.css">
 <?php
 require_once('nav.php');
 require_once('Config\Autoload.php');
@@ -41,11 +41,11 @@ require_once('Config\Autoload.php');
   </div>
 </div>
 
-<div>
+
 <?php
                 if(isset($message) && $message!=1){ ?> 
                               <div class="movieSelect" style="display:block; align-items: center; text-align: center; max-width:500">
-                              <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $message; ?> </h5>
+                              <h5 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;"> <?php echo $message; ?> </h5></div>
 
                               <?php }
  foreach($moviesList as $res){ ?>  
@@ -74,7 +74,6 @@ require_once('Config\Autoload.php');
     </div>
   </div>            
 </div>
-
 
 <div style ="maheight:250"></div>
 <?php } ?>
