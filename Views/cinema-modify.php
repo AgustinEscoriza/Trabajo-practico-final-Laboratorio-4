@@ -13,7 +13,7 @@
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
-          <div class="container">
+          <div class="container" style="color:white; text-align:center;">
                <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Modify Cinema</h2>
                <table class="table bg-light-alpha">
                     <thead>
@@ -35,13 +35,13 @@
                               <input type="hidden" name="cinemaId" value="<?php echo $cinemaId?>" class="form-control">
 
                               <div class="form-group">
-                                   <label for="">Name</label>
+                                   <label for="">New Name</label>
                                    <input type="text" name="name" value="<?php echo $cinema->getName() ?>" class="form-control">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
-                                   <label for="">Adress</label>
+                                   <label for="">New Adress</label>
                                    <input type="text" name="adress" value="<?php echo $cinema->getAdress() ?>" class="form-control">
                               </div>
                          </div>

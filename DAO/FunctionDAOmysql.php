@@ -141,6 +141,34 @@
         }
     }
 
+    public function SearchFunctionsFromTo($dateFrom,$dateTo,$idCinema)
+    {
+        try{
+
+            $query = ($idCinema == 0) ? "SELECT * FROM ".$this->tableName." 
+                    WHERE ".$this->tableName.".functionDate >= '$dateFrom' and ".$this->tableName.".functionDate <= '$dateTo'"
+                                    :"SELECT * FROM ".$this->tableName." 
+                                    WHERE ".$this->tableName.".functionDate >= '$dateFrom' and ".$this->tableName.".functionDate <= '$dateTo' 
+                                    and ".$this->tableName.".idCinema = '$idCinema'";
+
+        
+                $this->connection = Connection::GetInstance();
+                
+                $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+    
+            if(!empty($result)){
+
+                return $this->mapear($result);
+            }
+            else{
+                return false;
+            }
+    }
+
     public function GetFunctionsByMovieId($idMovie)
     {
         try{
@@ -202,7 +230,8 @@
     public function getAll(){
 
         try{
-            $query = "SELECT * FROM ".$this->tableName;
+            $today = $this->date->format('Y-m-d');
+            $query = "SELECT * FROM ".$this->tableName." WHERE ".$this->tableName.".functionDate > '$today'";
 
             $this->connection = Connection::GetInstance();
             

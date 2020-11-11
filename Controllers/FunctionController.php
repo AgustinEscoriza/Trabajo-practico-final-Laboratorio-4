@@ -81,8 +81,7 @@
             else
             {
                 $addMessage = ($existence) ? "La Pelicula Sera Reproducida En La Fecha Seleccionada En Otro Cine "
-                            : ($chkDate) ? "La Pelicula No Puede Ser Reproducida En Ese Horario Ya Que Hay Otra Funcion Establecida"
-                            :              "Ha Habido Errores De Validacion, Revise El Listado";
+                                            : "La Pelicula No Puede Ser Reproducida En Ese Horario Ya Que Hay Otra Funcion Establecida";
 
                 $this->billboardController->ShowBillboard($cinemaId, $addMessage);
             }
@@ -99,7 +98,6 @@
                     if($function->getDate() == $date){
     
                         $flag = true;  
-                        $this->functionMessage ="La Pelicula Que Desea Agregar Ya Sera Reproducida En Otro Cine En La Fecha Seleccionada";
                     }               
                 }
                 return $flag; 
@@ -155,7 +153,6 @@
                     if((($startFunctionInt < $newFunctionTimeStartInt) && ($newFunctionTimeStartInt < $endFunctionInt))
                     || (($newFunctionTimeStartInt < $startFunctionInt) && ($startFunctionInt < $newFunctionTimeEndInt))){    
                         $flag = true; 
-                        $this->functionMessage ="El Horario No Puede Ser Seleccionado Ya Que No Respeta las Reglas de Horarios de Funciones";
                     }
                 
             }

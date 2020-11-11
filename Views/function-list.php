@@ -71,6 +71,7 @@ require_once('Config\Autoload.php');
                          } } }?>
                 </div>
             </div>
+          
         <div style ="maheight:250"></div>
 </div>            
 <?php 

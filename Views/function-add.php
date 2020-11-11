@@ -12,7 +12,7 @@
                         
 <main class="py-5">
     <section id="listado" class="mb-5">
-        <div class="container" style="text-align:center;">            
+        <div class="container" style="color:white; text-align:center;">            
             <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Generate New Function</h2>                               
             <form action="<?php echo FRONT_ROOT ?>Function/Add" method="post" class="add-form bg-light-alpha p-5">
                                                                                                          

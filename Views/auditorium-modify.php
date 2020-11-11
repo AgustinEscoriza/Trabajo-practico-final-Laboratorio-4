@@ -9,7 +9,7 @@ if(isset($_SESSION["userLogin"])) {
   }
    require_once('nav.php');
    ?>
-<main class="py-5">
+<main class="py-5" style="color:white; text-align:center;">
      <section id="listado" class="mb-5">
           <div class="container">
           <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Modify Auditorium</h2>

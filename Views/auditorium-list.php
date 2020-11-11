@@ -20,9 +20,9 @@
           <div class="container">
           <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Auditorium List</h2>
              
-               <table class="table bg-light-alpha">
+               <table class="table bg-light-alpha" style="color:white; text-align:center;">
               
-                    <thead>
+                    <thead >
                          <th>Name</th>
                          <th>Capacity</th>
                          <th>Ticket Value </th>
