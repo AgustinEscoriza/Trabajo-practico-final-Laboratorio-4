@@ -97,7 +97,7 @@ class TicketDAO implements ITicketDAO{
     public function getTicketsSoldByFunctionId($functionId){
         try{
 
-            $query= "SELECT count(tickets.idTicket) as ticketsSold FROM tickets WHERE tickets.idFunction ='$functionId'";
+            $query= "SELECT sum(tickets.quantity) as ticketsSold FROM tickets WHERE tickets.idFunction ='$functionId'";
 
             $result = $this->connection->execute($query,array(),QueryType::Query);
   
