@@ -11,6 +11,7 @@
     use Models\User as User;
     use Models\Cinema as Cinema;
     use Models\Functions as Functions;
+    use \DateTime as NewDT;
 ?>
 <main class="d-flex" style="color:white; text-align:center;">
           <div id="sidebar-container" class="bg-primary">
@@ -20,71 +21,33 @@
           <a href="<?php echo FRONT_ROOT ?>User/showStatisticsRemaining" class="d-block p-3 text-light">Statistics: Remaining Tickets </a>
           </div>
           </div>
-
-          <div id="cinema">
-          <section id="cinemaList" class="mb-5">
-          <div class="container">
-          <h2 class="mb-4" style="text-align:center; color:white; background:rgba(0, 0, 0, 0.7); widht:50; border-style: solid;">Cinemas</h2>
-               <form action="<?php echo FRONT_ROOT ?>Cinema/getCinemaList" method="post" id="columnarForm">
-               <table class="table bg-light-alpha">
-              
-                    <thead>
-                         <th>Name</th>
-                         <th>Adress</th>
-                    </thead>
-                    <tbody>
-                         <?php  if(!empty($cinemaList)){     
-                                   foreach($cinemaList as $cinema)
-                                   {
-                                   ?>
-                                        <tr>
-                                             <td><?php echo $cinema->getName() ?></td>
-                                             <td><?php echo $cinema->getAdress() ?></td>
-                                             <td style="text-align: center;">
-                                             <!--</header>
-		<div class="table-responsive">
-			<form method="POST">
-				<table class="table">
-					<tbody class="table-hover">
-						<tr>
-							<td><br>
-								<p>From</p> <input type="date" name="startDate"
-								value="<?php echo date('Y-m-d', time()) ?>"
-								placeholder="from" required class="form-control"> <br>
-							</td>
-							<td><br>
-								<p>To</p> <input type="date" name="finishDate"
-								value="<?php echo date('Y-m-d', time()) ?>"
-								placeholder="to" required class="form-control"> <br>
-							</td>
-						</tr>
-						<tr>
-						</tr>
-					</tbody>
-				</table>
-		
-		</div>
-		<div class="text-center">
-			<button formaction="<?php echo FRONT_ROOT ?>Ticket/getTicketsByCinema"
-				class="botons-chico" type="submit" name="cinemaId"
-				value="<?php echo $cinema->getId(); ?>">Search</button>
-			</form>
-		</div>
-                                             <input type="hidden" name="cinemaId" value="<?php echo $cinema->getId()?>"> -->
-                                             <button type="submit" name="consult" class="btn btn-info" value="<?php echo $cinema->getName(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/getTicketsByCinema')"> See total sold </button>         
-                                        </td>
-                                        </tr>
-                                   <?php
-                                   }
-                              }
-                         ?>
-                         </tr>
-                    </tbody>
-               </table>
-               <button type="submit" name="Cinema" class="btn ">Consult </button>
-          </div>
-          </section>
-          </div>  
+          
+     <div style="align-items: center; text-align: center; width:50%">
+    <h3 style="color:white; background:rgba(0, 0, 0, 0.7); widht:50;">Cinema:</h3>
+   
+    <form action="<?php echo FRONT_ROOT ?>Ticket/getTicketByDate" method="post"  id="cinemaForm">
+      <select name="cinemaSelector" id="cinemaSelector"  style="margin-top:20px;" >
+        <option type="submit"  value="0">Todos</option>
+          <?php foreach($cinemaList as $cinema){   ?>  
+          <div >   
+            <option type="submit"  id="" value=<?php echo $cinema->getId(); ?>  ?>
+              <?php echo $cinema->getName(); ?> 
+            </option>
+            </div>
+          <?php } ?>
+          
+      </select>
+      <div style="display:flex; width:100%;">
+   <div>
+    <h5> Desde </h5>
+      <input style="margin-left:15px; " name="dateFrom" type="date" id="dateFrom"  value="<?php echo $dateFrom->format('Y-m-d') ?>"  required >
+      </div>
+      <div>
+    <h5 style="margin-left:10px;"> Hasta </h5>
+      <input type="date" id="dateTo" name="dateTo" value="<?php echo $dateTo->format('Y-m-d') ?>" style="margin-left:10px;">
+      </div>
+      <button class="btn btn-primary "type="submit" style="margin-left:10px; margin-top: 20px; height:40px;">Buscar</button>
+      </form>
 
           <div id="tickets">
           <section id="ticketsSold" class="mb-5">
@@ -94,9 +57,6 @@
               
                     <thead>
                          <th>Cinema</th>
-                         <th>Movie</th>
-                         <th>Function</th>
-                         <th>Quantity</th>
                          <th>Price</th> 
                     </thead> 
                     <tbody>
@@ -106,9 +66,6 @@
                                    ?>
                                         <tr>
                                              <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["cinemaName"]; ?></td>
-                                             <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["movieName"]; ?></td>
-                                             <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["functionId"]->getId(); ?></td>
-                                             <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["quantity"]; ?></td>
                                              <td style="color:white; background:rgba(0, 0, 0, 0.7);"><?php echo $ticket["price"]; ?></td>
                                              
                                         </td>
@@ -119,14 +76,7 @@
                          ?>
                          </tr>
                     </tbody>
-                    <tfoot>
-                    <tfoot>
-                    <?php if(!empty($total)) {?>
-                          <th>Total: $</th> <td> <?php echo $total ?> </td>
-                      <!--  <?php //}else{?>
-                        <th>Total: $</th> <td> <?php// echo $message ?> </td>-->
-                        <?php }?>
-                    </tfoot>
+                  
                </table>
                
           </div>
@@ -139,13 +89,3 @@
 		<br>
 	</div> 
  </main>
-
- 
- <script>
-function submitForm(action)
-    {
-         var form = document.getElementById('columnarForm');
-        form.action = action;
-        form.submit();
-    }
-</script>

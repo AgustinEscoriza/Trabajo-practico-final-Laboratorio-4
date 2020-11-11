@@ -15,6 +15,7 @@
     use QRcode;
     use Models\Ticket;
     use Controllers\BillboardController;
+    use \DateTime as NewDT;
 
 
     class TicketController{
@@ -25,6 +26,7 @@
         private $cinemaDAO;
         private $auditoriumDAO;
         private $billboardController;
+        private $dateGlobal;
 
 
         public function __construct(){
@@ -35,6 +37,7 @@
             $this->cinemaDAO = new CinemaDAO();
             $this->auditoriumDAO = new AuditoriumDAO();
             $this->billboardController = new BillboardController();
+            $this->dateGlobal = new NewDT('today');
         }
 
         public function buyTicketView($idFunction, $addMessage = ""){
@@ -379,6 +382,8 @@
         }
 
         public function getTicketsByCinema($cinemaName){
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
 
             $ticketList = $this->ticketDAO->getAll();
             $newTicketList= array();
@@ -396,8 +401,8 @@
                         $ticketObject["price"] = $ticket->getPrice();
                         $total = $total + $ticket->getPrice();
                         
-                        
                         array_push($newTicketList,$ticketObject);
+                        
                     }   
                 }
             }else{
@@ -407,6 +412,7 @@
         }
 
         public function getRemainingTickets ($idFunction){
+            
             $functionList = $this->functionDAO->getAllFunctions();
             $newFunctionList= array();
             $FunctionObject= array();
@@ -430,6 +436,21 @@
                 $message="0 Tickets Sold for this cinema";
             }  
             require_once(VIEWS_PATH."statistics-remaining.php");
+        }
+
+        public function getTicketByDate ($idCinema, $dateFrom, $dateTo){
+
+            
+            $newTicketList=array();
+            $ticketObject["cinemaName"] = ($idCinema==0) ? "All":$this->cinemaDAO->getCinema($idCinema)->getName();
+            $ticketObject["price"] = $this->ticketDAO->getTicketsByDateXCinema ($idCinema, $dateFrom, $dateTo);
+            array_push($newTicketList,$ticketObject);
+            $cinemaList = $this->cinemaDAO->getAll();
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
+
+            require_once(VIEWS_PATH."statistics-totalSold.php");
+        
         }
         
     }

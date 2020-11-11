@@ -13,6 +13,8 @@
     use DAO\MovieDAOmysql as MovieDAO;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use DAO\FunctionDAOmysql as FunctionDAO;
+    use \DateTime as NewDT;
+    
 
     class UserController{
 
@@ -24,6 +26,7 @@
         private $movieDAO;
         private $cinemaDAO;
         private $auditoriumDAO;
+        private $dateGlobal;
 
         public function __construct()
         {
@@ -35,6 +38,7 @@
             $this->cinemaDAO = new CinemaDAO();
             $this->auditoriumDAO = new AuditoriumDAO();
             $this->functionDAO = new FunctionDAO();
+            $this->dateGlobal = new NewDT('today');
         }
 
         public function Add($userName, $userEmail, $password)
@@ -130,6 +134,7 @@
             //}
             if(isset($_SESSION['userLogin'])){
                 unset($_SESSION['userLogin']);
+                unset($_SESSION['ticketsInCart']);
             }
             $this->billboardController->ShowFullList();
         }
@@ -306,10 +311,16 @@
 
         public function showStatisticsTotalSold()
         {
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
+            $cinemaList = $this->cinemaDAO->getAll();
             require_once(VIEWS_PATH."statistics-totalSold.php");
         }
         public function showStatisticsRemaining()
         {
+            $cinemaList = $this->cinemaDAO->getAll();
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
             require_once(VIEWS_PATH."statistics-remaining.php");
         }
         

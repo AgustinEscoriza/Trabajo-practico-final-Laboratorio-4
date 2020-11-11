@@ -4,15 +4,18 @@
     use DAO\CinemaDAOmysql as CinemaDAOmysql;
     use DAO\AuditoriumDAOmysql as AuditoriumDAO;
     use Models\Cinema as Cinema;
+    use \DateTime as NewDT;
 
     class CinemaController{
 
         private $cinemaDAOmysql;
+        private $dateGlobal;
 
         public function __construct(){
 
             $this->cinemaDAOmysql = new CinemaDAOmysql();
             $this->auditoriumDAO = new AuditoriumDAO();
+            $this->dateGlobal = new NewDT('today');
         }
 
         public function showAddView ($message=""){
@@ -67,6 +70,8 @@
         }
 
         public function getCinemaList ($message=""){
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
             
             $cinemaList = $this->cinemaDAOmysql->getAll();
             $message = ($message == "") ? (empty($cinemaList)) ? " No Hay Cines Disponibles" : "" : $message;
