@@ -2,14 +2,13 @@
 
     if(isset($_SESSION["userLogin"])) { 
       //$userProfile = $_SESSION["userLogin"];
-      echo "esta loguedo" ;
       }else{ 
         echo  "<script> alert ('debe loguearse'); </script>";
         require_once(VIEWS_PATH."user-Login.php");
        } 
     require_once('nav.php');
 ?>
-<main class="d-flex align-items-center justify-content-center height-100" style="color:white; text-align:center;">
+<main class="d-flex align-items-center justify-content-center height-90" style="color:white; text-align:center;">
           <div class="content">
           
           <div class="mb-1 text-muted "><h5>User: <?php echo $userProfile->getUserName();?></h4></div>
@@ -42,11 +41,11 @@
              <table class = "table"style="background:rgba(0, 0, 0, 0.7); margin-top:30px;" >
                 <thead>
                   <tr>
-                    <th style="width: 100px;">Dia</th>
-                    <th style="width: 100px;">Hora</th>
-                    <th style="width: 400px;">Pelicula</th>
-                    <th style="width: 200px;">Cine</th>
-                    <th style="width: 200px;">Sala</th>               
+                    <th style="width: 150px;">Date</th>
+                    <th style="width: 100px;">Time</th>
+                    <th style="width: 400px;">Movie</th>
+                    <th style="width: 200px;">Cinema</th>
+                    <th style="width: 200px;">Auditorium</th>               
                   </tr>
                 </thead>
                 <tbody>
