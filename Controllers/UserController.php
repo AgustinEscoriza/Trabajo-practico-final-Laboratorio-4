@@ -304,10 +304,15 @@
             require_once(VIEWS_PATH."admin-data.php");
         }
 
-        public function showStatisticsView()
+        public function showStatisticsTotalSold()
         {
-            require_once(VIEWS_PATH."statistics-view.php");
+            require_once(VIEWS_PATH."statistics-totalSold.php");
         }
+        public function showStatisticsRemaining()
+        {
+            require_once(VIEWS_PATH."statistics-remaining.php");
+        }
+        
 
         public function deleteUser ($userId)
         {

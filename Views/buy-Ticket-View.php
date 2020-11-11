@@ -1,7 +1,5 @@
 <?php
-   //use Controllers\UserController as UserController;
-   //$userController = new UserController();
-   //$userController->userCheck();
+
   
 
     require_once("nav.php");
@@ -45,6 +43,11 @@
                     <label for="" >Quantity</label>
                     <input type="number" name="quantity" size="30" min="1" class="form-control" required>
 
+                </div>
+                <div class = "form group">
+                <?php if(isset($message)){
+                    echo $message;
+                }?>
                 </div>
                 <button type="submit" name="button" class="btn btn-success" style="margin-top:15px;">Generate Ticket</button>
 

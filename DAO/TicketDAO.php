@@ -23,7 +23,7 @@ class TicketDAO implements ITicketDAO{
         try{
 
             $query="INSERT INTO ".$this->tableName. " ( idUser, idFunction, quantity, price, ticketStatus,qr) VALUES ( :idUser, :idFunction, :quantity, :price, :ticketStatus,:qr);";
-            $parameters["idUser"] = $ticket->getUser()->getIdUser();
+            $parameters["idUser"] = $_SESSION['userLogin']->getIdUser();
             $parameters["idFunction"] = $ticket->getFunction();
             $parameters["quantity"] = $ticket->getQuantity();
             $parameters["price"] = $ticket->getPrice();
@@ -97,7 +97,7 @@ class TicketDAO implements ITicketDAO{
     public function getTicketsSoldByFunctionId($functionId){
         try{
 
-            $query= "SELECT sum(tickets.quantity) as ticketsSold FROM tickets WHERE tickets.idFunction ='$functionId'";
+            $query= "SELECT count(tickets.idTicket) as ticketsSold FROM tickets WHERE tickets.idFunction ='$functionId'";
 
             $result = $this->connection->execute($query,array(),QueryType::Query);
   
@@ -130,6 +130,7 @@ class TicketDAO implements ITicketDAO{
             throw $ex;
         }
     }
+    
 
     protected function mapear($value) {
         

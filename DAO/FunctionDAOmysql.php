@@ -334,6 +334,30 @@
         }
     }
 
+    public function getAllFunctions(){
+
+        try{
+            $query = "SELECT * FROM functions ";
+
+            $this->connection = Connection::GetInstance();
+            
+            $result = $this->connection->Execute($query,array(),QueryType::StoredProcedure);
+
+            
+
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result)){
+            return $this->mapear($result);
+        }
+        else{
+            return false;
+        }
+    }
+
     protected function mapear($value) {
         
         $value = is_array($value) ? $value : [];

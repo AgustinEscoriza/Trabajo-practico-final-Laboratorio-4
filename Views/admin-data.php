@@ -12,7 +12,8 @@
           <div id="sidebar-container" class="bg-primary">
           <div class="menu">
           <a href="<?php echo FRONT_ROOT ?>User/getUsersList" class="d-block p-3 text-light">Users </a>
-          <a href="<?php echo FRONT_ROOT ?>User/showStatisticsView" class="d-block p-3 text-light">Statistics </a>
+          <a href="<?php echo FRONT_ROOT ?>User/showStatisticsTotalSold" class="d-block p-3 text-light">Statistics: Total Sold </a>
+          <a href="<?php echo FRONT_ROOT ?>User/showStatisticsRemaining" class="d-block p-3 text-light">Statistics: Remaining Tickets </a>
           </div>
           </div>
  </main>

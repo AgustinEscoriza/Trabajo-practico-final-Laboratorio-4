@@ -59,8 +59,9 @@
 
             $price = $this->checkDiscount($price,$function->getDate(),$quantity);
 
-            $user =  $_SESSION["userLogin"];
-
+            if(isset($_SESSION["userLogin"])) { 
+            $user =  $_SESSION["userLogin"]; 
+             
             $ticket = new Ticket();
             $ticket->setUser($user); 
             $ticket->setPrice($price); 
@@ -78,7 +79,12 @@
             else{
                 $this->buyTicketView($function->getId(),"The Show Is Sold Out");
             }
+           }else{
+            require_once(VIEWS_PATH."user-login.php");
+           }
+        
         }
+
         public function checkDiscount($price,$date,$quantity){
             $dayOfWeek = date('w', strtotime($date));
             $result = null;
@@ -360,7 +366,7 @@
                 // Content
                 $mail->isHTML(true);                                  // Set email format to HTML
                 $mail->Subject = 'MoviePass!';
-                $mail->Body    = 'This are your QR codes to enter the show<br>Thanks for buying your tickets in <b>MoviePass</b>';
+                $mail->Body    = 'Thanks for buying your tickets in <b>MoviePass</b>';
                 $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     
                 $mail->send();
@@ -379,22 +385,51 @@
             $ticketObjects= array();
             $total=0;
 
-            foreach($ticketList as $ticket){
-                if($this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName()==$cinemaName){
+            if(!empty($ticketList)){
+                foreach($ticketList as $ticket){
+                    if($this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName()==$cinemaName){
+    
+                        $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
+                        $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
+                        $ticketObject["functionId"] = $this->functionDAO->getByFunctionId($ticket->getFunction());
+                        $ticketObject["quantity"] = $ticket->getQuantity();
+                        $ticketObject["price"] = $ticket->getPrice();
+                        $total = $total + $ticket->getPrice();
+                        
+                        
+                        array_push($newTicketList,$ticketObject);
+                    }   
+                }
+            }else{
+                $message="0 Tickets Sold for this cinema";
+            }   
+            require_once(VIEWS_PATH."statistics-totalSold.php");
+        }
 
-                    $ticketObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($ticket->getFunction())->getTitle();
-                    $ticketObject["cinemaName"] = $this->cinemaDAO->GetCinemaByFunctionId($ticket->getFunction())->getName();
-                    $ticketObject["functionId"] = $this->functionDAO->getByFunctionId($ticket->getFunction());
-                    $ticketObject["quantity"] = $ticket->getQuantity();
-                    $ticketObject["price"] = $ticket->getPrice();
-                    $total = $total + $ticket->getPrice();
-                    
-                    
-                    array_push($newTicketList,$ticketObject);
-                }   
-            }
-           
-            require_once(VIEWS_PATH."statistics-view.php");
+        public function getRemainingTickets ($idFunction){
+            $functionList = $this->functionDAO->getAllFunctions();
+            $newFunctionList= array();
+            $FunctionObject= array();
+
+            if(!empty($functionList)){
+                foreach($functionList as $function){
+                    if($function->getId()==$idFunction){
+    
+                        
+                        $functionObject["idFunction"] = $function->getId();
+                        $functionObject["movieName"] = $this->movieDAO->GetMovieByFunctionId($function->getId())->getTitle();
+                        $ticketsSold = $this->ticketDAO->getTicketsSoldByFunctionId($function->getId());
+                        $functionObject["ticketsSold"] = $ticketsSold;
+                        $functionObject["remaining"] = $this->auditoriumDAO->GetAuditoriumByFunctionId($function->getId())->getCapacity() - $ticketsSold;
+                        
+                        
+                        array_push($newFunctionList,$functionObject);
+                    }   
+                }
+            }else{
+                $message="0 Tickets Sold for this cinema";
+            }  
+            require_once(VIEWS_PATH."statistics-remaining.php");
         }
         
     }

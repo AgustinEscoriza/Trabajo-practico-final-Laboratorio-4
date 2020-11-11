@@ -217,6 +217,25 @@
                 $movie->setGenre($genre);
             }
             require_once(VIEWS_PATH."function-list.php");
-        }              
-    }      
+        }  
+        
+        public function getFunctionList ()
+        {
+         $functionList = $this->functionDAO->getAllFunctions();
+         $functionMovie = array();
+         
+         
+         if(!empty($functionList)){
+            foreach ($functionList as $function){
+                $id=$function->getId();
+                $functions['idFunction']=$function->getId();
+                $functions['functionDate']=$function->getDate();
+                $functions['functionTime']=$function->getTime();
+                $functions['movieName']=$this->movieDAO->GetMovieByFunctionId($function->getId())->getTitle();
+                array_push($functionMovie,$functions);
+             }
+         require_once(VIEWS_PATH."statistics-remaining.php");
+           }
+        } 
+    }     
 ?>

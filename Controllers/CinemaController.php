@@ -70,8 +70,7 @@
             
             $cinemaList = $this->cinemaDAOmysql->getAll();
             $message = ($message == "") ? (empty($cinemaList)) ? " No Hay Cines Disponibles" : "" : $message;
-            require_once(VIEWS_PATH."statistics-view.php");
-            
+            require_once(VIEWS_PATH."statistics-totalSold.php");     
         }
 
     }
