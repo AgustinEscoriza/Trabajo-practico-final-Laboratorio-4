@@ -54,6 +54,14 @@
             
         }
 
+        public function HomePage()
+        {
+            $functionsList = $this->functionDAO->getAll();
+            $genresList =   $this->genreDAO->getAll();
+            $moviesList = $this->MoviesInBillboard($functionsList);
+            $this->showFullList();
+        }
+
         public function showFullList($message="")
         {
 
