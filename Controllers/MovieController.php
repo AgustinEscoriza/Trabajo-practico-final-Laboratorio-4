@@ -8,6 +8,7 @@
     use Models\Movie as Movie;
     use Models\Genre as Genre;
     use Controllers\BillboardController as BillboardController;
+    use \DateTime as NewDT;
 
     class MovieController{
 
@@ -16,12 +17,14 @@
         private $genreDAOmysql;
         private $genreXMovieDAOmysql;
         private $billboardController;
+        private $dateGlobal;
         public function __construct(){
 
             $this->movieDAO = new MovieDAO();
             $this->genreDAOmysql = new GenreDAOmysql();
             $this->genreXMovieDAOmysql = new GenreXMovieDAOmysql();
             $this->billboardController = new BillboardController();
+            $this->dateGlobal = new NewDT('today');
         }
 
         public function cargarDatabaseMoviesGenre ($movieMessage=""){
@@ -190,6 +193,15 @@
                     $this->movieDAO->ChangeMovieState($genreDB->getId());
                 }
             }       
+        }
+
+        public function getMovieList ($message=""){
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
+            
+            $movieList = $this->movieDAOmysql->getAll();
+            $message = ($message == "") ? (empty($cinemaList)) ? " No Hay Cines Disponibles" : "" : $message;
+            require_once(VIEWS_PATH."statistics-totalSold.php");     
         }
     }  
 ?>

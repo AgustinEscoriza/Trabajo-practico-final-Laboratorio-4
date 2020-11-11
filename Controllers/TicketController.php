@@ -462,6 +462,21 @@
             require_once(VIEWS_PATH."statistics-totalSold.php");
         
         }
+
+        public function getTicketByDateMovie ($idMovie, $dateFrom, $dateTo){
+
+            
+            $newTicketListMovie=array();
+            $ticketObject["movieName"] = ($idMovie==0) ? "All":$this->movieDAO->getByMovieId($idMovie)->getTitle();
+            $ticketObject["price"] = $this->ticketDAO->getTicketsByDateXMovie ($idMovie, $dateFrom, $dateTo);
+            array_push($newTicketListMovie,$ticketObject);
+            $movieList = $this->movieDAO->getAll();
+            $dateFrom = $this->dateGlobal;
+            $dateTo = $this->dateGlobal;
+
+            require_once(VIEWS_PATH."statistics-totalSold.php");
+        
+        }
         
     }
 

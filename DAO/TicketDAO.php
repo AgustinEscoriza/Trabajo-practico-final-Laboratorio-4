@@ -165,6 +165,38 @@ class TicketDAO implements ITicketDAO{
             throw $ex;
         } 
     }
+
+    public function getTicketsByDateXMovie ($idMovie, $dateFrom, $dateTo){
+
+        try{
+         
+            $query = ( $idMovie == 0 ) ?  "SELECT sum(tickets.price) as totalPrice FROM tickets
+            INNER JOIN functions
+            ON tickets.idFunction = functions.idFunction
+            AND functions.functionDate >= '$dateFrom'
+            AND functions.functionDate <= '$dateTo'"
+            : "SELECT sum(tickets.price) as totalPrice FROM tickets
+            INNER JOIN functions
+            ON tickets.idFunction = functions.idFunction
+            AND functions.idMovie = '$idMovie'
+            AND functions.functionDate >= '$dateFrom'
+            AND functions.functionDate <= '$dateTo'";
+
+            $result = $this->connection->execute($query,array(),QueryType::Query);
+        
+            if(!empty($result)){
+
+               return $this->mapearCount($result)[0];
+
+            }
+            else{
+                return false;
+            }
+        }
+        catch (\PDOException $ex) {
+            throw $ex;
+        } 
+    }
     
 
     protected function mapear($value) {

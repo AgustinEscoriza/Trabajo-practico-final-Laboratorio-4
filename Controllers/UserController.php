@@ -315,13 +315,15 @@
             $dateFrom = $this->dateGlobal;
             $dateTo = $this->dateGlobal;
             $cinemaList = $this->cinemaDAO->getAll();
+            $movieList = $this->movieDAO->getAll();
             require_once(VIEWS_PATH."statistics-totalSold.php");
         }
         public function showStatisticsRemaining()
         {
-            $cinemaList = $this->cinemaDAO->getAll();
-            $dateFrom = $this->dateGlobal;
-            $dateTo = $this->dateGlobal;
+            //$cinemaList = $this->cinemaDAO->getAll();
+            //$movieList = $this->movieDAOmysql->getAll();
+            //$dateFrom = $this->dateGlobal;
+            //$dateTo = $this->dateGlobal;
             require_once(VIEWS_PATH."statistics-remaining.php");
         }
         

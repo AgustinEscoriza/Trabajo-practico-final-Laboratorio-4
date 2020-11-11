@@ -41,11 +41,6 @@
                 <tbody>
             </table>
 
-            <form action="<?php echo FRONT_ROOT ?>Billboard/showFullList" method="post" class="add-form bg-light-alpha p-5">
-
-                <button type="submit" name="button" class="btn btn-success" style="text-align:center;">Volver a La Cartelera</button>
-            </form>
-
             <?php
             if (isset($addMessage) && $addMessage != "") {
                 echo "<div class='alert alert-primary' role='alert'> $message </div>";
