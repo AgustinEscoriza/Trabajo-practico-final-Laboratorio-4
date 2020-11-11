@@ -22,6 +22,16 @@
                                 </div>
                          </div>
                     <div class ="row" style="display:inline;">
+                        <div class="col-lg-4">
+                              <div class="form-group"><label for="cardOwner">
+                                        <h6 style="color:white">Select Credit Card Company</h6>
+                                    </label> 
+                                        <select name="creditCardCompany">
+                                            <option value="visa">Visa</option>
+                                            <option value="master">MasterCard</option>
+                                        </select>
+                              </div>
+                         </div>
                          <div class="col-lg-4">
                               <div class="form-group"><label for="cardOwner">
                                         <h6 style="color:white">Card Owner</h6>
@@ -50,7 +60,7 @@
                                             <div class="input-group"> <input type="number" placeholder="MM"
                                                     name="expirationMonth" class="form-control text-center" required>
                                                 <input type="number" placeholder="YYYY" name="expirationYear"
-                                                    class="form-control text-center" required> </div>
+                                                    class="form-control text-center" maxlenght="4" required> </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -70,7 +80,7 @@
                            }
                          ?>   
                     </div>
-                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Pay Secure</button>
+                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Pay</button>
                </form>
 
                 <li class="list-group">

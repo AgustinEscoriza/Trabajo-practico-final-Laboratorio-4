@@ -10,6 +10,7 @@
 <main class = "py-5">
     <section class = "mb-5" >
         <div class = "container">
+            <form method="post" id="columnarForm">
             <table class = "table" style="color:white; text-align:center; background:rgba(0, 0, 0, 0.7)">
                 <thead>
                     <tr>
@@ -23,7 +24,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(!empty($newTicketList)){foreach ($newTicketList as $ticketObject) { ?>
+                    <?php $count = 0;
+                    if(!empty($newTicketList)){
+                        foreach ($newTicketList as $ticketObject) { ?>
                         <tr>
                         <td> <?php echo $ticketObject["movieName"] ?> </td>
                         <td> <?php echo $ticketObject["cinemaName"] ?> </td>
@@ -32,11 +35,13 @@
                         <td> <?php echo $ticketObject["functionDate"] ?> </td>
                         <td> <?php echo $ticketObject["price"]  ?> </td>
                         <td>
-                            <button type="submit" name="ticketId" class="btn btn-danger" value="<?php echo $ticket->getId(); ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/removeFromCart')"> Remove </button>
+                            <button type="submit" name="index" class="btn btn-danger" value="<?php echo $count ?>" onclick="submitForm('<?php echo FRONT_ROOT ?>Ticket/RemoveFromCart')"> Remove </button>
                         </tr>
-                    <?php } ?>
+                    <?php $count++;
+                            } ?>
                 <tbody>
             </table>
+            </form>
             <li class="list-group">
                     <?php if(!empty($ticketList)){ ?>
                     <a class="btn btn-warning"  href="<?php echo FRONT_ROOT; ?>Ticket/purchaseView">

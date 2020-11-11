@@ -19,6 +19,7 @@
                         <th style = "width: 10%;">Auditorium</th>
                         <th style = "width: 10%;">Date</th>
                         <th style = "width: 10%;">Time</th>
+                        <th style = "width: 10%;">Remaining Tickets</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -28,6 +29,7 @@
                         <td> <?php echo $auditorium->getName()?> </td>
                         <td> <?php echo $function->getDate();  ?> </td>
                         <td> <?php echo $function->getTime(); ?> </td>
+                        <td> <?php echo $remainingTickets ?> </td>
                 <tbody>
             </table>
             <h1 class = "mb-5" style="background:rgba(0, 0, 0, 0.7); widht:50;">Buy Ticket</h1>

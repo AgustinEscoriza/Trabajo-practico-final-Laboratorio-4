@@ -43,6 +43,9 @@
             $cinema = $this->cinemaDAO->GetCinemaByFunctionId($idFunction);
             $auditorium = $this->auditoriumDAO->GetAuditoriumByFunctionId($idFunction);
             $function = $this->functionDAO->getByFunctionId($idFunction); 
+            $ticketsSold = $this->ticketDAO->getTicketsSoldByFunctionId($idFunction);
+            $remainingTickets = $auditorium->getCapacity() - $ticketsSold;
+            
             require_once(VIEWS_PATH."buy-Ticket-View.php");
 
         }
@@ -127,18 +130,16 @@
                 $this->billboardController->ShowFullList();
             }
         }
-        public function removeFromCart($ticketId){
-            $key = 0;
-            if(isset($_SESSION['ticketsInCart'])){
-                foreach($_SESSION['ticketsInCart'] as $ticket){
-                    
-                    if($ticketId == $ticket->getId()){    // no tengo la id cargada no va a andar, la cargo en el add de la bdd
-                        
-                    }
-                    $key++;
-                }
+        public function removeFromCart($index) // saca del shopping cart un ticket
+        {
+            
+            if(!empty($_SESSION['ticketsInCart'])){
+                unset($_SESSION['ticketsInCart'][$index]);
             }
+
+            $this->showShoppingCart();
         }
+
 
         public function showShoppingCart($addMessage = '') 
         {
@@ -188,7 +189,7 @@
         }
 
 
-        public function validateCreditCard($total, $cardOwner, $cardNumber, $expirationMonth, $expirationYear, $cvv){   // en este metodo cerramos la compra final, generamos el QR y lo mandamos por mail
+        public function validateCreditCard($total,$creditCardCompany, $cardOwner, $cardNumber, $expirationMonth, $expirationYear, $cvv){   // en este metodo cerramos la compra final, generamos el QR y lo mandamos por mail
             if($total != 0){
 
                 $ticketList= $_SESSION['ticketsInCart'];
@@ -220,7 +221,7 @@
         }
 
 
-        public function removeShoppingCart($ticketId) // saca del shopping cart un ticket
+        public function removeShoppingCart($index) // saca del shopping cart un ticket
         {
             if (!isset($_SESSION['ticketsInCart'])) {
                 session_start();
