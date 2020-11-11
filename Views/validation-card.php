@@ -11,7 +11,7 @@
         </div>
     </div> 
     <section class = "mb-5">
-        <div class = "container">
+        <div class = "container" style="text-align:center;">
                 <form action="<?php echo FRONT_ROOT ?>Ticket/validateCreditCard" method="post" class="add-form bg-light-alpha p-5">                  
                          <div class="col-lg-4">
                                 <div class="form-group"> <label for="total">
@@ -21,7 +21,7 @@
                                     </label>
                                 </div>
                          </div>
-                    <div class ="row">
+                    <div class ="row" style="display:inline;">
                          <div class="col-lg-4">
                               <div class="form-group"><label for="cardOwner">
                                         <h6 style="color:white">Card Owner</h6>
@@ -70,7 +70,7 @@
                            }
                          ?>   
                     </div>
-                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Add</button>
+                    <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Pay Secure</button>
                </form>
 
                 <li class="list-group">

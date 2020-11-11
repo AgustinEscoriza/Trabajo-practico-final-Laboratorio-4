@@ -11,7 +11,7 @@
     use Models\User as User;
     use Models\Cinema as Cinema;
 ?>
-<main class="d-flex">
+<main class="d-flex" style="color:white; text-align:center;">
           <div id="sidebar-container" class="bg-primary">
           <div class="menu">
           <a href="<?php echo FRONT_ROOT ?>User/getUsersList" class="d-block p-3 text-light">Users </a>

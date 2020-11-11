@@ -9,7 +9,7 @@
        } 
     require_once('nav.php');
 ?>
-<main class="d-flex align-items-center justify-content-center height-100">
+<main class="d-flex align-items-center justify-content-center height-100" style="color:white; text-align:center;">
           <div class="content">
           
           <div class="mb-1 text-muted small">User: <?php echo $userProfile->getUserName();?></div>

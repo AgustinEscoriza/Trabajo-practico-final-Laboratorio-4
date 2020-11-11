@@ -5,7 +5,7 @@ require_once("nav.php");
           <h1>BIENVENIDO A MOVIE PASS</h1>
             </div>
             
-<main class="d-flex align-items-center justify-content-center height-100">
+<main class="d-flex align-items-center justify-content-center height-100" style="text-align:center;">
           <div class="content">
                 <br>
                <form action="<?php echo FRONT_ROOT ?>User/login" method="post" class="login-form bg-dark-alpha p-5 text-white">

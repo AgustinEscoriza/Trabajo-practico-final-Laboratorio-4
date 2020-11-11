@@ -8,9 +8,9 @@
     $movieDAO = new MovieDAO();
 ?>
 <main class = "py-5">
-    <section class = "mb-5">
+    <section class = "mb-5" >
         <div class = "container">
-            <table class = "table">
+            <table class = "table" style="color:white; text-align:center; background:rgba(0, 0, 0, 0.7)">
                 <thead>
                     <tr>
                         <th style="width: 15%;">Movie</th>

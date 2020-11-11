@@ -9,8 +9,8 @@
 ?>
 <main class = "py-5">
     <section class = "mb-5">
-        <div class = "container">
-            <table class = "table">
+        <div class = "container" style="color:white; text-align:center;">
+            <table class = "table" style="background:rgba(0, 0, 0, 0.7); widht:50;">
                 <thead>
                     <tr>
                         <th style = "width: 15%;"> </th>
@@ -21,7 +21,7 @@
                         <th style = "width: 10%;">Time</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                         <td> <img src=<?php echo IMAGE_ROOT. $movie->getPosterPath();?>> </img> </td>
                         <td> <?php echo $movie->getTitle(); ?> </td>
                         <td> <?php echo $cinema->getName();?> </td>
@@ -30,7 +30,7 @@
                         <td> <?php echo $function->getTime(); ?> </td>
                 <tbody>
             </table>
-            <h1 class = "mb-5">Buy Ticket</h1>
+            <h1 class = "mb-5" style="background:rgba(0, 0, 0, 0.7); widht:50;">Buy Ticket</h1>
 
             <form action="<?php echo FRONT_ROOT ?>Ticket/setAndValidatePurchase" method="post" class="add-form bg-light-alpha p-5">
 
@@ -44,7 +44,7 @@
                     <input type="number" name="quantity" size="30" min="1" class="form-control" required>
 
                 </div>
-                <button type="submit" name="button" class="btn btn-success">Generate Ticket</button>
+                <button type="submit" name="button" class="btn btn-success" style="margin-top:15px;">Generate Ticket</button>
 
             </form>
 

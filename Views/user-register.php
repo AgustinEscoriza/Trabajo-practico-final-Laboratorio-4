@@ -2,7 +2,7 @@
     require_once('nav.php');
 ?>
 <main class="d-flex align-items-center justify-content-center height-100">
-          <div class="content">
+          <div class="content" style="color:white; text-align:center;">
                <form action="<?php echo FRONT_ROOT ?>User/Add" method="post" class="login-form bg-dark-alpha p-5 text-white">
                     <div class="form-group">
                          <label for="">Nombre de Usuario</label>
