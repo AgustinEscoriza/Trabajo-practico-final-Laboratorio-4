@@ -143,7 +143,17 @@
         {
             
             if(!empty($_SESSION['ticketsInCart'])){
-                unset($_SESSION['ticketsInCart'][$index]);
+                $ticketList = $_SESSION['ticketsInCart'];
+                $newTicketList = array();
+                $count = 0;
+                foreach ($ticketList as $value) {
+                    if ($count != $index) {
+                        array_push($newTicketList, $value);
+                    }
+                    $count++;
+                }
+                unset($_SESSION['ticketsInCart']);
+                $_SESSION['ticketsInCart'] = $newTicketList;
             }
 
             $this->showShoppingCart();
